@@ -10,42 +10,68 @@ export const reservationMachine = createMachine({
   },
   states: {
     reservation: {
-      REC_DIVE: "recreationalDive",
-      CERT_DIVE: "certificationDive",
+      on: {
+        REC_DIVE: "recreationalDive",
+      },
+      on: {
+        CERT: "certificationDive",
+      },
     },
     recreationalDive: {
-      CALENDAR: "calendar",
+      on: {
+        CALENDAR: "calendar",
+      },
     },
     calendar: {
-      CERTIFIED_DIVER: "certifiedDiver",
+      on: {
+        CERTIFIED_DIVER: "certifiedDiver",
+      },
     },
     certifiedDiver: {
-      CERT_DIVE: "certificationDive",
-      NUM_DIVES: "numberOfDives ",
+      on: {
+        CERT_DIVE: "certificationDive",
+      },
+      on: {
+        NUM_DIVES: "numberOfDives ",
+      },
     },
     discoveryDive: {},
     certificationDive: {},
     numberOfDives: {
-      DEEPEST_DIVE: "deepestDive",
+      on: {
+        DEEPEST_DIVE: "deepestDive",
+      },
     },
     deepestDive: {
-      LAST_DIVE: "lastDive",
+      on: {
+        LAST_DIVE: "lastDive",
+      },
     },
     lastDive: {
-      CONTACT_INFO: "contactInfo",
+      on: {
+        CONTACT_INFO: "contactInfo",
+      },
     },
     contactInfo: {
-      DONE: "done",
+      on: {
+        DONE: "done",
+      },
     },
     done: {
-      SHARE_RESERVATION: "shareReservation",
+      on: {
+        SHARE_RESERVATION: "shareReservation",
+      },
     },
     shareReservation: {},
     openWater: {
-      CALENDAR: "calendar",
+      on: {
+        CALENDAR: "calendar",
+      },
     },
     aow: {
-      CALENDAR: "calendar",
+      on: {
+        CALENDAR: "calendar",
+      },
     },
     done: {},
   },
