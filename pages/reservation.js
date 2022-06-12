@@ -1,8 +1,9 @@
 import { reservationMachine } from "../utils/state-machine";
 import { useMachine } from "@xstate/react";
+import ReservationController from "../components/ReservationController";
 
-const reservation = () => {
-  return null;
+const Reservation = () => {
+  return <ReservationController />;
 };
 
-export default reservation;
+export default Reservation;
