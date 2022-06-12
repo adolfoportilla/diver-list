@@ -1,5 +1,4 @@
 import { createMachine, interpret } from "xstate";
-import { useMachine } from "@xstate/react";
 
 // Stateless machine definition
 // machine.transition(...) is a pure function used by the interpreter.
