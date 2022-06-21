@@ -1,39 +1,48 @@
 import React from "react";
-import { useMachine } from "@xstate/react";
-import { reservationMachine } from "../../utils/state-machine";
-import Image from "next/image";
 import StatePage from "./shared/StatePage";
 import StateTitle from "./shared/StateTitle";
 import CardComponent from "./shared/CardComponent";
+import Image from "next/image";
 
-const InitialState = () => {
-  const [state, send] = useMachine(reservationMachine);
+const CertificationDiveState = () => {
   return (
     <StatePage>
-      <StateTitle title="Select Activity" />
+      <StateTitle title="Select Certification" />
       <div className="flex space-x-16">
         <CardComponent
           icon={
             <Image
-              src="/icons/scuba-diver.svg"
+              src="/icons/begginer-diver.svg"
               alt=""
               width={150}
               height={150}
             />
           }
-          text="Recreational Dive"
+          text="Open Water"
           onClick={() => console.log("testing")}
         />
         <CardComponent
           icon={
             <Image
-              src="/icons/certificate.svg"
+              src="/icons/advanced-diver.svg"
               alt=""
               width={150}
               height={150}
             />
           }
-          text="Certification"
+          text="Advanced Open Water"
+          onClick={() => console.log("testing")}
+        />
+        <CardComponent
+          icon={
+            <Image
+              src="/icons/rescue-diver.svg"
+              alt=""
+              width={150}
+              height={150}
+            />
+          }
+          text="Rescue Diver"
           onClick={() => console.log("testing")}
         />
       </div>
@@ -41,4 +50,4 @@ const InitialState = () => {
   );
 };
 
-export default InitialState;
+export default CertificationDiveState;
