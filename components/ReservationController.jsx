@@ -8,8 +8,7 @@ const ReservationController = () => {
   const [state, send] = useMachine(reservationMachine);
   switch (true) {
     case state.matches("reservation"):
-      return <CertificationDiveState />;
-    // return <InitialState />;
+      return <InitialState />;
     case state.matches("certification-dive"):
       return <CertificationDiveState />;
   }
