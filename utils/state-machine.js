@@ -2,8 +2,6 @@ import { createMachine, assign } from "xstate";
 
 const setReservationType = assign({
   reservationType: (context, event) => {
-    console.log("event", event);
-
     return event;
   },
 });
