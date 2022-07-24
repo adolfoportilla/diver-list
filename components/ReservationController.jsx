@@ -1,17 +1,18 @@
 import React from "react";
 import { useMachine } from "@xstate/react";
+
+import StateController from "./states/StateController";
 import { reservationMachine } from "../utils/state-machine";
-import InitialState from "./states/InitialState";
-import CertificationDiveState from "./states/CertificationDiveState";
+
+export const MyContext = React.createContext({});
 
 const ReservationController = () => {
-  const [state, send] = useMachine(reservationMachine);
-  switch (true) {
-    case state.matches("reservation"):
-      return <InitialState />;
-    case state.matches("certification-dive"):
-      return <CertificationDiveState />;
-  }
+  const [, , service] = useMachine(reservationMachine);
+  return (
+    <MyContext.Provider value={service}>
+      <StateController />
+    </MyContext.Provider>
+  );
 };
 
 export default ReservationController;
