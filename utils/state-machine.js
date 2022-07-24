@@ -1,19 +1,34 @@
-import { createMachine, interpret } from "xstate";
+import { createMachine, assign } from "xstate";
 
 // Stateless machine definition
-// machine.transition(...) is a pure function used by the interpreter.
-export const reservationMachine = createMachine({
-  id: "reservation",
-  initial: "reservation",
-  context: {
-    userName: "",
-  },
-  states: {
-    reservation: {
-      on: {
-        DONE: { target: "done" },
-      },
+export const reservationMachine = createMachine(
+  {
+    id: "reservation",
+    initial: "reservation",
+    context: {
+      userName: "",
+      reservationType: "",
     },
-    done: {},
+    states: {
+      reservation: {
+        on: {
+          NEXT: { target: "done", actions: "setReservationType" },
+        },
+      },
+      done: {},
+    },
+  },
+  {
+    actions: {
+      setReservationType,
+    },
+  }
+);
+
+const setReservationType = assign({
+  reservationType: (context, event) => {
+    console.log("event", event);
+
+    return event;
   },
 });

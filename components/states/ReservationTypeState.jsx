@@ -7,7 +7,7 @@ import StateTitle from "./shared/StateTitle";
 import CardComponent from "./shared/CardComponent";
 import { MyContext } from "../ReservationController";
 
-const InitialState = () => {
+const ReservationTypeState = () => {
   const machine = React.useContext(MyContext);
 
   const [, send] = useActor(machine);
@@ -26,7 +26,9 @@ const InitialState = () => {
             />
           }
           text="Recreational Dive"
-          onClick={() => send("DONE")}
+          onClick={() =>
+            send({ type: "NEXT", reservationType: "recreational" })
+          }
         />
         <CardComponent
           icon={
@@ -38,11 +40,13 @@ const InitialState = () => {
             />
           }
           text="Certification"
-          onClick={() => send("DONE")}
+          onClick={() =>
+            send({ type: "NEXT", reservationType: "certification" })
+          }
         />
       </div>
     </StatePage>
   );
 };
 
-export default InitialState;
+export default ReservationTypeState;
