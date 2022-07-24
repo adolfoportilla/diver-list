@@ -1,5 +1,13 @@
 import { createMachine, assign } from "xstate";
 
+const setReservationType = assign({
+  reservationType: (context, event) => {
+    console.log("event", event);
+
+    return event;
+  },
+});
+
 // Stateless machine definition
 export const reservationMachine = createMachine(
   {
@@ -24,11 +32,3 @@ export const reservationMachine = createMachine(
     },
   }
 );
-
-const setReservationType = assign({
-  reservationType: (context, event) => {
-    console.log("event", event);
-
-    return event;
-  },
-});
