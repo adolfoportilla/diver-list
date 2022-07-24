@@ -9,6 +9,11 @@ export const reservationMachine = createMachine({
     userName: "",
   },
   states: {
-    reservation: {},
+    reservation: {
+      on: {
+        DONE: { target: "done" },
+      },
+    },
+    done: {},
   },
 });

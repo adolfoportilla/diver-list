@@ -1,13 +1,17 @@
 import React from "react";
-import { useMachine } from "@xstate/react";
-import { reservationMachine } from "../../utils/state-machine";
 import Image from "next/image";
+import { useActor } from "@xstate/react";
+
 import StatePage from "./shared/StatePage";
 import StateTitle from "./shared/StateTitle";
 import CardComponent from "./shared/CardComponent";
+import { MyContext } from "../ReservationController";
 
 const InitialState = () => {
-  const [state, send] = useMachine(reservationMachine);
+  const machine = React.useContext(MyContext);
+
+  const [, send] = useActor(machine);
+
   return (
     <StatePage>
       <StateTitle title="Select Activity" />
@@ -22,7 +26,7 @@ const InitialState = () => {
             />
           }
           text="Recreational Dive"
-          onClick={() => console.log("testing")}
+          onClick={() => send("DONE")}
         />
         <CardComponent
           icon={
@@ -34,7 +38,7 @@ const InitialState = () => {
             />
           }
           text="Certification"
-          onClick={() => console.log("testing")}
+          onClick={() => send("DONE")}
         />
       </div>
     </StatePage>
