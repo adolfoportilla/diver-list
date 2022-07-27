@@ -1,7 +1,7 @@
 import React from "react";
 import { useActor } from "@xstate/react";
 
-import InitialState from "./InitialState";
+import ReservationTypeState from "./ReservationTypeState";
 import CertificationDiveState from "./CertificationDiveState";
 import { MyContext } from "../ReservationController";
 
@@ -11,7 +11,7 @@ const StateController = () => {
   const [state] = useActor(machine);
   switch (true) {
     case state.matches("reservation"):
-      return <InitialState />;
+      return <ReservationTypeState />;
     case state.matches("certification-dive"):
       return <CertificationDiveState />;
     default:
