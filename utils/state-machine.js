@@ -6,6 +6,11 @@ const setReservationType = assign({
   },
 });
 
+export const STATE_ACTIONS = {
+  NEXT: "next",
+  PREV: "prev",
+};
+
 // Stateless machine definition
 export const reservationMachine = createMachine(
   {
@@ -13,15 +18,18 @@ export const reservationMachine = createMachine(
     initial: "reservation",
     context: {
       userName: "",
-      reservationType: "",
     },
     states: {
       reservation: {
         on: {
-          NEXT: { target: "done", actions: "setReservationType" },
+          [STATE_ACTIONS.NEXT]: {
+            target: "complete",
+            actions: "setReservationType",
+          },
         },
+        done: {},
       },
-      done: {},
+      complete: {},
     },
   },
   {

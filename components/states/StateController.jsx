@@ -3,6 +3,7 @@ import { useActor } from "@xstate/react";
 
 import ReservationTypeState from "./ReservationTypeState";
 import CertificationDiveState from "./CertificationDiveState";
+import CompleteState from "./CompleteState";
 import { MyContext } from "../ReservationController";
 
 const StateController = () => {
@@ -14,8 +15,10 @@ const StateController = () => {
       return <ReservationTypeState />;
     case state.matches("certification-dive"):
       return <CertificationDiveState />;
+    case state.matches("complete"):
+      return <CompleteState />;
     default:
-      return <div>Done!</div>;
+      return <div>Oops! Something went wrong</div>;
   }
 };
 
