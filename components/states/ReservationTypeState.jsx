@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { useActor } from "@xstate/react";
 
+import { STATE_ACTIONS } from "../../utils/state-machine";
 import StatePage from "./shared/StatePage";
 import StateTitle from "./shared/StateTitle";
 import CardComponent from "./shared/CardComponent";
@@ -27,7 +28,10 @@ const ReservationTypeState = () => {
           }
           text="Recreational Dive"
           onClick={() =>
-            send({ type: "NEXT", reservationType: "recreational" })
+            send({
+              type: STATE_ACTIONS.RECREATIONAL_DIVE,
+              value: "recreational",
+            })
           }
         />
         <CardComponent
@@ -41,7 +45,10 @@ const ReservationTypeState = () => {
           }
           text="Certification"
           onClick={() =>
-            send({ type: "NEXT", reservationType: "certification" })
+            send({
+              type: STATE_ACTIONS.CERTIFICATION_DIVE,
+              value: "certification",
+            })
           }
         />
       </div>

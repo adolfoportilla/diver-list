@@ -1,10 +1,17 @@
 import React from "react";
+import { useActor } from "@xstate/react";
+import Image from "next/image";
+
+import { STATE_ACTIONS } from "../../utils/state-machine";
+import { MyContext } from "../ReservationController";
 import StatePage from "./shared/StatePage";
 import StateTitle from "./shared/StateTitle";
 import CardComponent from "./shared/CardComponent";
-import Image from "next/image";
 
 const CertificationDiveState = () => {
+  const machine = React.useContext(MyContext);
+  const [, send] = useActor(machine);
+
   return (
     <StatePage>
       <StateTitle title="Select Certification" />
@@ -19,7 +26,12 @@ const CertificationDiveState = () => {
             />
           }
           text="Open Water"
-          onClick={() => console.log("testing")}
+          onClick={() =>
+            send({
+              type: STATE_ACTIONS.NEXT,
+              value: "open",
+            })
+          }
         />
         <CardComponent
           icon={
@@ -31,7 +43,12 @@ const CertificationDiveState = () => {
             />
           }
           text="Advanced Open Water"
-          onClick={() => console.log("testing")}
+          onClick={() =>
+            send({
+              type: STATE_ACTIONS.NEXT,
+              value: "advanced",
+            })
+          }
         />
         <CardComponent
           icon={
@@ -43,7 +60,12 @@ const CertificationDiveState = () => {
             />
           }
           text="Rescue Diver"
-          onClick={() => console.log("testing")}
+          onClick={() =>
+            send({
+              type: STATE_ACTIONS.NEXT,
+              value: "rescue",
+            })
+          }
         />
       </div>
     </StatePage>
