@@ -5,6 +5,7 @@ import { useActor } from "@xstate/react";
 import { STATE_ACTIONS } from "../../utils/state-machine";
 import StatePage from "./shared/StatePage";
 import StateTitle from "./shared/StateTitle";
+import StateCards from "./shared/StateCards";
 import CardComponent from "./shared/CardComponent";
 import { MyContext } from "../ReservationController";
 
@@ -16,7 +17,7 @@ const ReservationTypeState = () => {
   return (
     <StatePage>
       <StateTitle title="Select Activity" />
-      <div className="flex space-x-16">
+      <StateCards>
         <CardComponent
           icon={
             <Image
@@ -51,7 +52,7 @@ const ReservationTypeState = () => {
             })
           }
         />
-      </div>
+      </StateCards>
     </StatePage>
   );
 };

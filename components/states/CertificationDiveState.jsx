@@ -7,6 +7,7 @@ import { MyContext } from "../ReservationController";
 import StatePage from "./shared/StatePage";
 import StateTitle from "./shared/StateTitle";
 import CardComponent from "./shared/CardComponent";
+import StateCards from "./shared/StateCards";
 
 const CertificationDiveState = () => {
   const machine = React.useContext(MyContext);
@@ -15,7 +16,7 @@ const CertificationDiveState = () => {
   return (
     <StatePage>
       <StateTitle title="Select Certification" />
-      <div className="flex space-x-16">
+      <StateCards>
         <CardComponent
           icon={
             <Image
@@ -67,7 +68,7 @@ const CertificationDiveState = () => {
             })
           }
         />
-      </div>
+      </StateCards>
     </StatePage>
   );
 };
