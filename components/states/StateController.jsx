@@ -13,7 +13,7 @@ const StateController = () => {
   switch (true) {
     case state.matches("reservation"):
       return <ReservationTypeState />;
-    case state.matches("certification-dive"):
+    case state.matches("certificationDive"):
       return <CertificationDiveState />;
     case state.matches("complete"):
       return <CompleteState />;

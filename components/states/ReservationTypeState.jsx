@@ -28,7 +28,10 @@ const ReservationTypeState = () => {
           }
           text="Recreational Dive"
           onClick={() =>
-            send({ type: STATE_ACTIONS.NEXT, reservationType: "recreational" })
+            send({
+              type: STATE_ACTIONS.RECREATIONAL_DIVE,
+              value: "recreational",
+            })
           }
         />
         <CardComponent
@@ -42,7 +45,10 @@ const ReservationTypeState = () => {
           }
           text="Certification"
           onClick={() =>
-            send({ type: STATE_ACTIONS.NEXT, reservationType: "certification" })
+            send({
+              type: STATE_ACTIONS.CERTIFICATION_DIVE,
+              value: "certification",
+            })
           }
         />
       </div>
