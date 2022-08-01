@@ -4,6 +4,7 @@ import { useActor } from "@xstate/react";
 import ReservationTypeState from "./ReservationTypeState";
 import CertificationDiveState from "./CertificationDiveState";
 import CompleteState from "./CompleteState";
+import CalendarState from "./CalendarState";
 import { MyContext } from "../ReservationController";
 
 const StateController = () => {
@@ -15,6 +16,8 @@ const StateController = () => {
       return <ReservationTypeState />;
     case state.matches("certificationDive"):
       return <CertificationDiveState />;
+    case state.matches("calendar"):
+      return <CalendarState />;
     case state.matches("complete"):
       return <CompleteState />;
     default:
