@@ -7,6 +7,7 @@ import { MyContext } from "../ReservationController";
 import StatePage from "./shared/StatePage";
 import StateTitle from "./shared/StateTitle";
 import CardComponent from "./shared/CardComponent";
+import StateCards from "./shared/StateCards";
 
 const CertificationDiveState = () => {
   const machine = React.useContext(MyContext);
@@ -15,12 +16,12 @@ const CertificationDiveState = () => {
   return (
     <StatePage>
       <StateTitle title="Select Certification" />
-      <div className="flex space-x-16">
+      <StateCards>
         <CardComponent
           icon={
             <Image
               src="/icons/begginer-diver.svg"
-              alt=""
+              alt="begginer diver"
               width={150}
               height={150}
             />
@@ -37,9 +38,10 @@ const CertificationDiveState = () => {
           icon={
             <Image
               src="/icons/advanced-diver.svg"
-              alt=""
+              alt="advanced diver"
               width={150}
               height={150}
+              layout="fixed"
             />
           }
           text="Advanced Open Water"
@@ -54,7 +56,7 @@ const CertificationDiveState = () => {
           icon={
             <Image
               src="/icons/rescue-diver.svg"
-              alt=""
+              alt="rescue diver"
               width={150}
               height={150}
             />
@@ -67,7 +69,7 @@ const CertificationDiveState = () => {
             })
           }
         />
-      </div>
+      </StateCards>
     </StatePage>
   );
 };
