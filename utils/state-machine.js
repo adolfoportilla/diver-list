@@ -8,12 +8,16 @@ const setReservationType = assign({
 const setCertificationType = assign({
   certificationType: (context, event) => event.value,
 });
+const setDate = assign({
+  date: (context, event) => event.value,
+});
 
 export const STATE_ACTIONS = {
   NEXT: "next",
   PREV: "prev",
   CERTIFICATION_DIVE: "CERTIFICATION_DIVE",
   RECREATIONAL_DIVE: "RECREATIONAL_DIVE",
+  COMPLETE: "complete",
 };
 
 // Stateless machine definition
@@ -24,6 +28,7 @@ export const reservationMachine = createMachine(
     context: {
       reservationType: null,
       certificationType: null,
+      date: null,
     },
     states: {
       reservation: {
@@ -33,7 +38,7 @@ export const reservationMachine = createMachine(
             actions: "setReservationType",
           },
           [STATE_ACTIONS.RECREATIONAL_DIVE]: {
-            target: "complete",
+            target: "calendar",
             actions: "setReservationType",
           },
         },
@@ -41,8 +46,16 @@ export const reservationMachine = createMachine(
       certificationDive: {
         on: {
           [STATE_ACTIONS.NEXT]: {
-            target: "complete",
+            target: "calendar",
             actions: "setCertificationType",
+          },
+        },
+      },
+      calendar: {
+        on: {
+          [STATE_ACTIONS.COMPLETE]: {
+            target: "complete",
+            actions: "setDate",
           },
         },
       },
@@ -53,6 +66,7 @@ export const reservationMachine = createMachine(
     actions: {
       setReservationType,
       setCertificationType,
+      setDate,
     },
   }
 );
