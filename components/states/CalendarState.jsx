@@ -26,14 +26,20 @@ const CalendarState = () => {
 
   const [state, send] = useActor(machine);
 
+  const reservationtype = state.context.reservationType;
+
   return (
     <StatePage>
       <StateTitle title="Select date" />
       <div className="flex flex-col">
         <Calendar
           onChange={(value) => {
+            //Todo (Willy) add state transition for calendar when certification dive is selected
             send({
-              type: STATE_ACTIONS.COMPLETE,
+              type:
+                reservationtype === "recreational"
+                  ? STATE_ACTIONS.IS_DIVER_CERTIFIED
+                  : "",
               value,
             });
           }}

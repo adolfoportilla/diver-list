@@ -17,6 +17,7 @@ export const STATE_ACTIONS = {
   PREV: "prev",
   CERTIFICATION_DIVE: "CERTIFICATION_DIVE",
   RECREATIONAL_DIVE: "RECREATIONAL_DIVE",
+  IS_DIVER_CERTIFIED: "IS_DIVER_CERTIFIED",
   COMPLETE: "complete",
 };
 
@@ -53,12 +54,13 @@ export const reservationMachine = createMachine(
       },
       calendar: {
         on: {
-          [STATE_ACTIONS.COMPLETE]: {
-            target: "complete",
+          [STATE_ACTIONS.IS_DIVER_CERTIFIED]: {
+            target: "isDiverCertified",
             actions: "setDate",
           },
         },
       },
+      isDiverCertified: {},
       complete: {},
     },
   },
