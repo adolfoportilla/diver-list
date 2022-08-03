@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import { useActor } from "@xstate/react";
 
 import StatePage from "./shared/StatePage";
@@ -14,9 +13,8 @@ const CompleteState = () => {
   return (
     <StatePage>
       <StateTitle title="Thanks for booking" />
-      <div className="flex flex-col">
-        <span>This is what you entered</span>
-        <span>{JSON.stringify(state.context)}</span>
+      <div className="flex flex-col max-w-full">
+        <div>{JSON.stringify(state.context, null, 5)}</div>
       </div>
     </StatePage>
   );

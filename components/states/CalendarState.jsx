@@ -19,9 +19,23 @@ function disabledDates({ activeStartDate, date, view }) {
   return date < todaysDate;
 }
 
+// TODO(adolfo): read from config file, instead of constants variable.
+const AVAILABLE_TIMES = [" 8:00", " 9:00", "10:00", "11:00"];
+
+// TODO(adolfo): make component more generic so others can use it.
+// TODO2(adolfo): If we end up needing a lot of components like this one, consider using AntD or MaterialUI
+const Tag = ({ text, onClick }) => (
+  <div className="border rounded-md bg-gray-100 border-gray-400 hover:bg-sky-50 hover:border-sky-600">
+    <button className="px-3 py-1" onClick={(event) => onClick(text)}>
+      {text}
+    </button>
+  </div>
+);
+
 const CalendarState = () => {
   const machine = React.useContext(MyContext);
 
+  const [dateClicked, setDateClicked] = React.useState(false);
   const [date, setDate] = React.useState(new Date());
 
   const [state, send] = useActor(machine);
@@ -29,18 +43,40 @@ const CalendarState = () => {
   return (
     <StatePage>
       <StateTitle title="Select date" />
-      <div className="flex flex-col">
+      <div className="flex flex-col items-center">
         <Calendar
           onChange={(value) => {
-            send({
-              type: STATE_ACTIONS.COMPLETE,
-              value,
-            });
+            setDate(value);
+            setDateClicked(true);
           }}
           value={date}
           tileDisabled={disabledDates}
           view="month"
         />
+        {/* TODO(adolfo): for paid customers, fetch availability from backend/config. */}
+        {dateClicked ? (
+          <div className="mt-8 flex flex-col items-center max-w-xs">
+            <h2 className="text-xl">Choose time</h2>
+            {/* TODO(adolfo): use CSS grid if more than 3 hours available per day */}
+            <div className="flex flex-col md:flex-row md:items-center mt-4 sm:space-y-4 md:space-y-0 md:space-x-8">
+              {AVAILABLE_TIMES.map((time) => {
+                return (
+                  <Tag
+                    key={time}
+                    text={time}
+                    onClick={(time) => {
+                      send({
+                        type: STATE_ACTIONS.COMPLETE,
+                        date,
+                        time,
+                      });
+                    }}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        ) : null}
       </div>
     </StatePage>
   );
