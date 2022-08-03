@@ -1,9 +1,11 @@
-import { reservationMachine } from "../utils/state-machine";
-import { useMachine } from "@xstate/react";
 import ReservationController from "../components/ReservationController";
 
 const Reservation = () => {
-  return <ReservationController />;
+  return (
+    <div className="w-screen max-w-full h-full">
+      <ReservationController />
+    </div>
+  );
 };
 
 export default Reservation;
