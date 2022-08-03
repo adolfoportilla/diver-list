@@ -9,7 +9,8 @@ const setCertificationType = assign({
   certificationType: (context, event) => event.value,
 });
 const setDate = assign({
-  date: (context, event) => event.value,
+  date: (context, event) => event.date,
+  time: (context, event) => event.time,
 });
 
 export const STATE_ACTIONS = {
@@ -29,6 +30,7 @@ export const reservationMachine = createMachine(
       reservationType: null,
       certificationType: null,
       date: null,
+      time: null,
     },
     states: {
       reservation: {
