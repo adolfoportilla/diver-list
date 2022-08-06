@@ -57,8 +57,9 @@ export const reservationMachine = createMachine(
       },
       calendar: {
         on: {
-          [STATE_ACTIONS.NUMBER_OF_DIVES]: {
-            target: "numberOfDives",
+          [STATE_ACTIONS.COMPLETE]: {
+            target: "complete",
+            actions: "setDate",
           },
         },
       },
