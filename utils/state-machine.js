@@ -20,6 +20,7 @@ export const STATE_ACTIONS = {
   RECREATIONAL_DIVE: "RECREATIONAL_DIVE",
   LAST_DIVE: "LAST_DIVE",
   COMPLETE: "complete",
+  NUMBER_OF_DIVES: "NUMBER_OF_DIVES",
 };
 
 // Stateless machine definition
@@ -56,13 +57,13 @@ export const reservationMachine = createMachine(
       },
       calendar: {
         on: {
-          [STATE_ACTIONS.COMPLETE]: {
-            target: "complete",
-            actions: "setDate",
+          [STATE_ACTIONS.NUMBER_OF_DIVES]: {
+            target: "numberOfDives",
           },
         },
       },
       lastDive: {},
+      numberOfDives: {},
       complete: {},
     },
   },
