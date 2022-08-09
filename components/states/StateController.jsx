@@ -8,6 +8,7 @@ import CalendarState from "./CalendarState";
 import { MyContext } from "../ReservationController";
 import LastDiveState from "./LastDiveState";
 import NumberOfDivesState from "./NumberOfDivesState";
+import DeepestDiveState from "./DeepestDiveState";
 
 const StateController = () => {
   const machine = React.useContext(MyContext);
@@ -24,6 +25,8 @@ const StateController = () => {
       return <LastDiveState />;
     case state.matches("numberOfDives"):
       return <NumberOfDivesState />;
+    case state.matches("deepestDive"):
+      return <DeepestDiveState />;
     case state.matches("complete"):
       return <CompleteState />;
     default:
