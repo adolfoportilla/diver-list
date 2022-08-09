@@ -20,6 +20,7 @@ export const STATE_ACTIONS = {
   RECREATIONAL_DIVE: "RECREATIONAL_DIVE",
   LAST_DIVE: "LAST_DIVE",
   COMPLETE: "complete",
+  NUMBER_OF_DIVES: "NUMBER_OF_DIVES",
 };
 
 // Stateless machine definition
@@ -63,6 +64,7 @@ export const reservationMachine = createMachine(
         },
       },
       lastDive: {},
+      numberOfDives: {},
       complete: {},
     },
   },
