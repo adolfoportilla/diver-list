@@ -18,6 +18,7 @@ export const STATE_ACTIONS = {
   PREV: "prev",
   CERTIFICATION_DIVE: "CERTIFICATION_DIVE",
   RECREATIONAL_DIVE: "RECREATIONAL_DIVE",
+  LAST_DIVE: "LAST_DIVE",
   COMPLETE: "complete",
 };
 
@@ -61,6 +62,7 @@ export const reservationMachine = createMachine(
           },
         },
       },
+      lastDive: {},
       complete: {},
     },
   },

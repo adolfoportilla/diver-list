@@ -6,6 +6,7 @@ import CertificationDiveState from "./CertificationDiveState";
 import CompleteState from "./CompleteState";
 import CalendarState from "./CalendarState";
 import { MyContext } from "../ReservationController";
+import LastDiveState from "./LastDiveState";
 
 const StateController = () => {
   const machine = React.useContext(MyContext);
@@ -18,6 +19,8 @@ const StateController = () => {
       return <CertificationDiveState />;
     case state.matches("calendar"):
       return <CalendarState />;
+    case state.matches("lastDive"):
+      return <LastDiveState />;
     case state.matches("complete"):
       return <CompleteState />;
     default:
