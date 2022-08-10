@@ -40,6 +40,16 @@ const CalendarState = () => {
 
   const [state, send] = useActor(machine);
 
+  const sendEvent = (time) => {
+    if (state.context.reservationType == "recreational") {
+      send({ type: STATE_ACTIONS.IS_DIVER_CERTIFIED, date, time });
+    } else if (state.context.reservationType == "certification") {
+      send({ type: STATE_ACTIONS.NUMBER_OF_DIVES, date, time });
+    } else {
+      alert("whoops");
+    }
+  };
+
   return (
     <StatePage>
       <StateTitle title="Select date" />
@@ -65,11 +75,7 @@ const CalendarState = () => {
                     key={time}
                     text={time}
                     onClick={(time) => {
-                      send({
-                        type: STATE_ACTIONS.COMPLETE,
-                        date,
-                        time,
-                      });
+                      sendEvent(time);
                     }}
                   />
                 );

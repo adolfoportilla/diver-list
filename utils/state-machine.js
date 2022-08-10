@@ -13,6 +13,10 @@ const setDate = assign({
   time: (context, event) => event.time,
 });
 
+const setIsDiverCertified = assign({
+  isDiverCertified: (context, event) => event.value,
+});
+
 export const STATE_ACTIONS = {
   NEXT: "next",
   PREV: "prev",
@@ -22,6 +26,7 @@ export const STATE_ACTIONS = {
   COMPLETE: "complete",
   NUMBER_OF_DIVES: "NUMBER_OF_DIVES",
   DEEPEST_DIVE: "DEEPEST_DIVE",
+  IS_DIVER_CERTIFIED: "IS_DIVER_CERTIFIED",
 };
 
 // Stateless machine definition
@@ -31,6 +36,7 @@ export const reservationMachine = createMachine(
     initial: "reservation",
     context: {
       reservationType: null,
+      isDiverCertified: null,
       certificationType: null,
       date: null,
       time: null,
@@ -58,9 +64,23 @@ export const reservationMachine = createMachine(
       },
       calendar: {
         on: {
-          [STATE_ACTIONS.COMPLETE]: {
-            target: "complete",
+          [STATE_ACTIONS.NUMBER_OF_DIVES]: {
+            target: "numberOfDives",
             actions: "setDate",
+          },
+          [STATE_ACTIONS.IS_DIVER_CERTIFIED]: {
+            target: "isDiverCertified",
+          },
+        },
+      },
+      isDiverCertified: {
+        on: {
+          [STATE_ACTIONS.NUMBER_OF_DIVES]: {
+            target: "numberOfDives",
+            actions: "setIsDiverCertified",
+          },
+          [STATE_ACTIONS.reservation]: {
+            target: "reservation",
           },
         },
       },
@@ -73,6 +93,7 @@ export const reservationMachine = createMachine(
   {
     actions: {
       setReservationType,
+      setIsDiverCertified,
       setCertificationType,
       setDate,
     },
