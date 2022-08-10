@@ -13,6 +13,10 @@ const setDate = assign({
   time: (context, event) => event.time,
 });
 
+const setNumberOfDives = assign({
+  numberOfDives: (context, event) => event.value,
+});
+
 const setIsDiverCertified = assign({
   isDiverCertified: (context, event) => event.value,
 });
@@ -38,6 +42,7 @@ export const reservationMachine = createMachine(
       reservationType: null,
       isDiverCertified: null,
       certificationType: null,
+      numberOfDives: null,
       date: null,
       time: null,
     },
@@ -85,14 +90,23 @@ export const reservationMachine = createMachine(
         },
       },
       lastDive: {},
+      numberOfDives: {
+        on: {
+          [STATE_ACTIONS.DEEPEST_DIVE]: {
+            target: "deepestDive",
+            actions: "setNumberOfDives",
+          },
+        },
+      },
       deepestDive: {},
-      numberOfDives: {},
+
       complete: {},
     },
   },
   {
     actions: {
       setReservationType,
+      setNumberOfDives,
       setIsDiverCertified,
       setCertificationType,
       setDate,

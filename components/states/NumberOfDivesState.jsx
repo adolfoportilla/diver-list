@@ -1,12 +1,18 @@
 import React from "react";
+import { useActor } from "@xstate/react";
 import Image from "next/image";
 
+import { STATE_ACTIONS } from "../../utils/state-machine";
+import { MyContext } from "../ReservationController";
 import StatePage from "./shared/StatePage";
 import StateTitle from "./shared/StateTitle";
 import CardComponent from "./shared/CardComponent";
 import StateCards from "./shared/StateCards";
 
 const NumberOfDivesState = () => {
+  const machine = React.useContext(MyContext);
+  const [state, send] = useActor(machine);
+
   return (
     <StatePage>
       <StateTitle title="How many dives do you have?" />
@@ -23,7 +29,7 @@ const NumberOfDivesState = () => {
           text="1-9"
           onClick={() =>
             send({
-              type: STATE_ACTIONS.NEXT,
+              type: STATE_ACTIONS.DEEPEST_DIVE,
               value: "beginner",
             })
           }
@@ -41,7 +47,7 @@ const NumberOfDivesState = () => {
           text="10-29"
           onClick={() =>
             send({
-              type: STATE_ACTIONS.NEXT,
+              type: STATE_ACTIONS.DEEPEST_DIVE,
               value: "intermediate",
             })
           }
@@ -53,7 +59,7 @@ const NumberOfDivesState = () => {
           text="30 + "
           onClick={() =>
             send({
-              type: STATE_ACTIONS.NEXT,
+              type: STATE_ACTIONS.DEEPEST_DIVE,
               value: "expert",
             })
           }
