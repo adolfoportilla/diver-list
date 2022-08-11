@@ -9,64 +9,48 @@ import StateTitle from "./shared/StateTitle";
 import CardComponent from "./shared/CardComponent";
 import StateCards from "./shared/StateCards";
 
-const NumberOfDivesState = () => {
+const CertifiedDiverState = () => {
   const machine = React.useContext(MyContext);
   const [state, send] = useActor(machine);
 
   return (
     <StatePage>
-      <StateTitle title="How many dives do you have?" />
+      <StateTitle title="Are you a certified diver?" />
       <StateCards>
         <CardComponent
           icon={
             <Image
-              src="/icons/shrimp.svg"
-              alt="1 - 9"
+              src="/icons/thumbs-up.svg"
+              alt="Yes"
               width={150}
               height={150}
             />
           }
-          text="1-9"
+          text="Yes!"
           onClick={() =>
             send({
-              type: STATE_ACTIONS.DEEPEST_DIVE,
-              value: "beginner",
+              type: STATE_ACTIONS.NUMBER_OF_DIVES,
+              value: true,
             })
           }
         />
         <CardComponent
           icon={
             <Image
-              src="/icons/fish.svg"
-              alt="10 - 29"
+              src="/icons/negative-vote.svg"
+              alt="No"
               width={150}
               height={150}
               layout="fixed"
             />
           }
-          text="10-29"
-          onClick={() =>
-            send({
-              type: STATE_ACTIONS.DEEPEST_DIVE,
-              value: "intermediate",
-            })
-          }
-        />
-        <CardComponent
-          icon={
-            <Image src="/icons/shark.svg" alt="30 +" width={150} height={150} />
-          }
-          text="30 + "
-          onClick={() =>
-            send({
-              type: STATE_ACTIONS.DEEPEST_DIVE,
-              value: "expert",
-            })
-          }
+          text="No"
+          //TODO (Willy) - add return to initial state here
+          onClick={() => send({})}
         />
       </StateCards>
     </StatePage>
   );
 };
 
-export default NumberOfDivesState;
+export default CertifiedDiverState;
