@@ -30,6 +30,8 @@ const StateController = () => {
       return <DeepestDiveState />;
     case state.matches("isDiverCertified"):
       return <CertifiedDiverState />;
+    case state.matches("lastDive"):
+      return <LastDiveState />;
     case state.matches("complete"):
       return <CompleteState />;
     default:
