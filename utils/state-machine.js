@@ -98,8 +98,14 @@ export const reservationMachine = createMachine(
           },
         },
       },
-      deepestDive: {},
-
+      deepestDive: {
+        on: {
+          [STATE_ACTIONS.LAST_DIVE]: {
+            target: "lastDive",
+          },
+        },
+      },
+      lastDive: {},
       complete: {},
     },
   },

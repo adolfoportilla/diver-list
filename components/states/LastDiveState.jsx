@@ -1,13 +1,17 @@
 import React from "react";
+import { useActor } from "@xstate/react";
 import Image from "next/image";
 
 import { STATE_ACTIONS } from "../../utils/state-machine";
+import { MyContext } from "../ReservationController";
 import StatePage from "./shared/StatePage";
 import StateTitle from "./shared/StateTitle";
 import CardComponent from "./shared/CardComponent";
 import StateCards from "./shared/StateCards";
 
 const LastDiveState = () => {
+  const machine = React.useContext(MyContext);
+  const [state, send] = useActor(machine);
   return (
     <StatePage>
       <StateTitle title="When was your last dive?" />
