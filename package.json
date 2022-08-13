@@ -16,7 +16,7 @@
     "@sendgrid/mail": "^7.7.0",
     "@xstate/react": "^3.0.0",
     "latest": "^0.2.0",
-    "next": "^12.1.0",
+    "next": "^12.2.5",
     "react": "^18.0.2",
     "react-calendar": "^3.7.0",
     "react-dom": "^18.0.2",

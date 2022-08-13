@@ -13,6 +13,7 @@ import { STATE_ACTIONS } from "../../utils/state-machine";
 import StatePage from "./shared/StatePage";
 import StateTitle from "./shared/StateTitle";
 import { MyContext } from "../ReservationController";
+import BackButton from "../BackButton";
 
 function disabledDates({ activeStartDate, date, view }) {
   const todaysDate = new Date();
@@ -50,8 +51,19 @@ const CalendarState = () => {
     }
   };
 
+  const goBackToPrevState = () => {
+    if (state.context.reservationType == "recreational") {
+      send({ type: STATE_ACTIONS.RECREATIONAL_DIVE });
+    } else if (state.context.reservationType == "certification") {
+      send({ type: STATE_ACTIONS.CERTIFICATION_DIVE });
+    } else {
+      alert("whoops");
+    }
+  };
+
   return (
     <StatePage>
+      <BackButton onClick={() => goBackToPrevState} />
       <StateTitle title="Select date" />
       <div className="flex flex-col items-center">
         <Calendar
