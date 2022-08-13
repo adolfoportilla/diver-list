@@ -1,15 +1,16 @@
 import React from "react";
 import { useActor } from "@xstate/react";
 
+import { MyContext } from "../ReservationController";
 import ReservationTypeState from "./ReservationTypeState";
 import CertificationDiveState from "./CertificationDiveState";
 import CompleteState from "./CompleteState";
 import CalendarState from "./CalendarState";
-import { MyContext } from "../ReservationController";
 import LastDiveState from "./LastDiveState";
 import NumberOfDivesState from "./NumberOfDivesState";
 import DeepestDiveState from "./DeepestDiveState";
 import CertifiedDiverState from "./CertifiedDiverState";
+import DiverInformationState from "./DiverInformationState";
 
 const StateController = () => {
   const machine = React.useContext(MyContext);
@@ -32,6 +33,8 @@ const StateController = () => {
       return <CertifiedDiverState />;
     case state.matches("lastDive"):
       return <LastDiveState />;
+    case state.matches("diverInformation"):
+      return <DiverInformationState />;
     case state.matches("complete"):
       return <CompleteState />;
     default:

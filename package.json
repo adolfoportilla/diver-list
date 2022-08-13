@@ -9,6 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.0",
+    "@emotion/styled": "^11.10.0",
+    "@fontsource/roboto": "^4.5.8",
+    "@mui/material": "^5.9.3",
     "@sendgrid/mail": "^7.7.0",
     "@xstate/react": "^3.0.0",
     "latest": "^0.2.0",

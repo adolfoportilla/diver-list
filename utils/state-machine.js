@@ -12,6 +12,9 @@ const setDate = assign({
   date: (context, event) => event.date,
   time: (context, event) => event.time,
 });
+const setDiverInformation = assign({
+  diverInformation: (context, event) => event.diverInformation,
+});
 
 const setNumberOfDives = assign({
   numberOfDives: (context, event) => event.value,
@@ -27,6 +30,7 @@ export const STATE_ACTIONS = {
   CERTIFICATION_DIVE: "CERTIFICATION_DIVE",
   RECREATIONAL_DIVE: "RECREATIONAL_DIVE",
   LAST_DIVE: "LAST_DIVE",
+  DIVER_INFORMATION: "DIVER_INFORMATION",
   COMPLETE: "complete",
   NUMBER_OF_DIVES: "NUMBER_OF_DIVES",
   DEEPEST_DIVE: "DEEPEST_DIVE",
@@ -45,6 +49,7 @@ export const reservationMachine = createMachine(
       numberOfDives: null,
       date: null,
       time: null,
+      diverInformation: null,
     },
     states: {
       reservation: {
@@ -106,6 +111,14 @@ export const reservationMachine = createMachine(
         },
       },
       lastDive: {},
+      diverInformation: {
+        on: {
+          [STATE_ACTIONS.COMPLETE]: {
+            target: "complete",
+            actions: "setDiverInformation",
+          },
+        },
+      },
       complete: {},
     },
   },
@@ -116,6 +129,7 @@ export const reservationMachine = createMachine(
       setIsDiverCertified,
       setCertificationType,
       setDate,
+      setDiverInformation,
     },
   }
 );
