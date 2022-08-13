@@ -4,6 +4,7 @@ import { useActor } from "@xstate/react";
 import { MyContext } from "./Machine";
 import DiveShopInfo from "./DiveShopInfo";
 import DiveShopConfig from "./DiveShopConfig";
+import DiveShopComplete from "./DiveShopComplete";
 
 const DiveShopSignUpStateController = () => {
   const machine = React.useContext(MyContext);
@@ -15,7 +16,7 @@ const DiveShopSignUpStateController = () => {
     case state.matches("diveShopConfig"):
       return <DiveShopConfig />;
     case state.matches("complete"):
-      return <div>Complete</div>;
+      return <DiveShopComplete />;
     default:
       return <div>Oops! Something went wrong</div>;
   }
