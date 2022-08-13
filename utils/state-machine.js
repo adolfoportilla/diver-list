@@ -13,7 +13,7 @@ const setDate = assign({
   time: (context, event) => event.time,
 });
 const setDiverInformation = assign({
-  diverInformation: (context, event) => event.diverInformation,
+  diverInformation: (context, event) => event.value,
 });
 
 const setNumberOfDives = assign({
@@ -110,7 +110,11 @@ export const reservationMachine = createMachine(
           },
         },
       },
-      lastDive: {},
+      lastDive: {
+        on: {
+          [STATE_ACTIONS.DIVER_INFORMATION]: { target: "diverInformation" },
+        },
+      },
       diverInformation: {
         on: {
           [STATE_ACTIONS.COMPLETE]: {

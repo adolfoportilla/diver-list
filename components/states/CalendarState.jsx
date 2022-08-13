@@ -50,6 +50,16 @@ const CalendarState = () => {
     }
   };
 
+  const goBackToPrevState = () => {
+    if (state.context.reservationType == "recreational") {
+      send({ type: STATE_ACTIONS.RECREATIONAL_DIVE });
+    } else if (state.context.reservationType == "certification") {
+      send({ type: STATE_ACTIONS.CERTIFICATION_DIVE });
+    } else {
+      alert("whoops");
+    }
+  };
+
   return (
     <StatePage>
       <StateTitle title="Select date" />

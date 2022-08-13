@@ -69,7 +69,7 @@ const DiverInformationState = () => {
             onClick={() =>
               send({
                 type: STATE_ACTIONS.COMPLETE,
-                value: "certification",
+                value: { name, lastName, email, age },
               })
             }
           >

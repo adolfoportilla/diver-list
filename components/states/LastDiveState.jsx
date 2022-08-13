@@ -23,7 +23,7 @@ const LastDiveState = () => {
           text="0 - 1 Months Ago"
           onClick={() =>
             send({
-              type: STATE_ACTIONS.NEXT,
+              type: STATE_ACTIONS.DIVER_INFORMATION,
               value: "recent",
             })
           }
@@ -41,7 +41,7 @@ const LastDiveState = () => {
           text="1 - 6 Months Ago"
           onClick={() =>
             send({
-              type: STATE_ACTIONS.NEXT,
+              type: STATE_ACTIONS.DIVER_INFORMATION,
               value: "not-so-recent",
             })
           }
@@ -58,7 +58,7 @@ const LastDiveState = () => {
           text="6 + Months Ago"
           onClick={() =>
             send({
-              type: STATE_ACTIONS.NEXT,
+              type: STATE_ACTIONS.DIVER_INFORMATION,
               value: "not-recent",
             })
           }
