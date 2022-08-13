@@ -13,7 +13,6 @@ import { STATE_ACTIONS } from "../../utils/state-machine";
 import StatePage from "./shared/StatePage";
 import StateTitle from "./shared/StateTitle";
 import { MyContext } from "../ReservationController";
-import BackButton from "../BackButton";
 
 function disabledDates({ activeStartDate, date, view }) {
   const todaysDate = new Date();
@@ -63,7 +62,6 @@ const CalendarState = () => {
 
   return (
     <StatePage>
-      <BackButton onClick={() => goBackToPrevState} />
       <StateTitle title="Select date" />
       <div className="flex flex-col items-center">
         <Calendar
