@@ -9,9 +9,7 @@ const BackButton = (props) => {
 
   const statesWithoutBackButton = ["reservation", "complete"];
 
-  return statesWithoutBackButton.includes(state.value) ? (
-    <div></div>
-  ) : (
+  return (
     <div
       className="cursor-pointer"
       onClick={() =>
@@ -22,7 +20,12 @@ const BackButton = (props) => {
         })
       }
     >
-      <ArrowBack fontSize="large" />
+      <ArrowBack
+        fontSize="large"
+        className={
+          statesWithoutBackButton.includes(state.value) ? "invisible" : ""
+        }
+      />
     </div>
   );
 };
