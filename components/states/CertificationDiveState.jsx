@@ -11,7 +11,7 @@ import StateCards from "./shared/StateCards";
 
 const CertificationDiveState = () => {
   const machine = React.useContext(MyContext);
-  const [, send] = useActor(machine);
+  const [state, send] = useActor(machine);
 
   return (
     <StatePage>
@@ -31,6 +31,7 @@ const CertificationDiveState = () => {
             send({
               type: STATE_ACTIONS.NEXT,
               value: "open",
+              previousState: STATE_ACTIONS.CERTIFICATION_DIVE,
             })
           }
         />
@@ -49,6 +50,7 @@ const CertificationDiveState = () => {
             send({
               type: STATE_ACTIONS.NEXT,
               value: "advanced",
+              previousState: STATE_ACTIONS.CERTIFICATION_DIVE,
             })
           }
         />
@@ -66,6 +68,7 @@ const CertificationDiveState = () => {
             send({
               type: STATE_ACTIONS.NEXT,
               value: "rescue",
+              previousState: STATE_ACTIONS.CERTIFICATION_DIVE,
             })
           }
         />

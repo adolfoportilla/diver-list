@@ -25,6 +25,7 @@ const DeepestDiveState = () => {
             send({
               type: STATE_ACTIONS.LAST_DIVE,
               value: "shallow",
+              previousState: STATE_ACTIONS.DEEPEST_DIVE,
             })
           }
         />
@@ -43,6 +44,7 @@ const DeepestDiveState = () => {
             send({
               type: STATE_ACTIONS.LAST_DIVE,
               value: "deep",
+              previousState: STATE_ACTIONS.DEEPEST_DIVE,
             })
           }
         />
@@ -60,6 +62,7 @@ const DeepestDiveState = () => {
             send({
               type: STATE_ACTIONS.LAST_DIVE,
               value: "deepest",
+              previousState: STATE_ACTIONS.DEEPEST_DIVE,
             })
           }
         />

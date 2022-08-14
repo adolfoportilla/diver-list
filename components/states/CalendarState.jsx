@@ -42,19 +42,19 @@ const CalendarState = () => {
 
   const sendEvent = (time) => {
     if (state.context.reservationType == "recreational") {
-      send({ type: STATE_ACTIONS.IS_DIVER_CERTIFIED, date, time });
+      send({
+        type: STATE_ACTIONS.IS_DIVER_CERTIFIED,
+        date,
+        time,
+        previousState: STATE_ACTIONS.CALENDAR,
+      });
     } else if (state.context.reservationType == "certification") {
-      send({ type: STATE_ACTIONS.NUMBER_OF_DIVES, date, time });
-    } else {
-      alert("whoops");
-    }
-  };
-
-  const goBackToPrevState = () => {
-    if (state.context.reservationType == "recreational") {
-      send({ type: STATE_ACTIONS.RECREATIONAL_DIVE });
-    } else if (state.context.reservationType == "certification") {
-      send({ type: STATE_ACTIONS.CERTIFICATION_DIVE });
+      send({
+        type: STATE_ACTIONS.NUMBER_OF_DIVES,
+        date,
+        time,
+        previousState: STATE_ACTIONS.CALENDAR,
+      });
     } else {
       alert("whoops");
     }

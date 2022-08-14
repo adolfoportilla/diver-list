@@ -32,6 +32,7 @@ const ReservationTypeState = () => {
             send({
               type: STATE_ACTIONS.RECREATIONAL_DIVE,
               value: "recreational",
+              previousState: STATE_ACTIONS.RESERVATION,
             })
           }
         />
@@ -49,6 +50,7 @@ const ReservationTypeState = () => {
             send({
               type: STATE_ACTIONS.CERTIFICATION_DIVE,
               value: "certification",
+              previousState: STATE_ACTIONS.RESERVATION,
             })
           }
         />
