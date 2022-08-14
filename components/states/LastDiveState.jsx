@@ -25,6 +25,7 @@ const LastDiveState = () => {
             send({
               type: STATE_ACTIONS.DIVER_INFORMATION,
               value: "recent",
+              previousState: STATE_ACTIONS.LAST_DIVE,
             })
           }
         />
@@ -43,6 +44,7 @@ const LastDiveState = () => {
             send({
               type: STATE_ACTIONS.DIVER_INFORMATION,
               value: "not-so-recent",
+              previousState: STATE_ACTIONS.LAST_DIVE,
             })
           }
         />
@@ -60,6 +62,7 @@ const LastDiveState = () => {
             send({
               type: STATE_ACTIONS.DIVER_INFORMATION,
               value: "not-recent",
+              previousState: STATE_ACTIONS.LAST_DIVE,
             })
           }
         />

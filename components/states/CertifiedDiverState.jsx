@@ -31,6 +31,7 @@ const CertifiedDiverState = () => {
             send({
               type: STATE_ACTIONS.NUMBER_OF_DIVES,
               value: true,
+              previousState: STATE_ACTIONS.IS_DIVER_CERTIFIED,
             })
           }
         />
