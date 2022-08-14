@@ -1,49 +1,38 @@
 import { createMachine, assign } from "xstate";
 
-const setDiveShopInfo = assign({
-  diveShopInfo: (context, event) => event.value,
-});
-const setDiveShopConfig = assign({
-  diveShopConfig: (context, event) => event.value,
-});
-
 export const STATE_ACTIONS = {
   NEXT: "next",
 };
 
 // Stateless machine definition
-export const stateMachine = createMachine(
-  {
-    id: "dive-shop-signup",
-    initial: "diveShopConfig",
-    context: {
-      diveShopInfo: null,
-      diveShopConfig: null,
-    },
-    states: {
-      diveShopConfig: {
-        on: {
-          [STATE_ACTIONS.NEXT]: {
-            target: "diveShopInfo",
-            actions: "setDiveShopInfo",
-          },
-        },
-      },
-      diveShopInfo: {
-        on: {
-          [STATE_ACTIONS.NEXT]: {
-            target: "complete",
-            actions: "setDiveShopInfo",
-          },
-        },
-      },
-      complete: {},
-    },
+export const stateMachine = createMachine({
+  id: "dive-shop-signup",
+  initial: "diveShopConfig",
+  context: {
+    diveShopInfo: null,
+    diveShopConfig: null,
   },
-  {
-    actions: {
-      setDiveShopInfo,
-      setDiveShopConfig,
+  states: {
+    diveShopConfig: {
+      on: {
+        [STATE_ACTIONS.NEXT]: {
+          target: "diveShopInfo",
+          actions: assign({
+            diveShopConfig: (contex, event) => event.data,
+          }),
+        },
+      },
     },
-  }
-);
+    diveShopInfo: {
+      on: {
+        [STATE_ACTIONS.NEXT]: {
+          target: "complete",
+          actions: assign({
+            diveShopInfo: (contex, event) => event.data,
+          }),
+        },
+      },
+    },
+    complete: {},
+  },
+});

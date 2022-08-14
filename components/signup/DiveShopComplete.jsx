@@ -1,24 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { TextField, Next, Button } from "@mui/material";
+import { Link, CircularProgress, Alert } from "@mui/material";
 import { useActor } from "@xstate/react";
 import { customAlphabet } from "nanoid";
 
-import { STATE_ACTIONS } from "../../utils/dive-shop-state-machine";
 import { MyContext } from "./Machine";
 import supabase from "../../utils/supabase";
 
+const BASE_URL = "www.diverlist.com/";
 const nanoid = customAlphabet("1234567890abcdefghijklmnopqrstuvwxyz");
 
-// TODO(adolfo): read from context instead
-const getValues = () => {
+const getValues = (context) => {
   return {
-    name: "Dive Shop test",
+    name: context.shopName,
     url_hash: nanoid(8),
-    email: "adolfo@test.com",
-    admin_name: "Adolfo",
-    admin_last_name: "Portilla",
-    location: { city: "Austin", state: "TX", country: "US" },
+    email: context.diveShopInfo.email,
+    admin_name: context.diveShopInfo.name,
+    admin_last_name: context.diveShopInfo.lastName,
+    location: context.diveShopInfo.location,
+    days: context.diveShopConfig.days.join(","),
+    hours: context.diveShopConfig.hours.join(","),
+    diveTypes: context.diveShopConfig.diveTypes.join(","),
   };
+};
+
+const isProdEnv = () => {
+  return process.env.NODE_ENV === "production";
 };
 
 export default function DiveShopInfo() {
@@ -26,49 +32,80 @@ export default function DiveShopInfo() {
   const [state, send] = useActor(machine);
 
   const [loading, setLoading] = useState(false);
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
+  const [data, setData] = useState({});
+  const [error, setError] = useState(error);
 
   useEffect(() => {
-    const fetchData = async function () {
-      try {
-        setLoading(true);
-        const { data, error: apiError } = await supabase
-          .from("dive-shop")
-          .insert([getValues()]);
-        if (apiError) {
-          setError(apiError);
-        }
-        setData(data[0]);
-        console.log("data", data);
-      } catch (error) {
-        setError(error.error_description || error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
+    if (isProdEnv()) {
+      postData();
+    } else {
+      setData({ url_hash: "test_hash" });
+    }
   }, []);
+  const postData = async function () {
+    try {
+      setLoading(true);
+      const { data, error: apiError } = await supabase
+        .from("dive-shop")
+        .insert([getValues(state.context)]);
+      if (apiError) {
+        setError(apiError);
+      }
+      setData(data[0]);
+    } catch (error) {
+      setError(error.error_description || error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div>
       {loading ? (
-        <div>
-          <span>Generating your dive shop configuration, hold tight!</span>
+        <div className="flex flex-col items-center">
+          <div>
+            <CircularProgress />
+          </div>
+          <span className="mt-2 italic font-light">
+            Generating your dive shop configuration, hold tight!
+          </span>
         </div>
       ) : error ? (
         <div>
-          <span>
-            There was an error creating your client, please try again later
-          </span>
+          <Alert severity="error">
+            There was an error creating your dive shop config, please try again
+            later. If issue persists, contact{" "}
+            <Link
+              target="_blank"
+              rel="noopener"
+              href="mailto:support@diverlist.com?subject=Issue%20creating%20Dive%20Shop%20sign-up%20form"
+            >
+              support@diverlist.com
+            </Link>
+          </Alert>
         </div>
       ) : (
-        <div>
-          Your account was successfully created, please visit{" "}
-          <a href={"www.diverlist.com/" + data.url_hash}>
-            {"www.diverlist.com/" + data.url_hash}
-          </a>
-          to test out the reservation system.
+        <div className="flex flex-col items-center">
+          <Alert severity="success">
+            Your Dive Shop Reservation was successfully created!
+          </Alert>
+          <div className="mt-4">
+            <span>Please visit</span>
+            <Link
+              href={data.url_hash}
+              target="_blank"
+              rel="noopener"
+              className="ml-1"
+            >
+              {BASE_URL + data.url_hash}
+            </Link>
+            <span className="ml-1">
+              to test out your new reservation system.
+            </span>
+          </div>
+          {!isProdEnv() && (
+            <span>Submitted:{JSON.stringify(getValues(state.context))}</span>
+          )}
         </div>
       )}
     </div>
