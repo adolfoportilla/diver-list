@@ -29,35 +29,48 @@ const HOURS = [
   "5:00pm",
   "6:00pm",
   "7:00pm",
-  "8:00pm",
 ];
+const DIVE_TYPES = ["recreational", "certification"];
 
 const SelectableChips = (props) => {
   const [selected, setSelected] = React.useState(
     props.options.map(() => false)
   );
   const [selectedAll, setSelectedAll] = React.useState(false);
+
+  const setSelectedBasedOnTrue = (options, array) => {
+    const result = [];
+    options.forEach((option, index) => {
+      if (option) {
+        result.push(array[index]);
+      }
+    });
+    return result;
+  };
+
   return (
     <div>
-      <div className="flex flex-row mb-2">
+      <div className="flex flex-row mb-2 items-center">
         <div>
           <span>{props.text}</span>
         </div>
-        <div>
-          <ToggleButton
-            value={selectedAll}
-            selected={selectedAll}
-            onClick={() => {
-              setSelected(selected.map((_) => !selectedAll));
-              setSelectedAll(!selectedAll);
-            }}
-            size="small"
-          >
-            Select All
-          </ToggleButton>
-        </div>
+        <ToggleButton
+          value={selectedAll}
+          selected={selectedAll}
+          onClick={() => {
+            const newValues = selected.map((_) => !selectedAll);
+            setSelected(newValues);
+            props.setOptions(setSelectedBasedOnTrue(newValues, props.options));
+            setSelectedAll(!selectedAll);
+          }}
+          size="small"
+          color="primary"
+          className="ml-2 h-6 w-21 text-xs"
+        >
+          Select All
+        </ToggleButton>
       </div>
-      <div className="space-x-2">
+      <div className={props.optionsClassName || "space-x-2"}>
         {props.options.map((day, index) => (
           <ToggleButton
             value="check"
@@ -66,8 +79,12 @@ const SelectableChips = (props) => {
               let copySelected = selected.map((s) => s);
               copySelected[index] = !selected[index];
               setSelected(copySelected);
+              props.setOptions(
+                setSelectedBasedOnTrue(copySelected, props.options)
+              );
             }}
             key={day}
+            color="primary"
           >
             <span className="font-normal font-mono">{day}</span>
           </ToggleButton>
@@ -80,6 +97,27 @@ const SelectableChips = (props) => {
 export default function DiveShopConfig() {
   const machine = React.useContext(MyContext);
   const [state, send] = useActor(machine);
+
+  const [selectedDays, setSelectedDays] = React.useState([]);
+  const [selectedHours, setSelectedHours] = React.useState([]);
+  const [selectedDiveTypes, setSelectedDiveTypes] = React.useState([]);
+
+  const isNextDisabled = () => {
+    if (!selectedDays.length || selectedDays.every((e) => e === false)) {
+      return true;
+    }
+    if (!selectedHours.length || selectedHours.every((e) => e === false)) {
+      return true;
+    }
+    if (
+      !selectedDiveTypes.length ||
+      selectedDiveTypes.every((e) => e === false)
+    ) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <div className="w-2/5">
       <div className="flex flex-col align-center space-y-6">
@@ -87,18 +125,22 @@ export default function DiveShopConfig() {
           <SelectableChips
             options={DAYS}
             text="Which days do you offer dives?"
+            setOptions={(selected) => setSelectedDays(selected)}
           />
         </div>
         <div>
           <SelectableChips
             options={HOURS}
             text="Which times do you offer dives?"
+            optionsClassName="grid grid-cols-7 gap-2"
+            setOptions={(selected) => setSelectedHours(selected)}
           />
         </div>
         <div>
           <SelectableChips
-            options={["Recreational", "Certification"]}
+            options={DIVE_TYPES}
             text="What types of dives do you offer?"
+            setOptions={(selected) => setSelectedDiveTypes(selected)}
           />
         </div>
       </div>
@@ -108,8 +150,14 @@ export default function DiveShopConfig() {
           onClick={() => {
             send({
               type: STATE_ACTIONS.NEXT,
+              data: {
+                days: selectedDays,
+                hours: selectedHours,
+                diveTypes: selectedDiveTypes,
+              },
             });
           }}
+          disabled={isNextDisabled()}
         >
           Next
         </Button>
