@@ -1,10 +1,11 @@
+import SharedPage from "../components/shared/SharedPage";
 import ReservationController from "../components/ReservationController";
 
 const Reservation = () => {
   return (
-    <div className="w-screen max-w-full h-full">
+    <SharedPage>
       <ReservationController />
-    </div>
+    </SharedPage>
   );
 };
 

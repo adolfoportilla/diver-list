@@ -119,7 +119,7 @@ export default function DiveShopConfig() {
   };
 
   return (
-    <div className="w-2/5">
+    <div>
       <div className="flex flex-col align-center space-y-6">
         <div>
           <SelectableChips
