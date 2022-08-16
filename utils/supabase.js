@@ -4,7 +4,7 @@ let client = {};
 
 if (process.env.NODE_ENV === "production") {
   const supabaseUrl = "https://jssciplbktcfzvelizfx.supabase.co";
-  const supabaseKey = process.env.SUPABASE_KEY;
+  const supabaseKey = process.env.REACT_APP_SUPABASE_KEY;
 
   client = createClient(supabaseUrl, supabaseKey);
 }
