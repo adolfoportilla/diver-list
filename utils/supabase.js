@@ -1,12 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 
-let client = {};
-
-if (process.env.NODE_ENV === "production") {
-  const supabaseUrl = "https://jssciplbktcfzvelizfx.supabase.co";
-  const supabaseKey = process.env.SUPABASE_KEY;
-
-  client = createClient(supabaseUrl, supabaseKey);
-}
-
-export default client;
+export default createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
