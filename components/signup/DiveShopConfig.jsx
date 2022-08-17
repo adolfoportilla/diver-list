@@ -4,15 +4,16 @@ import { useActor } from "@xstate/react";
 
 import { STATE_ACTIONS } from "../../utils/dive-shop-state-machine";
 import { MyContext } from "./Machine";
+import SignUpPage from "./SignupPage";
 
 const DAYS = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+  "sunday",
 ];
 const HOURS = [
   "6:00am",
@@ -119,8 +120,15 @@ export default function DiveShopConfig() {
   };
 
   return (
-    <div>
+    <SignUpPage title="Tell us about your dive shop">
       <div className="flex flex-col align-center space-y-6">
+        <div>
+          <SelectableChips
+            options={DIVE_TYPES}
+            text="What types of dives do you offer?"
+            setOptions={(selected) => setSelectedDiveTypes(selected)}
+          />
+        </div>
         <div>
           <SelectableChips
             options={DAYS}
@@ -136,15 +144,8 @@ export default function DiveShopConfig() {
             setOptions={(selected) => setSelectedHours(selected)}
           />
         </div>
-        <div>
-          <SelectableChips
-            options={DIVE_TYPES}
-            text="What types of dives do you offer?"
-            setOptions={(selected) => setSelectedDiveTypes(selected)}
-          />
-        </div>
       </div>
-      <div className="flex flex-row-reverse">
+      <div className="flex flex-row-reverse mt-3 w-full">
         <Button
           variant="outlined"
           onClick={() => {
@@ -158,10 +159,11 @@ export default function DiveShopConfig() {
             });
           }}
           disabled={isNextDisabled()}
+          className="w-24"
         >
           Next
         </Button>
       </div>
-    </div>
+    </SignUpPage>
   );
 }

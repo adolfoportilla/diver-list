@@ -7,7 +7,6 @@ import Machine from "../components/signup/Machine";
 const Signup = () => {
   return (
     <SharedPage>
-      <StateTitle title="Sign up for Free!" />
       <Machine />
     </SharedPage>
   );
