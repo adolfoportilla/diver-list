@@ -46,8 +46,13 @@ const CertifiedDiverState = () => {
             />
           }
           text="No"
-          //TODO (Willy) - add return to initial state here
-          onClick={() => send({})}
+          onClick={() =>
+            send({
+              type: STATE_ACTIONS.DIVER_NOT_CERTIFIED,
+              value: false,
+              previousState: STATE_ACTIONS.IS_DIVER_CERTIFIED,
+            })
+          }
         />
       </StateCards>
     </StatePage>

@@ -26,7 +26,7 @@ const CertificationDiveState = () => {
               height={150}
             />
           }
-          text="Open Water"
+          text="Open Water (Beginners)"
           onClick={() =>
             send({
               type: STATE_ACTIONS.CALENDAR,

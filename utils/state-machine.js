@@ -96,6 +96,7 @@ export const STATE_ACTIONS = {
   NUMBER_OF_DIVES: "NUMBER_OF_DIVES",
   DEEPEST_DIVE: "DEEPEST_DIVE",
   IS_DIVER_CERTIFIED: "IS_DIVER_CERTIFIED",
+  DIVER_NOT_CERTIFIED: "DIVER_NOT_CERTIFIED",
 };
 
 // Stateless machine definition
@@ -136,9 +137,17 @@ export const reservationMachine = createMachine(
           },
 
           //Back
+          //we reset isDiverCertified here in case that the diver
+          //selected that they are not certified, and opted to get
+          //certified
+
           [STATE_ACTIONS.RESERVATION]: {
             target: "reservation",
-            actions: ["popFromPreviousState", "removeReservationType"],
+            actions: [
+              "popFromPreviousState",
+              "removeReservationType",
+              "removeIstDiverCertified",
+            ],
           },
         },
       },
@@ -172,11 +181,27 @@ export const reservationMachine = createMachine(
             target: "numberOfDives",
             actions: ["setIsDiverCertified", "pushToPreviousState"],
           },
+          [STATE_ACTIONS.DIVER_NOT_CERTIFIED]: {
+            target: "diverNotCertified",
+            actions: ["setIsDiverCertified", "pushToPreviousState"],
+          },
 
           //Back
           [STATE_ACTIONS.CALENDAR]: {
             target: "calendar",
             actions: ["popFromPreviousState", "removeDate"],
+          },
+        },
+      },
+      diverNotCertified: {
+        on: {
+          [STATE_ACTIONS.IS_DIVER_CERTIFIED]: {
+            target: "isDiverCertified",
+            actions: ["popFromPreviousState", "removeIstDiverCertified"],
+          },
+          [STATE_ACTIONS.CERTIFICATION_DIVE]: {
+            target: "certificationDive",
+            actions: ["pushToPreviousState", "setReservationType"],
           },
         },
       },
