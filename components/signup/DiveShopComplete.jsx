@@ -11,7 +11,7 @@ const nanoid = customAlphabet("1234567890abcdefghijklmnopqrstuvwxyz");
 
 const getValues = (context) => {
   return {
-    name: context.shopName,
+    name: context.diveShopInfo.name,
     url_hash: nanoid(8),
     email: context.diveShopInfo.email,
     admin_name: context.diveShopInfo.name,
@@ -104,7 +104,19 @@ export default function DiveShopInfo() {
             </span>
           </div>
           {!isProdEnv() && (
-            <span>Submitted:{JSON.stringify(getValues(state.context))}</span>
+            <div className="mt-8 flex flex-col mx-32">
+              <span>Submitted</span>
+              <div className="mt-2">
+                {Object.entries(getValues(state.context)).map(
+                  ([key, value]) => (
+                    <div key={key} className="grid grid-cols-2">
+                      <span className="font-bold">{key}: </span>
+                      <span className="ml-2 break-words">{value}</span>
+                    </div>
+                  )
+                )}
+              </div>
+            </div>
           )}
         </div>
       )}
