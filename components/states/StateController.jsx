@@ -16,6 +16,7 @@ const StateController = () => {
   const machine = React.useContext(MyContext);
 
   const [state] = useActor(machine);
+
   switch (true) {
     case state.matches("reservation"):
       return <ReservationTypeState />;
