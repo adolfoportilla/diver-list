@@ -97,14 +97,16 @@ export const STATE_ACTIONS = {
   DEEPEST_DIVE: "DEEPEST_DIVE",
   IS_DIVER_CERTIFIED: "IS_DIVER_CERTIFIED",
   DIVER_NOT_CERTIFIED: "DIVER_NOT_CERTIFIED",
+  FETCH_SUCCESS: "FETCH_SUCCESS",
 };
 
 // Stateless machine definition
 export const reservationMachine = createMachine(
   {
     id: "reservation",
-    initial: "reservation",
+    initial: "fetchDiveConfig",
     context: {
+      diveShopConfig: null,
       reservationType: null,
       isDiverCertified: null,
       certificationType: null,
@@ -117,6 +119,14 @@ export const reservationMachine = createMachine(
       previousState: [],
     },
     states: {
+      fetchDiveConfig: {
+        on: {
+          [STATE_ACTIONS.FETCH_SUCCESS]: {
+            target: "reservation",
+            actions: assign({ diveShopConfig: (context) => context.value }),
+          },
+        },
+      },
       reservation: {
         on: {
           [STATE_ACTIONS.CERTIFICATION_DIVE]: {

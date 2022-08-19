@@ -12,6 +12,7 @@ import DeepestDiveState from "./DeepestDiveState";
 import CertifiedDiverState from "./CertifiedDiverState";
 import DiverInformationState from "./DiverInformationState";
 import DiverNotCertifiedState from "./DiverNotCertifiedState";
+import DiveShopConfigFetchState from "./DiveShopConfigFetchState";
 
 const StateController = () => {
   const machine = React.useContext(MyContext);
@@ -19,6 +20,8 @@ const StateController = () => {
   const [state] = useActor(machine);
 
   switch (true) {
+    case state.matches("fetchDiveConfig"):
+      return <DiveShopConfigFetchState />;
     case state.matches("reservation"):
       return <ReservationTypeState />;
     case state.matches("certificationDive"):

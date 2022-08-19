@@ -33,7 +33,7 @@ export default function DiveShopInfo() {
 
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState({});
-  const [error, setError] = useState(error);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (isProdEnv()) {
