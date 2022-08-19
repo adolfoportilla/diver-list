@@ -11,11 +11,13 @@ import NumberOfDivesState from "./NumberOfDivesState";
 import DeepestDiveState from "./DeepestDiveState";
 import CertifiedDiverState from "./CertifiedDiverState";
 import DiverInformationState from "./DiverInformationState";
+import DiverNotCertifiedState from "./DiverNotCertifiedState";
 
 const StateController = () => {
   const machine = React.useContext(MyContext);
 
   const [state] = useActor(machine);
+
   switch (true) {
     case state.matches("reservation"):
       return <ReservationTypeState />;
@@ -31,6 +33,8 @@ const StateController = () => {
       return <DeepestDiveState />;
     case state.matches("isDiverCertified"):
       return <CertifiedDiverState />;
+    case state.matches("diverNotCertified"):
+      return <DiverNotCertifiedState />;
     case state.matches("lastDive"):
       return <LastDiveState />;
     case state.matches("diverInformation"):

@@ -5,23 +5,66 @@ const setReservationType = assign({
     return event.value;
   },
 });
+
+const removeReservationType = assign({
+  reservationType: () => null,
+});
 const setCertificationType = assign({
   certificationType: (context, event) => event.value,
 });
+
+const removeCertificationType = assign({
+  certificationType: () => null,
+});
+
+const setDeepestDive = assign({
+  deepestDive: (context, event) => event.value,
+});
+
+const removeDeepestDive = assign({
+  deepestDive: () => null,
+});
+
+const setLastDive = assign({
+  lastDive: (context, event) => event.value,
+});
+
+const removeLastDive = assign({
+  lastDive: () => null,
+});
+
 const setDate = assign({
   date: (context, event) => event.date,
   time: (context, event) => event.time,
 });
+
+const removeDate = assign({
+  date: () => null,
+  time: () => null,
+});
+
 const setDiverInformation = assign({
   diverInformation: (context, event) => event.value,
+});
+
+const removeDiverInformation = assign({
+  diverInformation: () => null,
 });
 
 const setNumberOfDives = assign({
   numberOfDives: (context, event) => event.value,
 });
 
+const removeNumberOfDives = assign({
+  numberOfDives: () => null,
+});
+
 const setIsDiverCertified = assign({
   isDiverCertified: (context, event) => event.value,
+});
+
+const removeIstDiverCertified = assign({
+  isDiverCertified: () => null,
 });
 
 const pushToPreviousState = assign({
@@ -53,6 +96,7 @@ export const STATE_ACTIONS = {
   NUMBER_OF_DIVES: "NUMBER_OF_DIVES",
   DEEPEST_DIVE: "DEEPEST_DIVE",
   IS_DIVER_CERTIFIED: "IS_DIVER_CERTIFIED",
+  DIVER_NOT_CERTIFIED: "DIVER_NOT_CERTIFIED",
 };
 
 // Stateless machine definition
@@ -65,6 +109,8 @@ export const reservationMachine = createMachine(
       isDiverCertified: null,
       certificationType: null,
       numberOfDives: null,
+      deepestDive: null,
+      lastDive: null,
       date: null,
       time: null,
       diverInformation: null,
@@ -85,13 +131,23 @@ export const reservationMachine = createMachine(
       },
       certificationDive: {
         on: {
-          [STATE_ACTIONS.NEXT]: {
+          [STATE_ACTIONS.CALENDAR]: {
             target: "calendar",
             actions: ["setCertificationType", "pushToPreviousState"],
           },
+
+          //Back
+          //we reset isDiverCertified here in case that the diver
+          //selected that they are not certified, and opted to get
+          //certified
+
           [STATE_ACTIONS.RESERVATION]: {
             target: "reservation",
-            actions: "popFromPreviousState",
+            actions: [
+              "popFromPreviousState",
+              "removeReservationType",
+              "removeIstDiverCertified",
+            ],
           },
         },
       },
@@ -99,23 +155,23 @@ export const reservationMachine = createMachine(
         on: {
           [STATE_ACTIONS.NUMBER_OF_DIVES]: {
             target: "numberOfDives",
-            actions: ["setDate", "pushToPreviousState"],
+            actions: ["pushToPreviousState", "setDate"],
           },
           [STATE_ACTIONS.IS_DIVER_CERTIFIED]: {
             target: "isDiverCertified",
-            actions: "pushToPreviousState",
+            actions: ["pushToPreviousState", "setDate"],
           },
+
+          //Back
           [STATE_ACTIONS.CERTIFICATION_DIVE]: {
             target: "certificationDive",
-            actions: "popFromPreviousState",
+            actions: ["popFromPreviousState", "removeCertificationType"],
           },
-          [STATE_ACTIONS.RECREATIONAL_DIVE]: {
-            target: "reservation",
-            actions: "popFromPreviousState",
-          },
+
+          //Back
           [STATE_ACTIONS.RESERVATION]: {
             target: "reservation",
-            actions: "popFromPreviousState",
+            actions: ["popFromPreviousState", "removeReservationType"],
           },
         },
       },
@@ -125,26 +181,47 @@ export const reservationMachine = createMachine(
             target: "numberOfDives",
             actions: ["setIsDiverCertified", "pushToPreviousState"],
           },
+          [STATE_ACTIONS.DIVER_NOT_CERTIFIED]: {
+            target: "diverNotCertified",
+            actions: ["setIsDiverCertified", "pushToPreviousState"],
+          },
+
+          //Back
           [STATE_ACTIONS.CALENDAR]: {
             target: "calendar",
-            actions: "popFromPreviousState",
+            actions: ["popFromPreviousState", "removeDate"],
           },
         },
       },
-      lastDive: {},
+      diverNotCertified: {
+        on: {
+          [STATE_ACTIONS.IS_DIVER_CERTIFIED]: {
+            target: "isDiverCertified",
+            actions: ["popFromPreviousState", "removeIstDiverCertified"],
+          },
+          [STATE_ACTIONS.CERTIFICATION_DIVE]: {
+            target: "certificationDive",
+            actions: ["pushToPreviousState", "setReservationType"],
+          },
+        },
+      },
       numberOfDives: {
         on: {
           [STATE_ACTIONS.DEEPEST_DIVE]: {
             target: "deepestDive",
             actions: ["setNumberOfDives", "pushToPreviousState"],
           },
+
+          //Back
           [STATE_ACTIONS.CALENDAR]: {
             target: "calendar",
-            actions: "popFromPreviousState",
+            actions: ["popFromPreviousState", "removeDate"],
           },
+
+          //Back
           [STATE_ACTIONS.IS_DIVER_CERTIFIED]: {
             target: "isDiverCertified",
-            actions: "popFromPreviousState",
+            actions: ["popFromPreviousState", "removeIstDiverCertified"],
           },
         },
       },
@@ -152,11 +229,13 @@ export const reservationMachine = createMachine(
         on: {
           [STATE_ACTIONS.LAST_DIVE]: {
             target: "lastDive",
-            actions: "pushToPreviousState",
+            actions: ["pushToPreviousState", "setDeepestDive"],
           },
+
+          //Back
           [STATE_ACTIONS.NUMBER_OF_DIVES]: {
             target: "numberOfDives",
-            actions: "popFromPreviousState",
+            actions: ["popFromPreviousState", "removeNumberOfDives"],
           },
         },
       },
@@ -164,11 +243,13 @@ export const reservationMachine = createMachine(
         on: {
           [STATE_ACTIONS.DIVER_INFORMATION]: {
             target: "diverInformation",
-            actions: "pushToPreviousState",
+            actions: ["pushToPreviousState", "setLastDive"],
           },
+
+          //Back
           [STATE_ACTIONS.DEEPEST_DIVE]: {
             target: "deepestDive",
-            actions: "popFromPreviousState",
+            actions: ["popFromPreviousState", "removeDeepestDive"],
           },
         },
       },
@@ -180,7 +261,7 @@ export const reservationMachine = createMachine(
           },
           [STATE_ACTIONS.LAST_DIVE]: {
             target: "lastDive",
-            actions: "popFromPreviousState",
+            actions: ["popFromPreviousState", "removeLastDive"],
           },
         },
       },
@@ -197,6 +278,16 @@ export const reservationMachine = createMachine(
       setDiverInformation,
       pushToPreviousState,
       popFromPreviousState,
+      removeDate,
+      removeCertificationType,
+      removeDiverInformation,
+      removeIstDiverCertified,
+      removeNumberOfDives,
+      removeReservationType,
+      setDeepestDive,
+      removeDeepestDive,
+      setLastDive,
+      removeLastDive,
     },
   }
 );

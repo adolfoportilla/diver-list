@@ -26,10 +26,10 @@ const CertificationDiveState = () => {
               height={150}
             />
           }
-          text="Open Water"
+          text="Open Water (Beginners)"
           onClick={() =>
             send({
-              type: STATE_ACTIONS.NEXT,
+              type: STATE_ACTIONS.CALENDAR,
               value: "open",
               previousState: STATE_ACTIONS.CERTIFICATION_DIVE,
             })
@@ -48,7 +48,7 @@ const CertificationDiveState = () => {
           text="Advanced Open Water"
           onClick={() =>
             send({
-              type: STATE_ACTIONS.NEXT,
+              type: STATE_ACTIONS.CALENDAR,
               value: "advanced",
               previousState: STATE_ACTIONS.CERTIFICATION_DIVE,
             })
@@ -66,7 +66,7 @@ const CertificationDiveState = () => {
           text="Rescue Diver"
           onClick={() =>
             send({
-              type: STATE_ACTIONS.NEXT,
+              type: STATE_ACTIONS.CALENDAR,
               value: "rescue",
               previousState: STATE_ACTIONS.CERTIFICATION_DIVE,
             })
