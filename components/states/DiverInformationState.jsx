@@ -8,10 +8,6 @@ import StatePage from "./shared/StatePage";
 import StateTitle from "./shared/StateTitle";
 import { MyContext } from "../ReservationController";
 
-const FormItem = (props) => {
-  return <div className="m-1">{props.children}</div>;
-};
-
 const DiverInformationState = () => {
   const machine = React.useContext(MyContext);
 
@@ -68,7 +64,7 @@ const DiverInformationState = () => {
             sx={{ width: "18ch" }}
             onClick={() =>
               send({
-                type: STATE_ACTIONS.COMPLETE,
+                type: STATE_ACTIONS.CREATE_SUPABASE_RESERVATION,
                 value: { name, lastName, email, age },
               })
             }

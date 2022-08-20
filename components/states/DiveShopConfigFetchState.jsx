@@ -10,13 +10,16 @@ const DiveShopConfigFetchState = () => {
   const machine = React.useContext(MyContext);
   const [state, send] = useActor(machine);
 
+  // https://nextjs.org/docs/routing/dynamic-routes
   const router = useRouter();
   const { url_hash } = router.query;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchData(url_hash);
+    if (url_hash) {
+      fetchData(url_hash);
+    }
   }, [url_hash]);
 
   const fetchData = async function (url_hash) {
@@ -24,7 +27,7 @@ const DiveShopConfigFetchState = () => {
       setLoading(true);
       let { data: diveShop, error: apiError } = await supabase
         .from("dive-shop")
-        .select("days,hours,diveTypes")
+        .select("id,days,hours,diveTypes")
         .eq("url_hash", url_hash);
 
       if (apiError) {
@@ -32,7 +35,6 @@ const DiveShopConfigFetchState = () => {
       }
       if (diveShop.length === 0) {
       } else {
-        console.log("h", diveShop[0]);
         send({
           type: STATE_ACTIONS.FETCH_SUCCESS,
           value: diveShop[0],

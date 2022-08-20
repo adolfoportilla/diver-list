@@ -13,6 +13,7 @@ import CertifiedDiverState from "./CertifiedDiverState";
 import DiverInformationState from "./DiverInformationState";
 import DiverNotCertifiedState from "./DiverNotCertifiedState";
 import DiveShopConfigFetchState from "./DiveShopConfigFetchState";
+import CreateSupabaseReservationState from "./CreateSupabaseState";
 
 const StateController = () => {
   const machine = React.useContext(MyContext);
@@ -42,6 +43,8 @@ const StateController = () => {
       return <LastDiveState />;
     case state.matches("diverInformation"):
       return <DiverInformationState />;
+    case state.matches("createSupabaseReservation"):
+      return <CreateSupabaseReservationState />;
     case state.matches("complete"):
       return <CompleteState />;
     default:
