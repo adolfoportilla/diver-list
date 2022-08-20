@@ -29,6 +29,14 @@ const setLastDive = assign({
   lastDive: (context, event) => event.value,
 });
 
+const setEquipment = assign({
+  equipment: (context, event) => event.value,
+});
+
+const removeEquipment = assign({
+  equipment: () => null,
+});
+
 const removeLastDive = assign({
   lastDive: () => null,
 });
@@ -91,6 +99,7 @@ export const STATE_ACTIONS = {
   CERTIFICATION_DIVE: "CERTIFICATION_DIVE",
   RECREATIONAL_DIVE: "RECREATIONAL_DIVE",
   LAST_DIVE: "LAST_DIVE",
+  EQUIPMENT: "EQUIPMENT",
   DIVER_INFORMATION: "DIVER_INFORMATION",
   COMPLETE: "complete",
   NUMBER_OF_DIVES: "NUMBER_OF_DIVES",
@@ -99,6 +108,7 @@ export const STATE_ACTIONS = {
   DIVER_NOT_CERTIFIED: "DIVER_NOT_CERTIFIED",
   FETCH_SUCCESS: "FETCH_SUCCESS",
   CREATE_SUPABASE_RESERVATION: "CREATE_SUPABASE_RESERVATION",
+  FIN_SIZE: "FIN_SIZE",
 };
 
 // Stateless machine definition
@@ -254,15 +264,42 @@ export const reservationMachine = createMachine(
       },
       lastDive: {
         on: {
-          [STATE_ACTIONS.DIVER_INFORMATION]: {
-            target: "diverInformation",
+          [STATE_ACTIONS.EQUIPMENT]: {
+            target: "equipment",
             actions: ["pushToPreviousState", "setLastDive"],
           },
-
           //Back
           [STATE_ACTIONS.DEEPEST_DIVE]: {
             target: "deepestDive",
             actions: ["popFromPreviousState", "removeDeepestDive"],
+          },
+        },
+      },
+      equipment: {
+        on: {
+          [STATE_ACTIONS.DIVER_INFORMATION]: {
+            target: "diverInformation",
+            actions: ["pushToPreviousState", "setEquipment"],
+          },
+
+          [STATE_ACTIONS.FIN_SIZE]: {
+            target: "finSize",
+            actions: ["pushToPreviousState", "setFinSize"],
+          },
+
+          //Back
+          [STATE_ACTIONS.LAST_DIVE]: {
+            target: "lastDive",
+            actions: ["popFromPreviousState", "removeLastDive"],
+          },
+        },
+      },
+      finSize: {
+        //Back
+        on: {
+          [STATE_ACTIONS.EQUIPMENT]: {
+            target: "equipment",
+            actions: ["popFromPreviousState"],
           },
         },
       },
@@ -272,9 +309,10 @@ export const reservationMachine = createMachine(
             target: "createSupabaseReservation",
             actions: "setDiverInformation",
           },
-          [STATE_ACTIONS.LAST_DIVE]: {
-            target: "lastDive",
-            actions: ["popFromPreviousState", "removeLastDive"],
+          //Back
+          [STATE_ACTIONS.EQUIPMENT]: {
+            target: "equipment",
+            actions: ["popFromPreviousState", "removeEquipment"],
           },
         },
       },
@@ -288,6 +326,7 @@ export const reservationMachine = createMachine(
       complete: {},
     },
   },
+
   {
     actions: {
       setReservationType,
@@ -308,6 +347,8 @@ export const reservationMachine = createMachine(
       removeDeepestDive,
       setLastDive,
       removeLastDive,
+      setEquipment,
+      removeEquipment,
     },
   }
 );
