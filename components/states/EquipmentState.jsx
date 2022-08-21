@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useActor } from "@xstate/react";
 import Image from "next/image";
-import { Button } from "@mui/material";
+import { Button, Select } from "@mui/material";
 
 import { STATE_ACTIONS } from "../../utils/state-machine";
 import { MyContext } from "../ReservationController";
@@ -9,25 +9,34 @@ import StatePage from "./shared/StatePage";
 import StateTitle from "./shared/StateTitle";
 import CardComponent from "./shared/CardComponent";
 import StateCards from "./shared/StateCards";
+import FinSizes from "./equipment/FinSizes";
 
 const EquipmentState = () => {
   const machine = React.useContext(MyContext);
   const [, send] = useActor(machine);
+  const [finSelectVisible, setFinSelectVisible] = useState(false);
+
+  const [finSize, setFinSize] = React.useState("");
+
   return (
     <StatePage>
       <StateTitle title="Select the equipment you will need" />
       <StateCards>
-        <CardComponent
-          icon={<Image src="/icons/fins.svg" alt="" width={150} height={150} />}
-          text="Fins"
-          onClick={() =>
-            send({
-              type: STATE_ACTIONS.FIN_SIZE,
-              value: {},
-              previousState: STATE_ACTIONS.EQUIPMENT,
-            })
-          }
-        />
+        {!finSelectVisible ? (
+          <CardComponent
+            icon={
+              <Image src="/icons/fins.svg" alt="" width={150} height={150} />
+            }
+            text={finSize ? finSize : "Fins"}
+            onClick={() => setFinSelectVisible(!finSelectVisible)}
+          />
+        ) : (
+          <CardComponent
+            icon={<FinSizes setFinSize={setFinSize} />}
+            text="Select Size"
+            onClick={() => setFinSelectVisible(!finSelectVisible)}
+          />
+        )}
         <CardComponent
           icon={
             <Image
