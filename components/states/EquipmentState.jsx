@@ -1,95 +1,83 @@
-import React, { useState } from "react";
+import React from "react";
 import { useActor } from "@xstate/react";
-import Image from "next/image";
-import { Button, Select } from "@mui/material";
+import { Button } from "@mui/material";
 
 import { STATE_ACTIONS } from "../../utils/state-machine";
 import { MyContext } from "../ReservationController";
 import StatePage from "./shared/StatePage";
 import StateTitle from "./shared/StateTitle";
-import CardComponent from "./shared/CardComponent";
 import StateCards from "./shared/StateCards";
-import FinSizes from "./equipment/FinSizes";
+import FinsCard from "./equipment/FinsCard";
+import BCDCard from "./equipment/BCDCard";
+import WetsuitCard from "./equipment/WetsuitCard";
+import RegulatorCard from "./equipment/RegulatorCard";
+import MaskCard from "./equipment/MaskCard";
+import TankCard from "./equipment/TankCard";
 
 const EquipmentState = () => {
   const machine = React.useContext(MyContext);
   const [, send] = useActor(machine);
-  const [finSelectVisible, setFinSelectVisible] = useState(false);
 
+  const [finSelectVisible, setFinSelectVisible] = React.useState(false);
   const [finSize, setFinSize] = React.useState("");
+
+  const [bcdSelectVisible, setBcdSelectVisible] = React.useState(false);
+  const [bcdSize, setBcdSize] = React.useState("");
+
+  const [wetsuitSelectVisible, setWetsuitSelectVisible] = React.useState(false);
+  const [wetsuitSize, setWetsuitSize] = React.useState("");
+
+  const [regulatorSelectVisible, setRegulatorSelectVisible] =
+    React.useState(false);
+  const [regulatorChoice, setRegulatorChoice] = React.useState("");
+
+  const [maskSelectVisible, setMaskSelectVisible] = React.useState(false);
+  const [maskChoice, setMaskChoice] = React.useState("");
+
+  const [tankSelectVisible, setTankSelectVisible] = React.useState(false);
+  const [tankSize, setTankSize] = React.useState("");
 
   return (
     <StatePage>
       <StateTitle title="Select the equipment you will need" />
       <StateCards>
-        {!finSelectVisible ? (
-          <CardComponent
-            icon={
-              <Image src="/icons/fins.svg" alt="" width={150} height={150} />
-            }
-            text={finSize ? finSize : "Fins"}
-            onClick={() => setFinSelectVisible(!finSelectVisible)}
-          />
-        ) : (
-          <CardComponent
-            icon={<FinSizes setFinSize={setFinSize} />}
-            text="Select Size"
-            onClick={() => setFinSelectVisible(!finSelectVisible)}
-          />
-        )}
-        <CardComponent
-          icon={
-            <Image
-              src="/icons/diving-suit.svg"
-              alt=""
-              width={150}
-              height={150}
-              layout="fixed"
-            />
-          }
-          text="BCD"
-          onClick={() => null}
+        <FinsCard
+          finSelectVisible={finSelectVisible}
+          finSize={finSize}
+          setFinSize={setFinSize}
+          setFinSelectVisible={setFinSelectVisible}
         />
-        <CardComponent
-          icon={
-            <Image src="/icons/wetsuit.svg" alt="" width={150} height={150} />
-          }
-          text="Wetsuit"
-          onClick={() => null}
+        <BCDCard
+          bcdSelectVisible={bcdSelectVisible}
+          bcdSize={bcdSize}
+          setBcdSize={setBcdSize}
+          setBcdSelectVisible={setBcdSelectVisible}
+        />
+        <WetsuitCard
+          wetsuitSelectVisible={wetsuitSelectVisible}
+          wetSuitSize={wetsuitSize}
+          setWetsuitSize={setWetsuitSize}
+          setWetsuitSelectVisible={setWetsuitSelectVisible}
         />
       </StateCards>
       <StateCards>
-        <CardComponent
-          icon={
-            <Image src="/icons/regulator.svg" alt="" width={150} height={150} />
-          }
-          text="Regulator"
-          onClick={() => null}
+        <RegulatorCard
+          regulatorSelectVisible={regulatorSelectVisible}
+          regulatorChoice={regulatorChoice}
+          setRegulatorChoice={setRegulatorChoice}
+          setRegulatorSelectVisible={setRegulatorSelectVisible}
         />
-        <CardComponent
-          icon={
-            <Image
-              src="/icons/diving-mask.svg"
-              alt=""
-              width={150}
-              height={150}
-              layout="fixed"
-            />
-          }
-          text="Mask"
-          onClick={() => null}
+        <MaskCard
+          maskSelectVisible={maskSelectVisible}
+          maskChoice={maskChoice}
+          setMaskChoice={setMaskChoice}
+          setMaskSelectVisible={setMaskSelectVisible}
         />
-        <CardComponent
-          icon={
-            <Image
-              src="/icons/oxygen-tank.svg"
-              alt=""
-              width={150}
-              height={150}
-            />
-          }
-          text="Tank"
-          onClick={() => null}
+        <TankCard
+          tankSelectVisible={tankSelectVisible}
+          setTankSelectVisible={setTankSelectVisible}
+          tankSize={tankSize}
+          setTankSize={setTankSize}
         />
       </StateCards>
       <div className="mt-10">
@@ -99,7 +87,14 @@ const EquipmentState = () => {
           onClick={() =>
             send({
               type: STATE_ACTIONS.DIVER_INFORMATION,
-              value: {},
+              value: {
+                finSize,
+                bcdSize,
+                wetsuitSize,
+                regulatorChoice,
+                maskChoice,
+                tankSize,
+              },
               previousState: STATE_ACTIONS.EQUIPMENT,
             })
           }

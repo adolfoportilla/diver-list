@@ -126,6 +126,7 @@ export const reservationMachine = createMachine(
       lastDive: null,
       date: null,
       time: null,
+      equipment: null,
       diverInformation: null,
       previousState: [],
     },
