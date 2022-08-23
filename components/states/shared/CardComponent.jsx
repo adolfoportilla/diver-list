@@ -5,6 +5,7 @@ const CardComponent = (props) => {
     <div
       className="md:py-8 w-52 h-48 md:w-60 md:h-56  bg-white flex flex-col items-center justify-center hover:border-sky-600 hover:shadow-xl cursor-pointer rounded-xl shadow-lg border-2 border-black"
       onClick={props.onClick}
+      style={props.style}
     >
       <div className="flex items-center justify-center h-28 w-28 md:w-56 md:h-56">
         <div className="max-h-18 max-w-18">{props.icon}</div>
