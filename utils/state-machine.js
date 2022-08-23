@@ -108,7 +108,6 @@ export const STATE_ACTIONS = {
   DIVER_NOT_CERTIFIED: "DIVER_NOT_CERTIFIED",
   FETCH_SUCCESS: "FETCH_SUCCESS",
   CREATE_SUPABASE_RESERVATION: "CREATE_SUPABASE_RESERVATION",
-  FIN_SIZE: "FIN_SIZE",
 };
 
 // Stateless machine definition
@@ -283,11 +282,6 @@ export const reservationMachine = createMachine(
             actions: ["pushToPreviousState", "setEquipment"],
           },
 
-          [STATE_ACTIONS.FIN_SIZE]: {
-            target: "finSize",
-            actions: ["pushToPreviousState", "setFinSize"],
-          },
-
           //Back
           [STATE_ACTIONS.LAST_DIVE]: {
             target: "lastDive",
@@ -295,15 +289,7 @@ export const reservationMachine = createMachine(
           },
         },
       },
-      finSize: {
-        //Back
-        on: {
-          [STATE_ACTIONS.EQUIPMENT]: {
-            target: "equipment",
-            actions: ["popFromPreviousState"],
-          },
-        },
-      },
+
       diverInformation: {
         on: {
           [STATE_ACTIONS.CREATE_SUPABASE_RESERVATION]: {

@@ -7,77 +7,73 @@ import { MyContext } from "../ReservationController";
 import StatePage from "./shared/StatePage";
 import StateTitle from "./shared/StateTitle";
 import StateCards from "./shared/StateCards";
-import FinsCard from "./equipment/FinsCard";
-import BCDCard from "./equipment/BCDCard";
-import WetsuitCard from "./equipment/WetsuitCard";
-import RegulatorCard from "./equipment/RegulatorCard";
-import MaskCard from "./equipment/MaskCard";
-import TankCard from "./equipment/TankCard";
+import EquipmentCard from "./shared/EquipmentCard";
 
 const EquipmentState = () => {
   const machine = React.useContext(MyContext);
   const [, send] = useActor(machine);
 
-  const [finSelectVisible, setFinSelectVisible] = React.useState(false);
   const [finSize, setFinSize] = React.useState("");
-
-  const [bcdSelectVisible, setBcdSelectVisible] = React.useState(false);
   const [bcdSize, setBcdSize] = React.useState("");
-
-  const [wetsuitSelectVisible, setWetsuitSelectVisible] = React.useState(false);
   const [wetsuitSize, setWetsuitSize] = React.useState("");
-
-  const [regulatorSelectVisible, setRegulatorSelectVisible] =
-    React.useState(false);
   const [regulatorChoice, setRegulatorChoice] = React.useState("");
-
-  const [maskSelectVisible, setMaskSelectVisible] = React.useState(false);
   const [maskChoice, setMaskChoice] = React.useState("");
-
-  const [tankSelectVisible, setTankSelectVisible] = React.useState(false);
   const [tankSize, setTankSize] = React.useState("");
+
+  const finsOptions = ["7.5", "8", "8.5", "9", "9.5", "10", "10.5", "11"];
+  const bcdOptions = ["small", "medium", "large"];
+  const wetsuitOptions = ["small", "medium", "large"];
+  const regulatorChoices = ["Yes", "No"];
+  const maskChoices = ["Yes", "No"];
+  const tankChoices = ["80 (normal)", "100 (large)"];
 
   return (
     <StatePage>
       <StateTitle title="Select the equipment you will need" />
       <StateCards>
-        <FinsCard
-          finSelectVisible={finSelectVisible}
-          finSize={finSize}
-          setFinSize={setFinSize}
-          setFinSelectVisible={setFinSelectVisible}
+        <EquipmentCard
+          icon="/icons/fins.svg"
+          options={finsOptions}
+          choice={finSize}
+          setChoice={setFinSize}
+          text="Fins"
         />
-        <BCDCard
-          bcdSelectVisible={bcdSelectVisible}
-          bcdSize={bcdSize}
-          setBcdSize={setBcdSize}
-          setBcdSelectVisible={setBcdSelectVisible}
+        <EquipmentCard
+          icon="/icons/diving-suit.svg"
+          options={bcdOptions}
+          choice={bcdSize}
+          setChoice={setBcdSize}
+          text="BCD"
         />
-        <WetsuitCard
-          wetsuitSelectVisible={wetsuitSelectVisible}
-          wetSuitSize={wetsuitSize}
-          setWetsuitSize={setWetsuitSize}
-          setWetsuitSelectVisible={setWetsuitSelectVisible}
+        <EquipmentCard
+          icon="/icons/wetsuit.svg"
+          options={wetsuitOptions}
+          choice={wetsuitSize}
+          setChoice={setWetsuitSize}
+          text="Wetsuit"
         />
       </StateCards>
       <StateCards>
-        <RegulatorCard
-          regulatorSelectVisible={regulatorSelectVisible}
-          regulatorChoice={regulatorChoice}
-          setRegulatorChoice={setRegulatorChoice}
-          setRegulatorSelectVisible={setRegulatorSelectVisible}
+        <EquipmentCard
+          icon="/icons/regulator.svg"
+          options={regulatorChoices}
+          choice={regulatorChoice}
+          setChoice={setRegulatorChoice}
+          text="Regulator"
         />
-        <MaskCard
-          maskSelectVisible={maskSelectVisible}
-          maskChoice={maskChoice}
-          setMaskChoice={setMaskChoice}
-          setMaskSelectVisible={setMaskSelectVisible}
+        <EquipmentCard
+          icon="/icons/diving-mask.svg"
+          options={maskChoices}
+          choice={maskChoice}
+          setChoice={setMaskChoice}
+          text="Mask"
         />
-        <TankCard
-          tankSelectVisible={tankSelectVisible}
-          setTankSelectVisible={setTankSelectVisible}
-          tankSize={tankSize}
-          setTankSize={setTankSize}
+        <EquipmentCard
+          icon="/icons/oxygen-tank.svg"
+          options={tankChoices}
+          choice={tankSize}
+          setChoice={setTankSize}
+          text="Tank"
         />
       </StateCards>
       <div className="mt-10">

@@ -20,9 +20,6 @@ const DiveShopConfigFetchState = () => {
     if (url_hash) {
       fetchData(url_hash);
     }
-    send({
-      type: STATE_ACTIONS.FETCH_SUCCESS,
-    });
   }, [url_hash]);
 
   const fetchData = async function (url_hash) {
