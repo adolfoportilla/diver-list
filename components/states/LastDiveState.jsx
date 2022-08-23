@@ -36,7 +36,6 @@ const LastDiveState = () => {
               alt="advanced diver"
               width={150}
               height={150}
-              layout="fixed"
             />
           }
           text="1 - 6 Months Ago"

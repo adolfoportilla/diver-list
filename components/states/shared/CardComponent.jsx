@@ -3,7 +3,11 @@ import React from "react";
 const CardComponent = (props) => {
   return (
     <div
-      className="md:py-8 w-52 h-48 md:w-60 md:h-56  bg-white flex flex-col items-center justify-center hover:border-sky-600 hover:shadow-xl cursor-pointer rounded-xl shadow-lg border-2 border-black"
+      className={
+        "md:py-8 w-52 h-48 md:w-60 md:h-56  bg-white flex flex-col items-center justify-center hover:border-sky-600 hover:shadow-xl cursor-pointer rounded-xl shadow-lg border-2 border-black" +
+        " " +
+        props.additionalClassName
+      }
       onClick={props.onClick}
       style={props.style}
     >

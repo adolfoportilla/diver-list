@@ -31,13 +31,7 @@ const DeepestDiveState = () => {
         />
         <CardComponent
           icon={
-            <Image
-              src="/icons/shipwreck.svg"
-              alt=""
-              width={150}
-              height={150}
-              layout="fixed"
-            />
+            <Image src="/icons/shipwreck.svg" alt="" width={150} height={150} />
           }
           text="30 - 69 ft"
           onClick={() =>

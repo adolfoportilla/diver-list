@@ -42,7 +42,6 @@ const CertifiedDiverState = () => {
               alt="No"
               width={150}
               height={150}
-              layout="fixed"
             />
           }
           text="No"

@@ -8,6 +8,9 @@ const SelectComponent = (props) => {
       <Select
         onChange={(event) => props.setValue(event.target.value)}
         label={props.label}
+        sx={{ width: 125 }}
+        defaultValue={props.defaultValue}
+        value={props.value}
       >
         {props.options.map((value, idx) => (
           <MenuItem key={idx} value={value}>
