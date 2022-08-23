@@ -78,7 +78,7 @@ const CalendarState = () => {
           <div className="mt-8 flex flex-col items-center max-w-xs">
             <h2 className="text-xl">Choose time</h2>
             {/* TODO(adolfo): use CSS grid if more than 3 hours available per day */}
-            <div className="flex flex-col md:flex-row md:items-center mt-4 sm:space-y-4 md:space-y-0 md:space-x-8">
+            <div className="flex flex-col md:flex-row md:items-center mt-4 space-y-3 md:space-y-0 space-x-0 md:space-x-8">
               {AVAILABLE_TIMES.map((time) => {
                 return (
                   <Tag

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useActor } from "@xstate/react";
 import { useRouter } from "next/router";
+import { CircularProgress } from "@mui/material";
 
 import { STATE_ACTIONS } from "../../utils/state-machine";
 import { MyContext } from "../ReservationController";
@@ -48,7 +49,11 @@ const DiveShopConfigFetchState = () => {
   };
 
   if (loading) {
-    return <div>loading</div>;
+    return (
+      <div className="mt-32">
+        <CircularProgress />
+      </div>
+    );
   }
   if (error) {
     return <div>Error</div>;

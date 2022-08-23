@@ -1,45 +1,16 @@
-import React, { isValidElement } from "react";
-import {
-  TextField,
-  Next,
-  Button,
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  Input,
-} from "@mui/material";
+import React from "react";
+import { Button } from "@mui/material";
 import { useActor } from "@xstate/react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import isEmail from "validator/lib/isEmail";
 
 import { STATE_ACTIONS } from "../../utils/dive-shop-state-machine";
 import { MyContext } from "./Machine";
 import SignUpPage from "./SignupPage";
+import FormTextField from "../shared/FormTextField";
 
 const MARGIN_LEFT = "ml-3";
 const MARGIN_TOP = "mt-3";
-
-const FormTextField = (props) => (
-  <Controller
-    name={props.name}
-    control={props.control}
-    defaultValue=""
-    render={({ field: { onChange, value }, fieldState: { error } }) => (
-      <TextField
-        label={error ? error.message : props.label}
-        variant="outlined"
-        value={value}
-        onChange={onChange}
-        error={!!error}
-        helperText={props.helperText ? props.helperText : null}
-        sx={props.style}
-        className={props.addedClassName}
-        margin="none"
-      />
-    )}
-    rules={{ required: "Missing " + props.label, ...props.rules }}
-  />
-);
 
 export default function DiveShopInfo() {
   const machine = React.useContext(MyContext);
