@@ -4,6 +4,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
 import ReservationList from "./ReservationList";
+import ReservationCreate from "./ReservationCreate";
 import UserList from "./UserList";
 import Calendar from "./Calendar";
 import { reservationList, userList } from "./mockData";
@@ -38,7 +39,7 @@ export default function Admin() {
         name="reservations"
         list={ReservationList}
         edit={null}
-        create={null}
+        create={ReservationCreate}
         icon={null}
       />
       <Resource
