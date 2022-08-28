@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useActor } from "@xstate/react";
 
 import StatePage from "./shared/StatePage";
@@ -9,7 +9,12 @@ const CompleteState = () => {
   const machine = React.useContext(MyContext);
 
   const [state, send] = useActor(machine);
-
+  // useEffect(() => {
+  //   fetch("/api/mail", {
+  //     method: "POST",
+  //     body: JSON.stringify(state.context),
+  //   });
+  // }, []);
   return (
     <StatePage>
       <StateTitle title="Thanks for booking" />
