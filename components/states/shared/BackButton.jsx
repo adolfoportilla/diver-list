@@ -4,8 +4,8 @@ import { MyContext } from "../../ReservationController";
 import { useActor } from "@xstate/react";
 
 const BackButton = (props) => {
-  const machine = React.useContext(MyContext);
-  const [state, send] = useActor(machine);
+  const context = React.useContext(MyContext);
+  const [state, send] = useActor(context.service);
 
   const statesWithoutBackButton = ["reservation", "complete"];
 

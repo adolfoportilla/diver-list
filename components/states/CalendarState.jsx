@@ -13,6 +13,7 @@ import { STATE_ACTIONS } from "../../utils/state-machine";
 import StatePage from "./shared/StatePage";
 import StateTitle from "./shared/StateTitle";
 import { MyContext } from "../ReservationController";
+import { statesText } from "../../utils/app-text";
 
 function disabledDates({ activeStartDate, date, view }) {
   const todaysDate = new Date();
@@ -33,12 +34,12 @@ const Tag = ({ text, onClick }) => (
 );
 
 const CalendarState = () => {
-  const machine = React.useContext(MyContext);
+  const context = React.useContext(MyContext);
 
   const [dateClicked, setDateClicked] = React.useState(false);
   const [date, setDate] = React.useState(new Date());
 
-  const [state, send] = useActor(machine);
+  const [state, send] = useActor(context.service);
 
   const sendEvent = (time) => {
     if (state.context.reservationType == "recreational") {
@@ -62,7 +63,7 @@ const CalendarState = () => {
 
   return (
     <StatePage>
-      <StateTitle title="Select date" />
+      <StateTitle title={statesText.calendarState.title[context.language]} />
       <div className="flex flex-col items-center">
         <Calendar
           onChange={(value) => {
@@ -76,7 +77,9 @@ const CalendarState = () => {
         {/* TODO(adolfo): for paid customers, fetch availability from backend/config. */}
         {dateClicked ? (
           <div className="mt-8 flex flex-col items-center max-w-xs">
-            <h2 className="text-xl">Choose time</h2>
+            <h2 className="text-xl">
+              {statesText.calendarState.chooseTime[context.language]}
+            </h2>
             {/* TODO(adolfo): use CSS grid if more than 3 hours available per day */}
             <div className="flex flex-col md:flex-row md:items-center mt-4 space-y-3 md:space-y-0 space-x-0 md:space-x-8">
               {AVAILABLE_TIMES.map((time) => {

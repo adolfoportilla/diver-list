@@ -8,8 +8,10 @@ export const MyContext = React.createContext({});
 
 const ReservationController = () => {
   const [, , service] = useMachine(reservationMachine);
+  const [language, setLanguage] = React.useState("english");
+
   return (
-    <MyContext.Provider value={service}>
+    <MyContext.Provider value={{ service, language, setLanguage }}>
       <StateController />
     </MyContext.Provider>
   );

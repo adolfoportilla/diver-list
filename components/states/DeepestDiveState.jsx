@@ -8,13 +8,16 @@ import StatePage from "./shared/StatePage";
 import StateTitle from "./shared/StateTitle";
 import CardComponent from "./shared/CardComponent";
 import StateCards from "./shared/StateCards";
+import { statesText } from "../../utils/app-text";
 
 const DeepestDiveState = () => {
-  const machine = React.useContext(MyContext);
-  const [state, send] = useActor(machine);
+  const context = React.useContext(MyContext);
+  const [state, send] = useActor(context.service);
   return (
     <StatePage>
-      <StateTitle title="What is your deepest dive?"></StateTitle>
+      <StateTitle
+        title={statesText.deepestDiveState.title[context.language]}
+      ></StateTitle>
       <StateCards>
         <CardComponent
           icon={

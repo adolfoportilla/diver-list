@@ -8,14 +8,17 @@ import StatePage from "./shared/StatePage";
 import StateTitle from "./shared/StateTitle";
 import CardComponent from "./shared/CardComponent";
 import StateCards from "./shared/StateCards";
+import { statesText } from "../../utils/app-text";
 
 const CertificationDiveState = () => {
-  const machine = React.useContext(MyContext);
-  const [state, send] = useActor(machine);
+  const context = React.useContext(MyContext);
+  const [state, send] = useActor(context.service);
 
   return (
     <StatePage>
-      <StateTitle title="Select Certification" />
+      <StateTitle
+        title={statesText.certificationDiveState.title[context.language]}
+      />
       <StateCards>
         <CardComponent
           icon={
@@ -26,7 +29,7 @@ const CertificationDiveState = () => {
               height={150}
             />
           }
-          text="Open Water (Beginners)"
+          text={statesText.certificationDiveState.openWater[context.language]}
           onClick={() =>
             send({
               type: STATE_ACTIONS.CALENDAR,

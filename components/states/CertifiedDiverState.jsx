@@ -8,14 +8,17 @@ import StatePage from "./shared/StatePage";
 import StateTitle from "./shared/StateTitle";
 import CardComponent from "./shared/CardComponent";
 import StateCards from "./shared/StateCards";
+import { statesText } from "../../utils/app-text";
 
 const CertifiedDiverState = () => {
-  const machine = React.useContext(MyContext);
-  const [state, send] = useActor(machine);
+  const context = React.useContext(MyContext);
+  const [state, send] = useActor(context.service);
 
   return (
     <StatePage>
-      <StateTitle title="Are you a certified diver?" />
+      <StateTitle
+        title={statesText.certifiedDiverState.title[context.language]}
+      />
       <StateCards>
         <CardComponent
           icon={
@@ -26,7 +29,7 @@ const CertifiedDiverState = () => {
               height={150}
             />
           }
-          text="Yes!"
+          text={statesText.certifiedDiverState.yes[context.language]}
           onClick={() =>
             send({
               type: STATE_ACTIONS.NUMBER_OF_DIVES,
