@@ -9,7 +9,6 @@ import StateCards from "./shared/StateCards";
 import CardComponent from "./shared/CardComponent";
 import { MyContext } from "../ReservationController";
 import { statesText } from "../../utils/app-text";
-import LanguageSelector from "../LanguageSelector";
 
 const ReservationTypeState = () => {
   const context = React.useContext(MyContext);
@@ -58,7 +57,6 @@ const ReservationTypeState = () => {
           }
         />
       </StateCards>
-      <LanguageSelector />
     </StatePage>
   );
 };
