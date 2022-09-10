@@ -2,6 +2,8 @@ import React from "react";
 import Image from "next/image";
 import CardComponent from "./CardComponent";
 import SelectComponent from "./SelectComponent";
+import { statesText } from "../../../utils/app-text";
+import { MyContext } from "../../ReservationController";
 
 const EquipmentCard = ({
   choice,
@@ -12,6 +14,8 @@ const EquipmentCard = ({
   defaultOption = null,
 }) => {
   const [visible, setVisible] = React.useState(false);
+  const context = React.useContext(MyContext);
+
   return (
     <div>
       {!visible ? (
@@ -47,6 +51,7 @@ const EquipmentCard = ({
               defaultValue={defaultOption}
             />
           }
+          text={statesText.equipmentCard.text[context.language]}
           onClick={() => setVisible(!visible)}
         />
       )}

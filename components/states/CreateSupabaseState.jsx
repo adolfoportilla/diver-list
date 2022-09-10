@@ -6,12 +6,12 @@ import { MyContext } from "../ReservationController";
 import supabase from "../../utils/supabase";
 
 const CreateSupabaseReservationState = () => {
-  const machine = React.useContext(MyContext);
+  const context = React.useContext(MyContext);
 
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
 
-  const [state, send] = useActor(machine);
+  const [state, send] = useActor(context.service);
 
   useEffect(() => {
     const context = state.context;

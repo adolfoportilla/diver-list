@@ -17,9 +17,9 @@ import CreateSupabaseReservationState from "./CreateSupabaseState";
 import EquipmentState from "./EquipmentState";
 
 const StateController = () => {
-  const machine = React.useContext(MyContext);
+  const context = React.useContext(MyContext);
 
-  const [state] = useActor(machine);
+  const [state] = useActor(context.service);
 
   switch (true) {
     case state.matches("fetchDiveConfig"):

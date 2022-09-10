@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { useActor } from "@xstate/react";
 
@@ -8,15 +8,17 @@ import StateTitle from "./shared/StateTitle";
 import StateCards from "./shared/StateCards";
 import CardComponent from "./shared/CardComponent";
 import { MyContext } from "../ReservationController";
+import { statesText } from "../../utils/app-text";
 
 const ReservationTypeState = () => {
-  const machine = React.useContext(MyContext);
-
-  const [, send] = useActor(machine);
+  const context = React.useContext(MyContext);
+  const [, send] = useActor(context.service);
 
   return (
     <StatePage>
-      <StateTitle title="Select Activity" />
+      <StateTitle
+        title={statesText.reservationTypeState.title[context.language]}
+      />
       <StateCards>
         <CardComponent
           icon={
@@ -27,7 +29,7 @@ const ReservationTypeState = () => {
               height={150}
             />
           }
-          text="Recreational Dive"
+          text={statesText.reservationTypeState.recDive[context.language]}
           onClick={() =>
             send({
               type: STATE_ACTIONS.RECREATIONAL_DIVE,
@@ -45,7 +47,7 @@ const ReservationTypeState = () => {
               height={150}
             />
           }
-          text="Certification"
+          text={statesText.reservationTypeState.certDive[context.language]}
           onClick={() =>
             send({
               type: STATE_ACTIONS.CERTIFICATION_DIVE,

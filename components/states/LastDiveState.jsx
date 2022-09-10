@@ -8,13 +8,14 @@ import StatePage from "./shared/StatePage";
 import StateTitle from "./shared/StateTitle";
 import CardComponent from "./shared/CardComponent";
 import StateCards from "./shared/StateCards";
+import { statesText } from "../../utils/app-text";
 
 const LastDiveState = () => {
-  const machine = React.useContext(MyContext);
-  const [state, send] = useActor(machine);
+  const context = React.useContext(MyContext);
+  const [state, send] = useActor(context.service);
   return (
     <StatePage>
-      <StateTitle title="When was your last dive?" />
+      <StateTitle title={statesText.lastDiveState.title[context.language]} />
       <StateCards>
         <CardComponent
           icon={

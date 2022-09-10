@@ -6,10 +6,15 @@ import StateTitle from "./shared/StateTitle";
 import { MyContext } from "../ReservationController";
 
 const CompleteState = () => {
-  const machine = React.useContext(MyContext);
+  const context = React.useContext(MyContext);
 
-  const [state, send] = useActor(machine);
-
+  const [state, send] = useActor(context.service);
+  // useEffect(() => {
+  //   fetch("/api/mail", {
+  //     method: "POST",
+  //     body: JSON.stringify(state.context),
+  //   });
+  // }, []);
   return (
     <StatePage>
       <StateTitle title="Thanks for booking" />

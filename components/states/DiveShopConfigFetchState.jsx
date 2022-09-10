@@ -8,15 +8,14 @@ import { MyContext } from "../ReservationController";
 import supabase from "../../utils/supabase";
 
 const DiveShopConfigFetchState = () => {
-  const machine = React.useContext(MyContext);
-  const [state, send] = useActor(machine);
+  const context = React.useContext(MyContext);
+  const [state, send] = useActor(context.service);
 
   // https://nextjs.org/docs/routing/dynamic-routes
   const router = useRouter();
   const { url_hash } = router.query;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-
   useEffect(() => {
     if (url_hash) {
       fetchData(url_hash);

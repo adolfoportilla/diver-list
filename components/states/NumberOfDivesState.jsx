@@ -8,14 +8,17 @@ import StatePage from "./shared/StatePage";
 import StateTitle from "./shared/StateTitle";
 import CardComponent from "./shared/CardComponent";
 import StateCards from "./shared/StateCards";
+import { statesText } from "../../utils/app-text";
 
 const NumberOfDivesState = () => {
-  const machine = React.useContext(MyContext);
-  const [state, send] = useActor(machine);
+  const context = React.useContext(MyContext);
+  const [state, send] = useActor(context.service);
 
   return (
     <StatePage>
-      <StateTitle title="How many dives do you have?" />
+      <StateTitle
+        title={statesText.numberOfDivesState.title[context.language]}
+      />
       <StateCards>
         <CardComponent
           icon={

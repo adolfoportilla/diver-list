@@ -1,5 +1,6 @@
 import React from "react";
 import BackButton from "./BackButton";
+import LanguageSelector from "../../LanguageSelector";
 
 const StatePage = (props) => {
   return (
@@ -8,6 +9,7 @@ const StatePage = (props) => {
         <BackButton labelStyle={{ fontSize: "200%" }} />
       </div>
       {props.children}
+      <LanguageSelector />
     </div>
   );
 };
