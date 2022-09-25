@@ -30,9 +30,9 @@ const CompleteState = () => {
 
   return (
     <StatePage>
-      <StateTitle title="Thanks for booking" />
+      <StateTitle title="Thanks for booking!" />
       <div className="flex flex-col max-w-full">
-        <div>{JSON.stringify(state.context, null, 5)}</div>
+        <h2 className="pt-10 text-lg">We've sent you an email confirmation</h2>
       </div>
     </StatePage>
   );

@@ -6,7 +6,7 @@ const LanguageSelector = () => {
   const context = React.useContext(MyContext);
   const [, send] = useActor(context.service);
   return (
-    <div className="p-5 mt-10">
+    <div>
       <button
         className="p-2 border"
         onClick={() => context.setLanguage("english")}

@@ -9,6 +9,7 @@ import StatePage from "./shared/StatePage";
 import StateTitle from "./shared/StateTitle";
 import { MyContext } from "../ReservationController";
 import { statesText } from "../../utils/app-text";
+import StateCards from "./shared/StateCards";
 
 const DiverInformationState = () => {
   const context = React.useContext(MyContext);
