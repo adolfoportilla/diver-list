@@ -29,6 +29,7 @@ const CertificationDiveState = () => {
               height={150}
             />
           }
+          iconClassName="ml-8"
           text={statesText.certificationDiveState.openWater[context.language]}
           onClick={() =>
             send({
