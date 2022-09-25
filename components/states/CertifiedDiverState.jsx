@@ -23,7 +23,7 @@ const CertifiedDiverState = () => {
         <CardComponent
           icon={
             <Image
-              src="/icons/thumbs-up.svg"
+              src="/icons/certified.svg"
               alt="Yes"
               width={150}
               height={150}
@@ -40,12 +40,7 @@ const CertifiedDiverState = () => {
         />
         <CardComponent
           icon={
-            <Image
-              src="/icons/negative-vote.svg"
-              alt="No"
-              width={150}
-              height={150}
-            />
+            <Image src="/icons/file.svg" alt="No" width={150} height={150} />
           }
           text="No"
           onClick={() =>

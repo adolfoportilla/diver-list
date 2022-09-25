@@ -39,8 +39,8 @@ export const statesText = {
       spanish: "Eres un buzo certificado?",
     },
     yes: {
-      english: "Yes!",
-      spanish: "Si!",
+      english: "Yes",
+      spanish: "Si",
     },
   },
   numberOfDivesState: {
