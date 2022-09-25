@@ -68,19 +68,19 @@ const CalendarState = () => {
         <Calendar
           onChange={(value) => {
             setDate(value);
-            setDateClicked(true);
+            sendEvent("");
           }}
           value={date}
           tileDisabled={disabledDates}
           view="month"
         />
         {/* TODO(adolfo): for paid customers, fetch availability from backend/config. */}
-        {dateClicked ? (
+        {/* {dateClicked ? (
           <div className="mt-8 flex flex-col items-center max-w-xs">
             <h2 className="text-xl">
               {statesText.calendarState.chooseTime[context.language]}
             </h2>
-            {/* TODO(adolfo): use CSS grid if more than 3 hours available per day */}
+            TODO(adolfo): use CSS grid if more than 3 hours available per day
             <div className="flex flex-col md:flex-row md:items-center mt-4 space-y-3 md:space-y-0 space-x-0 md:space-x-8">
               {AVAILABLE_TIMES.map((time) => {
                 return (
@@ -95,7 +95,7 @@ const CalendarState = () => {
               })}
             </div>
           </div>
-        ) : null}
+        ) : null} */}
       </div>
     </StatePage>
   );

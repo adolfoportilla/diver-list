@@ -2,6 +2,7 @@ import React from "react";
 import { useActor } from "@xstate/react";
 
 import { Button, TextField } from "@mui/material";
+import isEmail from "validator/lib/isEmail";
 
 import { STATE_ACTIONS } from "../../utils/state-machine";
 import StatePage from "./shared/StatePage";
@@ -17,7 +18,67 @@ const DiverInformationState = () => {
   const [email, setEmail] = React.useState("");
   const [age, setAge] = React.useState();
 
+  const [nameValid, setNameValid] = React.useState(true);
+  const [lastNameValid, setLastNameValid] = React.useState(true);
+  const [emailValid, setEmailValid] = React.useState(true);
+  const [ageValid, setAgeValid] = React.useState(true);
+
   const [, send] = useActor(context.service);
+
+  const validateEmail = () => {
+    if (!isEmail(email)) {
+      setEmailValid(false);
+      return false;
+    }
+    setEmailValid(true);
+    return true;
+  };
+
+  const validateAge = () => {
+    const num = Number(age);
+    if (!(Number.isInteger(num) && num > 0)) {
+      setAgeValid(false);
+      return false;
+    }
+    setAgeValid(true);
+    return true;
+  };
+
+  const validateName = () => {
+    if (!name) {
+      setNameValid(false);
+      return false;
+    }
+    setNameValid(true);
+    return true;
+  };
+
+  const validateLastName = () => {
+    if (!lastName) {
+      setLastNameValid(false);
+      return false;
+    }
+    setLastNameValid(true);
+    return true;
+  };
+
+  const formValidated = () => {
+    let valid = true;
+    if (!validateName()) {
+      valid = false;
+    }
+    if (!validateLastName()) {
+      valid = false;
+    }
+    if (!validateAge()) {
+      valid = false;
+    }
+    if (!validateEmail()) {
+      valid = false;
+    }
+
+    return valid;
+  };
 
   return (
     <StatePage>
@@ -30,6 +91,8 @@ const DiverInformationState = () => {
           label={statesText.diverInformationState.name[context.language]}
           variant="outlined"
           onChange={(event) => setName(event.target.value)}
+          error={nameValid ? false : true}
+          helperText={nameValid ? "" : "Enter Name"}
           value={name}
           sx={{ width: "25ch" }}
         />
@@ -38,6 +101,8 @@ const DiverInformationState = () => {
           label={statesText.diverInformationState.lastName[context.language]}
           variant="outlined"
           onChange={(event) => setLastName(event.target.value)}
+          error={lastNameValid ? false : true}
+          helperText={lastNameValid ? "" : "Enter Last Name"}
           value={lastName}
           sx={{ ml: 1 }}
         />
@@ -48,6 +113,8 @@ const DiverInformationState = () => {
           inputMode="numeric"
           pattern="[0-9]*"
           onChange={(event) => setEmail(event.target.value)}
+          error={emailValid ? false : true}
+          helperText={emailValid ? "" : "Invalid Email"}
           value={email}
           sx={{ mt: 2 }}
         />
@@ -58,6 +125,8 @@ const DiverInformationState = () => {
           inputMode="numeric"
           pattern="[0-9]*"
           onChange={(event) => setAge(event.target.value)}
+          error={ageValid ? false : true}
+          helperText={ageValid ? "" : "Invalid Age"}
           value={age}
           sx={{ ml: 1, mt: 2 }}
         />
@@ -65,12 +134,14 @@ const DiverInformationState = () => {
           <Button
             variant="outlined"
             sx={{ width: "18ch" }}
-            onClick={() =>
-              send({
-                type: STATE_ACTIONS.CREATE_SUPABASE_RESERVATION,
-                value: { name, lastName, email, age },
-              })
-            }
+            onClick={() => {
+              if (formValidated()) {
+                send({
+                  type: STATE_ACTIONS.CREATE_SUPABASE_RESERVATION,
+                  value: { name, lastName, email, age },
+                });
+              }
+            }}
           >
             Next
           </Button>
