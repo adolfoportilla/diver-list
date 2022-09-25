@@ -86,68 +86,70 @@ const DiverInformationState = () => {
       <StateTitle
         title={statesText.diverInformationState.title[context.language]}
       />
-      <div className="grid grid-cols-2 ">
-        <TextField
-          id="outlined-basic"
-          label={statesText.diverInformationState.name[context.language]}
-          variant="outlined"
-          onChange={(event) => setName(event.target.value)}
-          error={nameValid ? false : true}
-          helperText={nameValid ? "" : "Enter Name"}
-          value={name}
-          sx={{ width: "25ch" }}
-        />
-        <TextField
-          id="outlined-basic"
-          label={statesText.diverInformationState.lastName[context.language]}
-          variant="outlined"
-          onChange={(event) => setLastName(event.target.value)}
-          error={lastNameValid ? false : true}
-          helperText={lastNameValid ? "" : "Enter Last Name"}
-          value={lastName}
-          sx={{ ml: 1 }}
-        />
-        <TextField
-          id="outlined-basic"
-          label={statesText.diverInformationState.email[context.language]}
-          variant="outlined"
-          inputMode="numeric"
-          pattern="[0-9]*"
-          onChange={(event) => setEmail(event.target.value)}
-          error={emailValid ? false : true}
-          helperText={emailValid ? "" : "Invalid Email"}
-          value={email}
-          sx={{ mt: 2 }}
-        />
-        <TextField
-          id="outlined-basic"
-          label={statesText.diverInformationState.age[context.language]}
-          variant="outlined"
-          inputMode="numeric"
-          pattern="[0-9]*"
-          onChange={(event) => setAge(event.target.value)}
-          error={ageValid ? false : true}
-          helperText={ageValid ? "" : "Invalid Age"}
-          value={age}
-          sx={{ ml: 1, mt: 2 }}
-        />
-        <div className="col-end-3 mt-3 ml-2 justify-self-end">
-          <Button
+      <StateCards>
+        <div className="grid grid-cols-2 ">
+          <TextField
+            id="outlined-basic"
+            label={statesText.diverInformationState.name[context.language]}
             variant="outlined"
-            sx={{ width: "18ch" }}
-            onClick={() => {
-              if (formValidated()) {
-                send({
-                  type: STATE_ACTIONS.CREATE_SUPABASE_RESERVATION,
-                  value: { name, lastName, email, age },
-                });
-              }
-            }}
-          >
-            Next
-          </Button>
+            onChange={(event) => setName(event.target.value)}
+            error={nameValid ? false : true}
+            helperText={nameValid ? "" : "Enter Name"}
+            value={name}
+            sx={{ width: "25ch" }}
+          />
+          <TextField
+            id="outlined-basic"
+            label={statesText.diverInformationState.lastName[context.language]}
+            variant="outlined"
+            onChange={(event) => setLastName(event.target.value)}
+            error={lastNameValid ? false : true}
+            helperText={lastNameValid ? "" : "Enter Last Name"}
+            value={lastName}
+            sx={{ ml: 1 }}
+          />
+          <TextField
+            id="outlined-basic"
+            label={statesText.diverInformationState.email[context.language]}
+            variant="outlined"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            onChange={(event) => setEmail(event.target.value)}
+            error={emailValid ? false : true}
+            helperText={emailValid ? "" : "Invalid Email"}
+            value={email}
+            sx={{ mt: 2 }}
+          />
+          <TextField
+            id="outlined-basic"
+            label={statesText.diverInformationState.age[context.language]}
+            variant="outlined"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            onChange={(event) => setAge(event.target.value)}
+            error={ageValid ? false : true}
+            helperText={ageValid ? "" : "Invalid Age"}
+            value={age}
+            sx={{ ml: 1, mt: 2 }}
+          />
+          <div className="col-end-3 mt-10 ml-2 justify-self-end">
+            <Button
+              variant="outlined"
+              sx={{ width: "18ch" }}
+              onClick={() => {
+                if (formValidated()) {
+                  send({
+                    type: STATE_ACTIONS.CREATE_SUPABASE_RESERVATION,
+                    value: { name, lastName, email, age },
+                  });
+                }
+              }}
+            >
+              Next
+            </Button>
+          </div>
         </div>
-      </div>
+      </StateCards>
     </StatePage>
   );
 };
