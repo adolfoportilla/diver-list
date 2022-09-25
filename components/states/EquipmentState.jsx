@@ -92,7 +92,7 @@ const EquipmentState = () => {
               })
             }
           >
-            Next
+            {statesText.nextButton[context.language]}
           </Button>
         </div>
       </div>

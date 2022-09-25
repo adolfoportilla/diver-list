@@ -94,9 +94,15 @@ const DiverInformationState = () => {
             variant="outlined"
             onChange={(event) => setName(event.target.value)}
             error={nameValid ? false : true}
-            helperText={nameValid ? "" : "Enter Name"}
+            helperText={
+              nameValid
+                ? ""
+                : statesText.diverInformationState.name.helperText[
+                    context.language
+                  ]
+            }
             value={name}
-            sx={{ width: "25ch" }}
+            sx={{ ml: 1 }}
           />
           <TextField
             id="outlined-basic"
@@ -104,7 +110,13 @@ const DiverInformationState = () => {
             variant="outlined"
             onChange={(event) => setLastName(event.target.value)}
             error={lastNameValid ? false : true}
-            helperText={lastNameValid ? "" : "Enter Last Name"}
+            helperText={
+              lastNameValid
+                ? ""
+                : statesText.diverInformationState.lastName.helperText[
+                    context.language
+                  ]
+            }
             value={lastName}
             sx={{ ml: 1 }}
           />
@@ -116,9 +128,15 @@ const DiverInformationState = () => {
             pattern="[0-9]*"
             onChange={(event) => setEmail(event.target.value)}
             error={emailValid ? false : true}
-            helperText={emailValid ? "" : "Invalid Email"}
+            helperText={
+              emailValid
+                ? ""
+                : statesText.diverInformationState.email.helperText[
+                    context.language
+                  ]
+            }
             value={email}
-            sx={{ mt: 2 }}
+            sx={{ mt: 2, ml: 1 }}
           />
           <TextField
             id="outlined-basic"
@@ -128,7 +146,13 @@ const DiverInformationState = () => {
             pattern="[0-9]*"
             onChange={(event) => setAge(event.target.value)}
             error={ageValid ? false : true}
-            helperText={ageValid ? "" : "Invalid Age"}
+            helperText={
+              ageValid
+                ? ""
+                : statesText.diverInformationState.age.helperText[
+                    context.language
+                  ]
+            }
             value={age}
             sx={{ ml: 1, mt: 2 }}
           />
@@ -145,7 +169,7 @@ const DiverInformationState = () => {
                 }
               }}
             >
-              Next
+              {statesText.nextButton[context.language]}
             </Button>
           </div>
         </div>
