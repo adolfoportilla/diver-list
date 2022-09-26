@@ -23,7 +23,7 @@ const DeepestDiveState = () => {
           icon={
             <Image src="/icons/fishing.svg" alt="" width={150} height={150} />
           }
-          text="1 - 29 ft"
+          text={statesText.deepestDiveState.shallow[context.language]}
           onClick={() =>
             send({
               type: STATE_ACTIONS.LAST_DIVE,
@@ -36,7 +36,7 @@ const DeepestDiveState = () => {
           icon={
             <Image src="/icons/shipwreck.svg" alt="" width={150} height={150} />
           }
-          text="30 - 69 ft"
+          text={statesText.deepestDiveState.deep[context.language]}
           onClick={() =>
             send({
               type: STATE_ACTIONS.LAST_DIVE,
@@ -54,7 +54,7 @@ const DeepestDiveState = () => {
               height={150}
             />
           }
-          text="70 - 100+ ft "
+          text={statesText.deepestDiveState.deepest[context.language]}
           onClick={() =>
             send({
               type: STATE_ACTIONS.LAST_DIVE,

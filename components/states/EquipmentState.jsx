@@ -73,7 +73,7 @@ const EquipmentState = () => {
             text={statesText.equipmentState.tank[context.language]}
           />
         </StateCards>
-        <div className="mt-10">
+        <div className="mt-10 justify-self-end flex justify-end">
           <Button
             variant="outlined"
             size="large"
@@ -92,7 +92,7 @@ const EquipmentState = () => {
               })
             }
           >
-            Next
+            {statesText.nextButton[context.language]}
           </Button>
         </div>
       </div>

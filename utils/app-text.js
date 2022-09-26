@@ -39,8 +39,8 @@ export const statesText = {
       spanish: "Eres un buzo certificado?",
     },
     yes: {
-      english: "Yes!",
-      spanish: "Si!",
+      english: "Yes",
+      spanish: "Si",
     },
   },
   numberOfDivesState: {
@@ -54,17 +54,41 @@ export const statesText = {
       english: "When was your last dive?",
       spanish: "Cuando fue tu ultimo buceo?",
     },
+    recent: {
+      english: "0 - 1 month ago",
+      spanish: "0 - 1 mes",
+    },
+    notSoRecent: {
+      english: "1 - 6 months ago",
+      spanish: "1 - 6 meses",
+    },
+    notRecent: {
+      english: "6 + months ago",
+      spanish: "6+ meses",
+    },
   },
   deepestDiveState: {
     title: {
       english: "What is your deepest dive?",
       spanish: "Cual es tu buceo mas profundo?",
     },
+    shallow: {
+      english: "1 - 29 ft",
+      spanish: "1 - 9 mts",
+    },
+    deep: {
+      english: "30 - 69 ft",
+      spanish: "10 - 19 mts",
+    },
+    deepest: {
+      english: "70 - 100 ft",
+      spanish: "20 - 30 mts",
+    },
   },
   equipmentState: {
     title: {
-      english: "Select the equipment you will need",
-      spanish: "Selecciona el equipo que necesitaras",
+      english: "Need equipment?",
+      spanish: "Necesitas equipo?",
     },
     fins: {
       english: "Fins",
@@ -122,18 +146,38 @@ export const statesText = {
     name: {
       english: "Name",
       spanish: "Nombre",
+      helperText: {
+        english: "Enter Name",
+        spanish: "Ingresa Nombre",
+      },
     },
     lastName: {
       english: "Last name",
       spanish: "Apellido",
+      helperText: {
+        english: "Enter Last Name",
+        spanish: "Ingresa Apellido",
+      },
     },
     email: {
       english: "Email",
       spanish: "Correo",
+      helperText: {
+        english: "Invalid Email",
+        spanish: "Correo Invalido",
+      },
     },
     age: {
       english: "Age",
       spanish: "Edad",
+      helperText: {
+        english: "Invalid Age",
+        spanish: "Edad Invalida",
+      },
     },
+  },
+  nextButton: {
+    english: "Next",
+    spanish: "Siguiente",
   },
 };

@@ -1,6 +1,7 @@
 import React from "react";
 
 const CardComponent = (props) => {
+  console.log(props.margin);
   return (
     <div
       className={
@@ -12,9 +13,13 @@ const CardComponent = (props) => {
       style={props.style}
     >
       <div className="flex items-center justify-center h-28 w-28 md:w-56 md:h-56">
-        <div className="max-h-18 max-w-18">{props.icon}</div>
+        <div className={`max-h-18 max-w-18 ${props.iconClassName}`}>
+          {props.icon}
+        </div>
       </div>
-      <span className="font-medium">{props.text}</span>
+      <div className="h-9 flex items-end ">
+        <span className="font-medium ">{props.text}</span>
+      </div>
     </div>
   );
 };

@@ -19,9 +19,14 @@ const LastDiveState = () => {
       <StateCards>
         <CardComponent
           icon={
-            <Image src="/icons/chevron1.svg" alt="" width={150} height={150} />
+            <Image
+              src="/icons/sand-clock.svg"
+              alt=""
+              width={150}
+              height={150}
+            />
           }
-          text="0 - 1 Months Ago"
+          text={statesText.lastDiveState.recent[context.language]}
           onClick={() =>
             send({
               type: STATE_ACTIONS.EQUIPMENT,
@@ -33,13 +38,13 @@ const LastDiveState = () => {
         <CardComponent
           icon={
             <Image
-              src="/icons/chevron2.svg"
+              src="/icons/time-left.svg"
               alt="advanced diver"
               width={150}
               height={150}
             />
           }
-          text="1 - 6 Months Ago"
+          text={statesText.lastDiveState.notSoRecent[context.language]}
           onClick={() =>
             send({
               type: STATE_ACTIONS.EQUIPMENT,
@@ -51,13 +56,13 @@ const LastDiveState = () => {
         <CardComponent
           icon={
             <Image
-              src="/icons/chevron3.svg"
+              src="/icons/calendar.svg"
               alt="rescue diver"
               width={150}
               height={150}
             />
           }
-          text="6 + Months Ago"
+          text={statesText.lastDiveState.notRecent[context.language]}
           onClick={() =>
             send({
               type: STATE_ACTIONS.EQUIPMENT,
