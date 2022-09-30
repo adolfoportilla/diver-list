@@ -1,128 +1,68 @@
 import React from "react";
 import "antd/dist/antd.css";
 import { Badge, Calendar as _Calendar } from "antd";
+import moment from "moment";
 
-const getListData = (value) => {
-  let listData;
+import { fetchCalendar } from "../../utils/supabase";
 
-  switch (value.date()) {
-    case 25:
-      listData = [
-        {
-          type: "warning",
-          content: "Peter Larreu",
-          time: "9:00",
-        },
-        {
-          type: "success",
-          content: "John Lopez",
-          time: "10:00",
-        },
-      ];
-      break;
-
-    case 10:
-      listData = [
-        {
-          type: "warning",
-          content: "Jane Doe",
-          time: "8:00",
-        },
-        {
-          type: "success",
-          content: "John McCarthy",
-          time: "9:00",
-        },
-        {
-          type: "error",
-          content: "Ben Watts",
-          time: "11:00",
-        },
-      ];
-      break;
-    case 29:
-      listData = [
-        {
-          type: "warning",
-          content: "Jane Ruiz",
-          time: "7:00",
-        },
-        {
-          type: "success",
-          content: "Juan Ruy",
-          time: "8:00",
-        },
-        {
-          type: "error",
-          content: "Peter Pan",
-          time: "9:00",
-        },
-        {
-          type: "error",
-          content: "Diana Perez",
-          time: "11:00",
-        },
-        {
-          type: "error",
-          content: "Julieta Rosas",
-          time: "15:00",
-        },
-        {
-          type: "error",
-          content: "Dominico Gutierrez",
-          time: "20:00",
-        },
-      ];
-      break;
-
-    default:
-  }
-
-  return listData || [];
+const isSameDay = (dateA, dateB) => {
+  return (
+    dateA.date() === dateB.date() &&
+    dateA.month() === dateB.month() &&
+    dateA.year() === dateB.year()
+  );
 };
 
-const getMonthData = (value) => {
-  if (value.month() === 8) {
-    return 1394;
-  }
+const formatData = (date) => {
+  return {
+    type: "processing",
+    content: date.id,
+    time: date.time,
+  };
 };
 
+const dateCellRender = (cellDate, data) => {
+  if (!data || !data.length) {
+    return null;
+  }
+  const filteredDates = data.filter((reservation) => {
+    const reservationDate = reservation.date;
+    const momentReservationDate = moment(reservationDate);
+    return isSameDay(cellDate, momentReservationDate);
+  });
+  const listData = filteredDates.map(formatData);
+  return (
+    <ul className="events">
+      {listData.map((item) => (
+        <li key={item.content}>
+          <Badge
+            status={item.type}
+            text={
+              <>
+                <span className="">{item.content}</span>
+                <span className="ml-1 font-bold text-sm">{item.time}</span>
+              </>
+            }
+          />
+        </li>
+      ))}
+    </ul>
+  );
+};
+// https://ant.design/components/calendar/
 export default function Calendar() {
-  const monthCellRender = (value) => {
-    const num = getMonthData(value);
-    return num ? (
-      <div className="notes-month">
-        <section>{num}</section>
-        <span>Backlog number</span>
-      </div>
-    ) : null;
-  };
-
-  const dateCellRender = (value) => {
-    const listData = getListData(value);
-    return (
-      <ul className="events">
-        {listData.map((item) => (
-          <li key={item.content}>
-            <Badge
-              status={item.type}
-              text={
-                <>
-                  <span className="font-bold text-sm">{item.time}</span>
-                  <span className="ml-1">{item.content}</span>
-                </>
-              }
-            />
-          </li>
-        ))}
-      </ul>
-    );
-  };
+  const [reservations, setReservations] = React.useState();
+  React.useEffect(() => {
+    (async () => {
+      const { data, error } = await fetchCalendar();
+      setReservations(data);
+    })();
+  }, []);
 
   return (
     <_Calendar
-      dateCellRender={dateCellRender}
-      monthCellRender={monthCellRender}
+      dateCellRender={(cellDate) => dateCellRender(cellDate, reservations)}
+      monthCellRender={null}
     />
   );
 }
