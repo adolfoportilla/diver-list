@@ -8,7 +8,7 @@ const VALUE_GETTER_FN = (params) => {
     const [outer, inner] = params.field.split(".");
     return params.row[outer][inner];
   }
-  return params.field;
+  return params.value;
 };
 
 const DEFAULT_SORT = { field: "date", ascending: false };
@@ -25,10 +25,17 @@ const DEFAULT_ROW_PROPS = {
 // https://mui.com/x/api/data-grid/grid-col-def/
 const columns = [
   { field: "date", headerName: "Date" },
-  { field: "time", headerName: "time", sortable: false },
+  { field: "time", headerName: "Time", sortable: false, width: 80 },
+  {
+    field: "reservation_type",
+    headerName: "Reservation Type",
+    sortable: false,
+    width: 135,
+  },
   {
     field: "diver_certified",
-    headerName: "Diver Certified",
+    headerName: "Certified?",
+    width: 90,
   },
   {
     field: "diver_information.name",
@@ -42,8 +49,14 @@ const columns = [
     field: "diver_information.age",
     headerName: "Age",
     type: "number",
+    width: 50,
   },
-  { field: "number_of_dives", headerName: "Experience" },
+  { field: "number_of_dives", headerName: "Experience", width: 120 },
+  {
+    field: "diver_information.email",
+    headerName: "Email",
+    minWidth: 200,
+  },
 ].map((value) => ({ ...DEFAULT_ROW_PROPS, ...value }));
 
 const parseData = (data = []) => {
