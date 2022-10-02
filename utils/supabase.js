@@ -10,9 +10,11 @@ const PAGE_SIZE = 20;
 export async function fetchCalendar() {
   const { data, error } = await supabase
     .from("reservations")
-    .select("*")
+    .select("id, date, time, diver_certified")
     .order("date", { ascending: false })
     .order("time", { ascending: true })
+    .gte("date", "2022-09-28")
+    .eq("diver_certified", true)
     .limit(PAGE_SIZE);
 
   return { data, error };
