@@ -13,11 +13,13 @@ const BackButton = (props) => {
     <div
       className="cursor-pointer"
       onClick={() =>
-        send({
-          type: state.context.previousState[
-            state.context.previousState.length - 1
-          ],
-        })
+        !statesWithoutBackButton.includes(state.value)
+          ? send({
+              type: state.context.previousState[
+                state.context.previousState.length - 1
+              ],
+            })
+          : null
       }
     >
       <ArrowBack

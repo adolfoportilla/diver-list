@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 const mail = require("@sendgrid/mail");
 
-//Todo: populate the "to" field with the diveshop config email
+//Todo: populate fields with the diveshop config info
 
 mail.setApiKey(process.env.NEXT_PUBLIC_SENDGRID_API_KEY);
 export default function handler(req, res) {
@@ -17,10 +17,19 @@ export default function handler(req, res) {
             email: "olyslager.willy@gmail.com",
           },
         ],
-        dynamic_template_data: {},
+        dynamic_template_data: {
+          booking_id: "2357632123",
+          date: reservationInfo.date,
+          dive_shop_name: "Ocean Nomads",
+          dive_shop_address: "Cozumel, México. Zip.77600",
+          phone: "+52 987 111 9872",
+          whatsapp: "+52 1 987 871 4408",
+          email: "oceannomads@gmail.com",
+          reservation_type: reservationInfo.reservationType,
+        },
       },
     ],
-    template_id: "d-85c4fcb2e0f24c00998ad65f7143664d",
+    template_id: "d-a75bf0bd75614f7a8f2cdab96f300175",
   };
   mail.send(data);
   res.status(200).json({ status: "OK" });

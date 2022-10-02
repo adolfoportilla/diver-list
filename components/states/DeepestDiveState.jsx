@@ -27,7 +27,7 @@ const DeepestDiveState = () => {
           onClick={() =>
             send({
               type: STATE_ACTIONS.LAST_DIVE,
-              value: "shallow",
+              value: statesText.deepestDiveState.shallow["english"],
               previousState: STATE_ACTIONS.DEEPEST_DIVE,
             })
           }
@@ -40,7 +40,7 @@ const DeepestDiveState = () => {
           onClick={() =>
             send({
               type: STATE_ACTIONS.LAST_DIVE,
-              value: "deep",
+              value: statesText.deepestDiveState.deep["english"],
               previousState: STATE_ACTIONS.DEEPEST_DIVE,
             })
           }
@@ -58,7 +58,7 @@ const DeepestDiveState = () => {
           onClick={() =>
             send({
               type: STATE_ACTIONS.LAST_DIVE,
-              value: "deepest",
+              value: statesText.deepestDiveState.deepest["english"],
               previousState: STATE_ACTIONS.DEEPEST_DIVE,
             })
           }
