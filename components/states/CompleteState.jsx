@@ -32,7 +32,9 @@ const CompleteState = () => {
     <StatePage>
       <StateTitle title="Thanks for booking!" />
       <div className="flex flex-col max-w-full">
-        <h2 className="pt-10 text-lg">We've sent you an email confirmation</h2>
+        <h2 className="pt-10 text-lg">
+          We&apos;ve sent you an email confirmation
+        </h2>
       </div>
     </StatePage>
   );
