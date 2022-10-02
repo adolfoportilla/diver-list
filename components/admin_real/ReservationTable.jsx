@@ -90,6 +90,11 @@ export default function ReservationTable() {
         rows={parseData(data)}
         columns={columns}
         pageSize={PAGE_SIZE}
+        initialState={{
+          pagination: {
+            pageSize: PAGE_SIZE,
+          },
+        }}
         rowsPerPageOptions={[PAGE_SIZE]}
         isRowSelectable={() => false}
         loading={isLoading}

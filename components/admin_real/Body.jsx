@@ -5,11 +5,14 @@ import { VIEWS } from "./Dashboard";
 import Calendar from "./Calendar";
 
 export default function Body({ view }) {
+  let body = null;
   switch (view) {
     case VIEWS.CALENDAR:
-      return <Calendar />;
+      body = <Calendar />;
     case VIEWS.RESERVATIONS:
     default:
-      return <ReservationTable />;
+      body = <ReservationTable />;
   }
+
+  return <div className="mt-10">{body}</div>;
 }
