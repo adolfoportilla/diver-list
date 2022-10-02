@@ -9,7 +9,6 @@ const BodyFrame = (props) => {
 };
 
 export default function Body({ view }) {
-  let body = null;
   switch (view) {
     case VIEWS.CALENDAR:
       return (
