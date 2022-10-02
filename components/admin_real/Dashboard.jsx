@@ -2,28 +2,28 @@ import React from "react";
 import Sidebar from "./Sidebar";
 
 import Body from "./Body";
+import Header from "./Header";
+
+import styles from "./calendar.module.css";
 
 export const VIEWS = {
-  RESERVATIONS: "R",
+  RESERVATIONS: "r",
   CALENDAR: "c",
 };
 
-export default function App() {
+export default function Dashboard() {
   const [view, setView] = React.useState(VIEWS.RESERVATIONS);
   return (
-    <div className="w-screen h-full">
-      <div className="grid grid-rows-12 grid-cols-5">
-        <div className="row-start-1 row-end-2 col-start-1 col-end-6 bg-red-200">
-          Header
+    <div className="w-screen h-full bg-gray-50">
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <Header />
         </div>
-        <div className="row-start-2 row-end-12 col-start-1 col-end-2 bg-slate-50">
+        <div className={styles.sidebar}>
           <Sidebar view={view} views={VIEWS} setView={setView} />
         </div>
-        <div className="row-start-2 row-end-12 col-start-2 col-end-6 bg-blue-100">
+        <div className={styles.main}>
           <Body view={view} />
-        </div>
-        <div className="row-start-12 row-end-13 col-start-1 col-end-6 bg-green-100">
-          Footer
         </div>
       </div>
     </div>

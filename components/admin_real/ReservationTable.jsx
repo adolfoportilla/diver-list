@@ -84,12 +84,17 @@ export default function ReservationTable() {
   }, []);
 
   return (
-    <div>
+    <div className="bg-white">
       {/* https://mui.com/x/api/data-grid/data-grid/ */}
       <DataGrid
         rows={parseData(data)}
         columns={columns}
         pageSize={PAGE_SIZE}
+        initialState={{
+          pagination: {
+            pageSize: PAGE_SIZE,
+          },
+        }}
         rowsPerPageOptions={[PAGE_SIZE]}
         isRowSelectable={() => false}
         loading={isLoading}

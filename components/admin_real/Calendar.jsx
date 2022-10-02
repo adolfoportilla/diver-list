@@ -113,6 +113,8 @@ export default function Calendar() {
         //   setReservations(data);
         // });
       }}
+      className="rounded-md border border-neutral-200"
+      style={{ padding: 8 }}
     />
   );
 }
