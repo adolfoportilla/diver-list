@@ -1,7 +1,6 @@
 import React from "react";
 
 const CardComponent = (props) => {
-  console.log(props.margin);
   return (
     <div
       className={

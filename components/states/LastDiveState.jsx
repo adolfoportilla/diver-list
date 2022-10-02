@@ -30,7 +30,7 @@ const LastDiveState = () => {
           onClick={() =>
             send({
               type: STATE_ACTIONS.EQUIPMENT,
-              value: "recent",
+              value: statesText.lastDiveState.recent["english"],
               previousState: STATE_ACTIONS.LAST_DIVE,
             })
           }
@@ -48,7 +48,7 @@ const LastDiveState = () => {
           onClick={() =>
             send({
               type: STATE_ACTIONS.EQUIPMENT,
-              value: "not-so-recent",
+              value: statesText.lastDiveState.notSoRecent["english"],
               previousState: STATE_ACTIONS.LAST_DIVE,
             })
           }
@@ -66,7 +66,7 @@ const LastDiveState = () => {
           onClick={() =>
             send({
               type: STATE_ACTIONS.EQUIPMENT,
-              value: "not-recent",
+              value: statesText.lastDiveState.notRecent["english"],
               previousState: STATE_ACTIONS.LAST_DIVE,
             })
           }

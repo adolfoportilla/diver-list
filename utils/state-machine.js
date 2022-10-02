@@ -43,7 +43,6 @@ const removeLastDive = assign({
 
 const setDate = assign({
   date: (context, event) => event.date,
-  time: (context, event) => event.time,
 });
 
 const removeDate = assign({

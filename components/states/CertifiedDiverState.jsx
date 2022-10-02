@@ -45,7 +45,7 @@ const CertifiedDiverState = () => {
           text="No"
           onClick={() =>
             send({
-              type: STATE_ACTIONS.DIVER_NOT_CERTIFIED,
+              type: STATE_ACTIONS.NUMBER_OF_DIVES,
               value: false,
               previousState: STATE_ACTIONS.IS_DIVER_CERTIFIED,
             })

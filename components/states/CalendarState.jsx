@@ -42,19 +42,18 @@ const CalendarState = () => {
 
   const [state, send] = useActor(context.service);
 
-  const sendEvent = (time) => {
+  const sendEvent = (date) => {
     if (state.context.reservationType == "recreational") {
       send({
         type: STATE_ACTIONS.IS_DIVER_CERTIFIED,
         date,
-        time,
         previousState: STATE_ACTIONS.CALENDAR,
       });
     } else if (state.context.reservationType == "certification") {
       send({
         type: STATE_ACTIONS.NUMBER_OF_DIVES,
         date,
-        time,
+
         previousState: STATE_ACTIONS.CALENDAR,
       });
     } else {
@@ -70,7 +69,7 @@ const CalendarState = () => {
           <Calendar
             onChange={(value) => {
               setDate(value);
-              sendEvent("");
+              sendEvent(value.toLocaleDateString());
             }}
             value={date}
             tileDisabled={disabledDates}

@@ -33,7 +33,7 @@ const NumberOfDivesState = () => {
           onClick={() =>
             send({
               type: STATE_ACTIONS.DEEPEST_DIVE,
-              value: "beginner",
+              value: "1-9",
               previousState: STATE_ACTIONS.NUMBER_OF_DIVES,
             })
           }
@@ -52,7 +52,7 @@ const NumberOfDivesState = () => {
           onClick={() =>
             send({
               type: STATE_ACTIONS.DEEPEST_DIVE,
-              value: "intermediate",
+              value: "10-29",
               previousState: STATE_ACTIONS.NUMBER_OF_DIVES,
             })
           }
@@ -65,7 +65,7 @@ const NumberOfDivesState = () => {
           onClick={() =>
             send({
               type: STATE_ACTIONS.DEEPEST_DIVE,
-              value: "expert",
+              value: "30+",
               previousState: STATE_ACTIONS.NUMBER_OF_DIVES,
             })
           }
