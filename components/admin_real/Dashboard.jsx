@@ -7,14 +7,14 @@ import Header from "./Header";
 import styles from "./calendar.module.css";
 
 export const VIEWS = {
-  RESERVATIONS: "R",
+  RESERVATIONS: "r",
   CALENDAR: "c",
 };
 
-export default function App() {
+export default function Dashboard() {
   const [view, setView] = React.useState(VIEWS.RESERVATIONS);
   return (
-    <div className="w-screen h-full">
+    <div className="w-screen h-full bg-gray-50">
       <div className={styles.container}>
         <div className={styles.header}>
           <Header />

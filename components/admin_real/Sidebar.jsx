@@ -7,7 +7,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 const InButton = (props) => {
   return (
     <Button
-      className="font-normal text-base normal-case text-gray-500"
+      className="w-full flex justify-start font-normal text-base normal-case text-gray-600"
       variant="text"
       onClick={props.onClick}
       startIcon={props.startIcon}
@@ -26,9 +26,9 @@ export default function Sidebar({ setView, views }) {
         startIcon={<AutoAwesomeMosaicIcon />}
       />
       <InButton
+        text="Calendar"
         startIcon={<CalendarMonthIcon />}
         onClick={() => setView(views.CALENDAR)}
-        text="Calendar"
       />
     </div>
   );

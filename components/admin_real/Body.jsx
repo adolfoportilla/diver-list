@@ -4,15 +4,24 @@ import ReservationTable from "./ReservationTable";
 import { VIEWS } from "./Dashboard";
 import Calendar from "./Calendar";
 
+const BodyFrame = (props) => {
+  return <div className="mt-10 mr-5">{props.children}</div>;
+};
+
 export default function Body({ view }) {
-  let body = null;
   switch (view) {
     case VIEWS.CALENDAR:
-      body = <Calendar />;
+      return (
+        <BodyFrame>
+          <Calendar />
+        </BodyFrame>
+      );
     case VIEWS.RESERVATIONS:
     default:
-      body = <ReservationTable />;
+      return (
+        <BodyFrame>
+          <ReservationTable />
+        </BodyFrame>
+      );
   }
-
-  return <div className="mt-10">{body}</div>;
 }
