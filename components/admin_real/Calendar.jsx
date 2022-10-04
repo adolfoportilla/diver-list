@@ -107,12 +107,12 @@ export default function Calendar() {
     <_Calendar
       dateCellRender={(cellDate) => dateCellRender(cellDate, reservations)}
       monthCellRender={null}
-      onPanelChange={(date) => {
-        // fetchCalendar(formattedTodayDay(date.toDate())).then((v) => {
-        //   const { data, error } = v;
-        //   setReservations(data);
-        // });
-      }}
+      // onPanelChange={(date) => {
+      // fetchCalendar(formattedTodayDay(date.toDate())).then((v) => {
+      //   const { data, error } = v;
+      //   setReservations(data);
+      // });
+      // }}
       className="rounded-md border border-neutral-200"
       style={{ padding: 8 }}
     />
