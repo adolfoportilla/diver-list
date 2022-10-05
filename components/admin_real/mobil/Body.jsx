@@ -1,5 +1,6 @@
 import React from "react";
 import ReservationTable from "../ReservationTable";
+import Calendar from "./Calendar";
 
 export const VIEWS = {
   RESERVATIONS: "r",
@@ -7,7 +8,7 @@ export const VIEWS = {
 };
 
 const BodyFrame = (props) => {
-  return <div className="mt-10 mr-5">{props.children}</div>;
+  return <div className="mt-10 mx-1">{props.children}</div>;
 };
 
 export default function Body({ view }) {
@@ -15,14 +16,14 @@ export default function Body({ view }) {
     case VIEWS.CALENDAR:
       return (
         <BodyFrame>
-          <div>Calendar</div>
+          <Calendar />
         </BodyFrame>
       );
     case VIEWS.RESERVATIONS:
     default:
       return (
         <BodyFrame>
-          <div>Reservation</div>
+          <ReservationTable />
         </BodyFrame>
       );
   }
