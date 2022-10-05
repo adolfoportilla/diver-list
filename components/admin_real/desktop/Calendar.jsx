@@ -2,6 +2,7 @@ import React from "react";
 import "antd/dist/antd.css";
 import { Badge, Calendar as _Calendar } from "antd";
 import moment from "moment";
+import ReservationBadge from "./ReservationBadge";
 
 import { fetchCalendar, isSameDay, formatData } from "../shared/calendarUtil";
 
@@ -19,15 +20,7 @@ const dateCellRender = (cellDate, data) => {
     <ul className="events">
       {listData.map((item) => (
         <li key={item.content}>
-          <Badge
-            status={item.type}
-            text={
-              <>
-                <span className="">{item.content}</span>
-                <span className="ml-1 font-bold text-sm">{item.time}</span>
-              </>
-            }
-          />
+          <ReservationBadge item={item} />
         </li>
       ))}
     </ul>
