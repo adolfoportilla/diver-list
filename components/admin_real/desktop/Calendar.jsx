@@ -3,7 +3,7 @@ import "antd/dist/antd.css";
 import { Badge, Calendar as _Calendar } from "antd";
 import moment from "moment";
 
-import supabase from "../../utils/supabase";
+import supabase from "../../../utils/supabase";
 
 const isSameDay = (dateA, dateB) => {
   return (

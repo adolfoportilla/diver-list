@@ -2,7 +2,7 @@ import React from "react";
 import Sidebar from "./Sidebar";
 
 import Body from "./Body";
-import Header from "./Header";
+import Header from "../shared/Header";
 
 import styles from "./calendar.module.css";
 

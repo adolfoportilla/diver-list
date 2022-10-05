@@ -1,7 +1,7 @@
 import React from "react";
 
-import MobileDashboard from "./mobil/MobileDashboard";
-import DesktopDashboard from "./DesktopDashboard";
+import MobileDashboard from "../mobil/MobileDashboard";
+import DesktopDashboard from "../desktop/DesktopDashboard";
 
 export default function Dashboard() {
   return (

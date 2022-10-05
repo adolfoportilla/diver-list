@@ -1,5 +1,6 @@
 import React from "react";
-import ReservationTable from "../ReservationTable";
+
+import ReservationTable from "./ReservationTable";
 import Calendar from "./Calendar";
 
 export const VIEWS = {

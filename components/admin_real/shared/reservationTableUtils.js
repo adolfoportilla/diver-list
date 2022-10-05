@@ -1,3 +1,5 @@
+import supabase from "../../../utils/supabase";
+
 // This function allows the columns to get values from Supabase like this `userInformation.name`
 // it essentially works the same way as the `get` function from lodash. (https://lodash.com/docs/4.17.15#get)
 const valueGetterFn = (params) => {
@@ -10,6 +12,14 @@ const valueGetterFn = (params) => {
 
 export const PAGE_SIZE = 10;
 
+export const fetchReservations = async (props) => {
+  return await supabase
+    .from("reservations")
+    .select("*", { count: "exact" })
+    .order("date", { ascending: false })
+    .range(props.rangeInitial, props.rangeEnd);
+};
+
 export const DEFAULT_ROW_PROPS = {
   sortable: false,
   hideable: false,
@@ -18,7 +28,7 @@ export const DEFAULT_ROW_PROPS = {
 };
 
 // https://mui.com/x/api/data-grid/grid-col-def/
-export const TABLE_COLUMNS = [
+export const RESERVATION_TABLE_COLUMNS_DESKTOP = [
   { field: "date", headerName: "Date" },
   { field: "time", headerName: "Time", sortable: false, width: 80 },
   {
@@ -47,6 +57,21 @@ export const TABLE_COLUMNS = [
     width: 50,
   },
   { field: "number_of_dives", headerName: "Experience", width: 120 },
+  {
+    field: "diver_information.email",
+    headerName: "Email",
+    minWidth: 200,
+  },
+].map((value) => ({ ...DEFAULT_ROW_PROPS, ...value }));
+
+export const RESERVATION_TABLE_COLUMNS_MOBILE = [
+  { field: "date", headerName: "Date" },
+  {
+    field: "reservation_type",
+    headerName: "Reservation Type",
+    sortable: false,
+    width: 135,
+  },
   {
     field: "diver_information.email",
     headerName: "Email",
