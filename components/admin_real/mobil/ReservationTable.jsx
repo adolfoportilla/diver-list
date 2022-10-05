@@ -1,18 +1,60 @@
 import React from "react";
-import Header from "../Header";
-import AutoAwesomeMosaicIcon from "@mui/icons-material/AutoAwesomeMosaic";
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import { DataGrid } from "@mui/x-data-grid";
 
-export default function MobileDashboard() {
+import {
+  PAGE_SIZE,
+  RESERVATION_TABLE_COLUMNS_MOBILE,
+  calculateRange,
+  fetchReservations,
+} from "../shared/reservationTableUtils";
+
+export default function ReservationTable() {
+  const [data, setData] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const [count, setCount] = React.useState(0);
+
+  React.useEffect(() => {
+    (async () => {
+      setIsLoading(true);
+      const {
+        data: reservations,
+        error,
+        count: rowCount,
+      } = await fetchReservations({ rangeInitial: 0, rangeEnd: PAGE_SIZE - 1 });
+      setData(reservations);
+      setIsLoading(false);
+      setCount(rowCount);
+    })();
+  }, []);
+
   return (
-    <div className="w-screen h-full bg-gray-50">
-      <Header
-        rightChildren={
-          <div className="flex flex-row align-items-center space-x-2 mr-3">
-            <AutoAwesomeMosaicIcon />
-            <CalendarMonthIcon />
-          </div>
-        }
+    <div className="bg-white">
+      <DataGrid
+        rows={data}
+        columns={RESERVATION_TABLE_COLUMNS_MOBILE}
+        pageSize={PAGE_SIZE}
+        rowsPerPageOptions={[PAGE_SIZE]}
+        isRowSelectable={() => false}
+        loading={isLoading}
+        checkboxSelection={false}
+        filterOperators={[]}
+        disableColumnMenu
+        autoHeight
+        rowCount={count}
+        pagination
+        paginationMode="server"
+        onPageChange={(newPage) => {
+          const [initial, end] = calculateRange(newPage, PAGE_SIZE);
+          setIsLoading(true);
+          fetchReservations({ rangeInitial: initial, rangeEnd: end }).then(
+            ({ data, error, count }) => {
+              setData(data);
+              setIsLoading(false);
+              setCount(count);
+            }
+          );
+        }}
       />
     </div>
   );

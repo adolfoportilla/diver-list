@@ -1,7 +1,7 @@
 import React from "react";
-import ReservationTable from "./ReservationTable";
 
 import { VIEWS } from "./DesktopDashboard";
+import ReservationTable from "./ReservationTable";
 import Calendar from "./Calendar";
 
 const BodyFrame = (props) => {

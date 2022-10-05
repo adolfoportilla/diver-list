@@ -4,7 +4,7 @@ import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import IconButton from "@mui/material/IconButton";
 
 import Body, { VIEWS } from "./Body";
-import Header from "../Header";
+import Header from "../shared/Header";
 
 export default function MobileDashboard() {
   const [view, setView] = React.useState(VIEWS.RESERVATIONS);

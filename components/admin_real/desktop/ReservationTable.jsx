@@ -1,17 +1,12 @@
 import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 
-import supabase from "../../utils/supabase";
-
-import { PAGE_SIZE, TABLE_COLUMNS, calculateRange } from "./utils";
-
-const fetchReservations = async (props) => {
-  return await supabase
-    .from("reservations")
-    .select("*", { count: "exact" })
-    .order("date", { ascending: false })
-    .range(props.rangeInitial, props.rangeEnd);
-};
+import {
+  PAGE_SIZE,
+  RESERVATION_TABLE_COLUMNS_DESKTOP,
+  calculateRange,
+  fetchReservations,
+} from "../shared/reservationTableUtils";
 
 export default function ReservationTable() {
   const [data, setData] = React.useState([]);
@@ -38,7 +33,7 @@ export default function ReservationTable() {
       {/* https://mui.com/x/api/data-grid/data-grid/ */}
       <DataGrid
         rows={data}
-        columns={TABLE_COLUMNS}
+        columns={RESERVATION_TABLE_COLUMNS_DESKTOP}
         pageSize={PAGE_SIZE}
         rowsPerPageOptions={[PAGE_SIZE]}
         isRowSelectable={() => false}
