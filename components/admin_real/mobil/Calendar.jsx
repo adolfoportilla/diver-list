@@ -1,5 +1,7 @@
 import React from "react";
-import { Calendar as _Calendar, Col, Row, Select } from "antd";
+import { Calendar as _Calendar, Col, Row, Select, Badge } from "antd";
+
+import styles from "./calendar.module.css";
 
 const customHeader = ({ value, type, onChange, onTypeChange }) => {
   const start = 0;
@@ -67,10 +69,22 @@ const customHeader = ({ value, type, onChange, onTypeChange }) => {
   );
 };
 
+const dataCellRender = (cellDate) => {
+  return (
+    <div className="ml-2 -mt-1">
+      <Badge status="processing" />
+    </div>
+  );
+};
+
 export default function Calendar() {
   return (
-    <div className={"site-calendar-demo-card"}>
-      <_Calendar headerRender={customHeader} fullscreen={false} />
+    <div>
+      <_Calendar
+        headerRender={customHeader}
+        fullscreen={false}
+        dateCellRender={dataCellRender}
+      />
     </div>
   );
 }
