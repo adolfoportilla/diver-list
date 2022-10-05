@@ -1,0 +1,8 @@
+@media screen and (min-width: 900px) {
+  .mobile {
+    display: none;
+  }
+  .desktop {
+    display: none;
+  }
+}

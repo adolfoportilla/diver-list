@@ -1,8 +1,10 @@
 import React from "react";
-import ReservationTable from "./ReservationTable";
+import ReservationTable from "../ReservationTable";
 
-import { VIEWS } from "./DesktopDashboard";
-import Calendar from "./Calendar";
+export const VIEWS = {
+  RESERVATIONS: "r",
+  CALENDAR: "c",
+};
 
 const BodyFrame = (props) => {
   return <div className="mt-10 mr-5">{props.children}</div>;
@@ -13,14 +15,14 @@ export default function Body({ view }) {
     case VIEWS.CALENDAR:
       return (
         <BodyFrame>
-          <Calendar />
+          <div>Calendar</div>
         </BodyFrame>
       );
     case VIEWS.RESERVATIONS:
     default:
       return (
         <BodyFrame>
-          <ReservationTable />
+          <div>Reservation</div>
         </BodyFrame>
       );
   }
