@@ -18,7 +18,7 @@ const ReservationBadge = ({ item }) => {
         onClick={() => setModalOpen(true)}
       />
       <Modal
-        title="20px to Top"
+        title=""
         style={{}}
         visible={modalOpen}
         onOk={() => setModalOpen(false)}

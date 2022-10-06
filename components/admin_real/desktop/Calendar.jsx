@@ -2,7 +2,7 @@ import React from "react";
 import "antd/dist/antd.css";
 import { Badge, Calendar as _Calendar } from "antd";
 import moment from "moment";
-import ReservationBadge from "./ReservationBadge";
+import ReservationBadge from "../ReservationBadge";
 
 import { fetchCalendar, isSameDay, formatData } from "../shared/calendarUtil";
 
