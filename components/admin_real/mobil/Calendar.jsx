@@ -96,7 +96,7 @@ const dataCellRender = (date, data) => {
 };
 
 const getDateReservations = (date, reservations) => {
-  if (!reservations || !reservations.length) {
+  if (!reservations) {
     return null;
   }
   return reservations.filter((reservation) => {
@@ -130,7 +130,7 @@ export default function Calendar() {
         onChange={(date) => setSelectedDate(date)}
       />
       <div className="mt-4">
-        {selectedDateReservations.length ? (
+        {selectedDateReservations && selectedDateReservations.length ? (
           <div className="flex flex-col space-y-2">
             {selectedDateReservations.map((reservation) => {
               return (
