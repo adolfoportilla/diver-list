@@ -18,7 +18,9 @@ const ReservationBadge = ({ item }) => {
         onClick={() => setModalOpen(true)}
       />
       <Modal
-        title=""
+        title={
+          <span>{` ${item.diver_information.name} ${item.diver_information.lastName}`}</span>
+        }
         style={{}}
         visible={modalOpen}
         onOk={() => setModalOpen(false)}
@@ -26,11 +28,23 @@ const ReservationBadge = ({ item }) => {
         footer={null}
       >
         <div className="flex flex-col">
-          <span>{`Name: ${item.diver_information.name} ${item.diver_information.lastName}`}</span>
-          <span>{`Reservation Type: ${item.reservation_type}`}</span>
-          <span>{`Diver Experience: ${item.number_of_dives}`}</span>
-          <span>{`Date: ${item.date}`}</span>
-          <span>{`Time: ${item.time}`}</span>
+          <div>
+            <span className="font-bold">Reservation Type:</span>
+            <span>{` ${item.reservation_type}`}</span>
+          </div>
+          <div>
+            <span className="font-bold">Diver Experience:</span>
+            <span>{` ${item.number_of_dives} `}</span>
+          </div>
+          <div>
+            <span className="font-bold">Date:</span>
+            <span>{` ${item.date}`}</span>
+          </div>
+          <div>
+            <span className="font-bold">Time:</span>
+
+            <span>{` ${item.time}`}</span>
+          </div>
         </div>
       </Modal>
     </>
