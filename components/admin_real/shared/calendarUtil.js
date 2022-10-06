@@ -8,14 +8,6 @@ export const isSameDay = (dateA, dateB) => {
   );
 };
 
-export const formatData = (date) => {
-  return {
-    type: "processing",
-    content: date.id,
-    time: date.time,
-  };
-};
-
 export async function fetchCalendar(dateFilter = null) {
   // TODO:
   // We need to fetch only the reservations from that store.

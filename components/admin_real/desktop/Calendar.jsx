@@ -10,16 +10,15 @@ const dateCellRender = (cellDate, data) => {
   if (!data || !data.length) {
     return null;
   }
-  const filteredDates = data.filter((reservation) => {
+  const filteredReservations = data.filter((reservation) => {
     const reservationDate = reservation.date;
     const momentReservationDate = moment(reservationDate);
     return isSameDay(cellDate, momentReservationDate);
   });
-  const listData = filteredDates.map(formatData);
   return (
     <ul className="events">
-      {listData.map((item) => (
-        <li key={item.content}>
+      {filteredReservations.map((item) => (
+        <li key={item.id}>
           <ReservationBadge item={item} />
         </li>
       ))}
