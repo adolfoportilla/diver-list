@@ -1,7 +1,8 @@
 import React from "react";
 import { Calendar as _Calendar, Col, Row, Select, Badge } from "antd";
+import moment from "moment";
 
-import styles from "./calendar.module.css";
+import { fetchCalendar, isSameDay } from "../shared/calendarUtil";
 
 const customHeader = ({ value, type, onChange, onTypeChange }) => {
   const start = 0;
@@ -69,22 +70,103 @@ const customHeader = ({ value, type, onChange, onTypeChange }) => {
   );
 };
 
-const dataCellRender = (cellDate) => {
-  return (
-    <div className="ml-2 -mt-1">
-      <Badge status="processing" />
-    </div>
+const dataCellRender = (date, data) => {
+  if (!data || !data.length) {
+    return null;
+  }
+  const filteredDates = data.filter((reservation) => {
+    const reservationDate = reservation.date;
+    const momentReservationDate = moment(reservationDate);
+    return isSameDay(date, momentReservationDate);
+  });
+  const excludeSameDate = new Set(
+    filteredDates.map((reservation) => {
+      const reservationDate = reservation.date;
+      const momentDate = moment(reservationDate);
+      return `${momentDate.date()}${momentDate.month()}${momentDate.year()}`;
+    })
   );
+  return Array.from(excludeSameDate).map((d) => {
+    return (
+      <div key={d} className="ml-2 -mt-1">
+        <Badge status="processing" />
+      </div>
+    );
+  });
+};
+
+const getDateReservations = (date, reservations) => {
+  if (!reservations || !reservations.length) {
+    return null;
+  }
+  return reservations.filter((reservation) => {
+    return isSameDay(moment(reservation.date), moment(date));
+  });
 };
 
 export default function Calendar() {
+  const [reservations, setReservations] = React.useState();
+  const [selectedDate, setSelectedDate] = React.useState(moment(new Date()));
+  React.useEffect(() => {
+    (async () => {
+      const { data, error } = await fetchCalendar();
+      setReservations(data);
+    })();
+  }, []);
+
+  const selectedDateReservations = getDateReservations(
+    selectedDate,
+    reservations
+  );
+
+  console.log("a", selectedDateReservations);
+
   return (
     <div>
       <_Calendar
         headerRender={customHeader}
         fullscreen={false}
-        dateCellRender={dataCellRender}
+        dateCellRender={(cellDate) => dataCellRender(cellDate, reservations)}
+        onChange={(date) => setSelectedDate(date)}
       />
+      <div className="mt-4">
+        {selectedDateReservations.length ? (
+          <div className="flex flex-col space-y-2">
+            {selectedDateReservations.map((reservation) => {
+              return (
+                <div
+                  key={reservation.id}
+                  className="bg-white mx-1 px-2 shadow-lg ring-1 ring-gray-900/5 rounded-sm"
+                >
+                  <div className="flex-col">
+                    <div>
+                      <span className="font-semibold">
+                        Time: {reservation.time}
+                      </span>
+                    </div>
+                    <div>
+                      <span>Name: {reservation.diver_information.name}</span>
+                      <span>{reservation.diver_information.lastName}</span>
+                      <span>Experience: {reservation.number_of_dives}</span>
+                    </div>
+                    <div>
+                      <span>{reservation.diver_certified}</span>
+                    </div>
+                    <div>
+                      <span>Type: {reservation.reservation_type}</span>
+                    </div>
+                    <div></div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <div className="ml-3">
+            <span className="text-black">No reservations for today!</span>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
