@@ -2,6 +2,7 @@ import supabase from "../../../utils/supabase";
 import { Edit } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import DeleteReservationButton from "../desktop/DeleteReservationButton";
+import EditReservationButton from "../desktop/EditReservationButton";
 
 // This function allows the columns to get values from Supabase like this `userInformation.name`
 // it essentially works the same way as the `get` function from lodash. (https://lodash.com/docs/4.17.15#get)
@@ -24,7 +25,14 @@ export const fetchReservations = async (props) => {
 };
 
 export const deleteReservation = async (reservationId) => {
-  return await supabase.from("reservations").delete().match({ reservationId });
+  return await supabase
+    .from("reservations")
+    .delete()
+    .match({ id: reservationId });
+};
+
+export const updateReservation = async () => {
+  return await supabase.from("reservations").update();
 };
 
 export const DEFAULT_ROW_PROPS = {
@@ -74,10 +82,8 @@ export const RESERVATION_TABLE_COLUMNS_DESKTOP = [
     headerName: "Edit",
     renderCell: (rowData) => (
       <div className="flex justify-between w-16">
-        <Button className="min-w-0">
-          <Edit className="w-4 " />
-        </Button>
-        <DeleteReservationButton />
+        <EditReservationButton reservation={rowData.row} />
+        <DeleteReservationButton reservationId={rowData.id} />
       </div>
     ),
   },
