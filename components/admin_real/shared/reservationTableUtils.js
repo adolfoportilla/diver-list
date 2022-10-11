@@ -31,8 +31,18 @@ export const deleteReservation = async (reservationId) => {
     .match({ id: reservationId });
 };
 
-export const updateReservation = async () => {
-  return await supabase.from("reservations").update();
+export const updateReservation = async (props) => {
+  return await supabase
+    .from("reservations")
+    .update({
+      date: props.date,
+      time: props.time,
+      diver_certified: props.certified,
+      reservation_type: props.reservationType,
+      //todo - change this field to "experience" in supabase schema
+      number_of_dives: props.experience,
+    })
+    .eq("id", props.id);
 };
 
 export const DEFAULT_ROW_PROPS = {
