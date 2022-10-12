@@ -17,7 +17,7 @@ const DeleteReservationButton = ({ reservationId }) => {
         }}
         onCancel={() => setModalOpen(false)}
       >
-        <div>Once you delete it, we won't be able to recover it.</div>
+        <div>Once you delete it, we will not be able to recover it.</div>
       </Modal>
 
       <Button
