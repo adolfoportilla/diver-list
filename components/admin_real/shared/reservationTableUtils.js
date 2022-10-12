@@ -1,4 +1,8 @@
 import supabase from "../../../utils/supabase";
+import { Edit } from "@mui/icons-material";
+import { Button } from "@mui/material";
+import DeleteReservationButton from "../desktop/DeleteReservationButton";
+import EditReservationButton from "../desktop/EditReservationButton";
 
 // This function allows the columns to get values from Supabase like this `userInformation.name`
 // it essentially works the same way as the `get` function from lodash. (https://lodash.com/docs/4.17.15#get)
@@ -18,6 +22,27 @@ export const fetchReservations = async (props) => {
     .select("*", { count: "exact" })
     .order("date", { ascending: false })
     .range(props.rangeInitial, props.rangeEnd);
+};
+
+export const deleteReservation = async (reservationId) => {
+  return await supabase
+    .from("reservations")
+    .delete()
+    .match({ id: reservationId });
+};
+
+export const updateReservation = async (props) => {
+  return await supabase
+    .from("reservations")
+    .update({
+      date: props.date,
+      time: props.time,
+      diver_certified: props.certified,
+      reservation_type: props.reservationType,
+      //todo - change this field to "experience" in supabase schema
+      number_of_dives: props.experience,
+    })
+    .eq("id", props.id);
 };
 
 export const DEFAULT_ROW_PROPS = {
@@ -61,6 +86,16 @@ export const RESERVATION_TABLE_COLUMNS_DESKTOP = [
     field: "diver_information.email",
     headerName: "Email",
     minWidth: 200,
+  },
+  {
+    field: "edit_reservation",
+    headerName: "Edit",
+    renderCell: (rowData) => (
+      <div className="flex justify-between w-16">
+        <EditReservationButton reservation={rowData.row} />
+        <DeleteReservationButton reservationId={rowData.id} />
+      </div>
+    ),
   },
 ].map((value) => ({ ...DEFAULT_ROW_PROPS, ...value }));
 
