@@ -41,6 +41,12 @@ export const updateReservation = async (props) => {
       reservation_type: props.reservationType,
       //todo - change this field to "experience" in supabase schema
       number_of_dives: props.experience,
+      diver_information: {
+        name: props.diverInformation.name,
+        lastName: props.diverInformation.lastName,
+        age: props.diverInformation.age,
+        email: props.diverInformation.email,
+      },
     })
     .eq("id", props.id);
 };
