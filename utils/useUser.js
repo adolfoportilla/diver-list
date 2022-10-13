@@ -14,31 +14,35 @@ export const MyUserContextProvider = (props) => {
   } = useSessionContext();
   const user = useSupaUser();
   const accessToken = session?.access_token ?? null;
-  const [isLoadingData, setIsloadingData] = useState(false);
-  const [userDetails, setUserDetails] = useState(null);
+  const [isLoadingData, setIsLoadingData] = useState(false);
+  const [diveShop, setDiveShop] = useState(null);
 
-  const getUserDetails = () => supabase.from("users").select("*").single();
+  const getDiveShop = (email) =>
+    supabase.from("dive-shop").select("*").eq("email", email).single();
 
   useEffect(() => {
-    if (user && !isLoadingData && !userDetails) {
-      setIsloadingData(true);
-      Promise.allSettled([getUserDetails()]).then((results) => {
-        const userDetailsPromise = results[0];
-
-        if (userDetailsPromise.status === "fulfilled")
-          setUserDetails(userDetailsPromise.value.data);
-
-        setIsloadingData(false);
-      });
+    if (user && !isLoadingData && !diveShop) {
+      setIsLoadingData(true);
+      getDiveShop(user.email)
+        .then((results) => {
+          if (results.data) {
+            setDiveShop(results.data);
+          }
+          setIsLoadingData(false);
+        })
+        .catch((error) => {
+          // TODO(adolfo): figure out what to do when this thing errors out, probably log out?
+          console.log("error", error);
+        });
     } else if (!user && !isLoadingUser && !isLoadingData) {
-      setUserDetails(null);
+      setDiveShop(null);
     }
   }, [user, isLoadingUser]);
 
   const value = {
     accessToken,
     user,
-    userDetails,
+    diveShop,
     isLoading: isLoadingUser || isLoadingData,
   };
 

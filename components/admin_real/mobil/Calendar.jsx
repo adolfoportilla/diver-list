@@ -119,8 +119,6 @@ export default function Calendar() {
     reservations
   );
 
-  console.log("a", selectedDateReservations);
-
   return (
     <div>
       <_Calendar

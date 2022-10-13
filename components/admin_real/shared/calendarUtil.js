@@ -8,12 +8,13 @@ export const isSameDay = (dateA, dateB) => {
   );
 };
 
-export async function fetchCalendar(dateFilter = null) {
+export async function fetchCalendar({ diveShopId, dateFilter = null }) {
   // TODO:
   // We need to fetch only the reservations from that store.
   const baseQueryset = supabase
     .from("reservations")
     .select("*")
+    .eq("dive_shop_id", diveShopId)
     .order("date", { ascending: false })
     .order("time", { ascending: true });
   // TODO:
