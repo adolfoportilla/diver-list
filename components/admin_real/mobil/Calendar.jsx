@@ -147,6 +147,8 @@ export default function Calendar() {
                     <div>
                       <span>Name: {reservation.diver_information.name}</span>
                       <span>{reservation.diver_information.lastName}</span>
+                    </div>
+                    <div>
                       <span>Experience: {reservation.number_of_dives}</span>
                     </div>
                     <div>

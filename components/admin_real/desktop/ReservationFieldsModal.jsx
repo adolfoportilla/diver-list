@@ -13,11 +13,10 @@ const ReservationFieldsModal = ({
   modalTitle,
   modalOpen = false,
   setModalOpen,
-  diveShopId = null,
 }) => {
   const dateFormat = "YYYY-MM-DD";
   const timeFormat = "HH:mm";
-  const id = reservation.id;
+  const id = reservation.id || 123;
 
   const [date, setDate] = useState(reservation.date);
   const [time, setTime] = useState(reservation.time || 0);

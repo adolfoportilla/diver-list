@@ -62,6 +62,7 @@ export const createReservation = async (props) => {
       age: props.diverInformation.age,
       email: props.diverInformation.email,
     },
+    dive_shop_id: props.id,
   });
 };
 
