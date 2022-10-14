@@ -75,17 +75,6 @@ const ReservationFieldsModal = ({
     return false;
   };
 
-  const reservationValid2 = () =>
-    date &&
-    time &&
-    certified &&
-    reservationType &&
-    experience &&
-    name &&
-    lastName &&
-    age &&
-    email;
-
   return (
     <Modal
       title={modalTitle}
