@@ -99,7 +99,7 @@ const ReservationFieldsModal = ({
               ? openErrorNotification("error")
               : results.data
               ? openSuccessNotification("success")
-              : console.log(results)
+              : null
           );
           setModalOpen(false);
         }
