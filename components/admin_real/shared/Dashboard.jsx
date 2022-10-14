@@ -2,17 +2,13 @@ import React from "react";
 
 import MobileDashboard from "../mobil/MobileDashboard";
 import DesktopDashboard from "../desktop/DesktopDashboard";
+import useSize from "../../../utils/useSize";
+
+const isMobile = (width) => {
+  return width <= 640;
+};
 
 export default function Dashboard() {
-  return (
-    <>
-      {/* TODO: This actually loads the component but just hides it from view, so all fetches do happen, we need to prevent this from loading on the screen */}
-      <div className="sm:hidden">
-        <MobileDashboard />
-      </div>
-      <div className="hidden sm:inline">
-        <DesktopDashboard />
-      </div>
-    </>
-  );
+  const { width, height } = useSize();
+  return isMobile(width) ? <MobileDashboard /> : <DesktopDashboard />;
 }
