@@ -46,24 +46,28 @@ export const updateReservation = async (props) => {
         email: props.diverInformation.email,
       },
     })
-    .eq("id", props.id);
+    .eq("id", props.id)
+    .select();
 };
 //Todo: need to add the dive shop id here?
 export const createReservation = async (props) => {
-  return await supabase.from("reservations").insert({
-    date: props.date,
-    time: props.time,
-    diver_certified: props.certified,
-    reservation_type: props.reservationType,
-    number_of_dives: props.experience,
-    diver_information: {
-      name: props.diverInformation.name,
-      lastName: props.diverInformation.lastName,
-      age: props.diverInformation.age,
-      email: props.diverInformation.email,
-    },
-    dive_shop_id: props.id,
-  });
+  return await supabase
+    .from("reservations")
+    .insert({
+      date: props.date,
+      time: props.time,
+      diver_certified: props.certified,
+      reservation_type: props.reservationType,
+      number_of_dives: props.experience,
+      diver_information: {
+        name: props.diverInformation.name,
+        lastName: props.diverInformation.lastName,
+        age: props.diverInformation.age,
+        email: props.diverInformation.email,
+      },
+      dive_shop_id: props.id,
+    })
+    .select();
 };
 
 export const DEFAULT_ROW_PROPS = {
