@@ -20,6 +20,7 @@ export const fetchReservations = async (props) => {
   return await supabase
     .from("reservations")
     .select("*", { count: "exact" })
+    .eq("dive_shop_id", props.diveShopId)
     .order("date", { ascending: false })
     .range(props.rangeInitial, props.rangeEnd);
 };

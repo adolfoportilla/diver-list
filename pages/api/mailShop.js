@@ -6,7 +6,6 @@ const mail = require("@sendgrid/mail");
 mail.setApiKey(process.env.NEXT_PUBLIC_SENDGRID_API_KEY);
 export default function handler(req, res) {
   const reservationInfo = JSON.parse(req.body);
-  console.log(reservationInfo.isDiverCertified, "herere");
   const data = {
     from: {
       email: "olyslager.willy@gmail.com",

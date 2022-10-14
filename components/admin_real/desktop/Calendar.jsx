@@ -4,7 +4,8 @@ import { Badge, Calendar as _Calendar } from "antd";
 import moment from "moment";
 import ReservationBadge from "../ReservationBadge";
 
-import { fetchCalendar, isSameDay, formatData } from "../shared/calendarUtil";
+import { fetchCalendar, isSameDay } from "../shared/calendarUtil";
+import { useUser } from "../../../utils/useUser";
 
 const dateCellRender = (cellDate, data) => {
   if (!data || !data.length) {
@@ -30,12 +31,17 @@ const PAGE_SIZE = 20;
 // https://ant.design/components/calendar/
 export default function Calendar() {
   const [reservations, setReservations] = React.useState();
+  const user = useUser();
   React.useEffect(() => {
-    (async () => {
-      const { data, error } = await fetchCalendar();
-      setReservations(data);
-    })();
-  }, []);
+    if (user) {
+      (async () => {
+        const { data, error } = await fetchCalendar({
+          diveShopId: user.diveShop,
+        });
+        setReservations(data);
+      })();
+    }
+  }, [user]);
 
   return (
     // TODO

@@ -21,11 +21,12 @@ export default function Body({ view }) {
         </BodyFrame>
       );
     case VIEWS.RESERVATIONS:
-    default:
       return (
         <BodyFrame>
           <ReservationTable />
         </BodyFrame>
       );
+    default:
+      return null;
   }
 }
