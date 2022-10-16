@@ -42,12 +42,12 @@ const SignIn = () => {
 
   if (!user)
     return (
-      <div className="flex justify-center height-screen-helper">
-        <div className="flex flex-col justify-between max-w-lg p-3 m-auto w-80 ">
-          <div className="flex justify-center pb-12 ">
-            <span>DiverList</span>
+      <div className="h-full">
+        <div className="flex flex-col items-center">
+          <div className="mt-24">
+            <h1 className="text-3xl sm:text-4xl">Welcome to DiverList!</h1>
           </div>
-          <div className="flex flex-col space-y-4">
+          <div className="flex flex-col items-center mt-4 sm:mt-8 space-y-4">
             {message.content && (
               <div
                 className={`${
@@ -62,6 +62,7 @@ const SignIn = () => {
               </div>
             )}
             <Button
+              className=""
               variant="outlined"
               onClick={() => handleOAuthSignIn("google")}
             >
