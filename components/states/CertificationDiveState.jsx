@@ -29,7 +29,7 @@ const CertificationDiveState = () => {
               height={150}
             />
           }
-          iconClassName="ml-8"
+          iconClassName="md:ml-8 ml-5"
           text={statesText.certificationDiveState.openWater[context.language]}
           onClick={() =>
             send({
@@ -49,6 +49,7 @@ const CertificationDiveState = () => {
               layout="fixed"
             />
           }
+          iconClassName="scale-75 md:scale-100"
           text="Advanced Open Water"
           onClick={() =>
             send({
@@ -67,6 +68,7 @@ const CertificationDiveState = () => {
               height={150}
             />
           }
+          iconClassName="scale-90 md:scale-100"
           text="Rescue Diver"
           onClick={() =>
             send({
