@@ -9,7 +9,7 @@ export const VIEWS = {
 };
 
 const BodyFrame = (props) => {
-  return <div className="mt-10 mx-1">{props.children}</div>;
+  return <div className="mt-0 mx-1">{props.children}</div>;
 };
 
 export default function Body({ view }) {
@@ -21,12 +21,11 @@ export default function Body({ view }) {
         </BodyFrame>
       );
     case VIEWS.RESERVATIONS:
+    default:
       return (
         <BodyFrame>
           <ReservationTable />
         </BodyFrame>
       );
-    default:
-      return null;
   }
 }

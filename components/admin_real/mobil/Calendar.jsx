@@ -3,6 +3,7 @@ import { Calendar as _Calendar, Col, Row, Select, Badge } from "antd";
 import moment from "moment";
 
 import { fetchCalendar, isSameDay } from "../shared/calendarUtil";
+import { useUser } from "../../../utils/useUser";
 
 const customHeader = ({ value, type, onChange, onTypeChange }) => {
   const start = 0;
@@ -107,12 +108,16 @@ const getDateReservations = (date, reservations) => {
 export default function Calendar() {
   const [reservations, setReservations] = React.useState();
   const [selectedDate, setSelectedDate] = React.useState(moment(new Date()));
+  const { diveShop } = useUser();
+  const diveShopId = diveShop?.id || null;
   React.useEffect(() => {
     (async () => {
-      const { data, error } = await fetchCalendar();
-      setReservations(data);
+      if (diveShopId) {
+        const { data, error } = await fetchCalendar({ diveShopId });
+        setReservations(data);
+      }
     })();
-  }, []);
+  }, [diveShopId]);
 
   const selectedDateReservations = getDateReservations(
     selectedDate,

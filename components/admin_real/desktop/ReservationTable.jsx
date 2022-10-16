@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 
 import {
@@ -17,14 +17,15 @@ export default function ReservationTable() {
 
   const [count, setCount] = React.useState(0);
   const { diveShop } = useUser();
+  const diveShopId = diveShop?.id || null;
 
-  React.useEffect(() => {
-    if (diveShop) {
+  useEffect(() => {
+    if (diveShopId) {
       setIsLoading(true);
       fetchReservations({
         rangeInitial: 0,
         rangeEnd: PAGE_SIZE - 1,
-        diveShopId: diveShop.id,
+        diveShopId: diveShopId,
       })
         .then((results) => {
           setData(results.data);
@@ -32,11 +33,10 @@ export default function ReservationTable() {
           setCount(results.count);
         })
         .catch((error) => {
-          console.log("error", error);
           setIsLoading(false);
         });
     }
-  }, [diveShop]);
+  }, [diveShopId]);
 
   return (
     <div className="bg-white">

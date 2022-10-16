@@ -1,34 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext, createContext } from "react";
 
-const isWindowUnd = () => typeof window !== "undefined";
+export const SizeContext = createContext(undefined);
 
-// export default function useSize() {
-//   const [windowDimension, detectHW] = useState({
-//     // winWidth: isWindowUnd() ? window.innerWidth : 0,
-//     // winHeight: isWindowUnd() ? window.innerHeight : 0,
-//     winWidth: window?.innerWidth,
-//     winHeight: window?.innerHeight,
-//   });
-//   const detectSize = () => {
-//     detectHW({
-//       winWidth: window?.innerWidth,
-//       winHeight: window?.innerHeight,
-//     });
-//   };
-
-//   useEffect(() => {
-//     if (!(typeof window !== "undefined")) {
-//       return;
-//     }
-//     return () => {
-//       window.removeEventListener("resize", detectSize);
-//     };
-//   }, [windowDimension]);
-
-//   return [windowDimension.winWidth, windowDimension.winHeight];
-// }
-
-export default function useWindowSize() {
+export const MySizeContextProvider = (props) => {
   // Initialize state with undefined width/height so server and client renders match
   // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
   const [windowSize, setWindowSize] = useState({
@@ -58,5 +32,13 @@ export default function useWindowSize() {
       return () => window.removeEventListener("resize", handleResize);
     }
   }, []); // Empty array ensures that effect is only run on mount
-  return windowSize;
-}
+  return <SizeContext.Provider value={windowSize} {...props} />;
+};
+
+export const useSize = () => {
+  const context = useContext(SizeContext);
+  if (context === undefined) {
+    throw new Error(`useSize must be used within a MySizeContextProvider.`);
+  }
+  return context;
+};

@@ -4,7 +4,7 @@ import Sidebar from "./Sidebar";
 import Body from "./Body";
 import Header from "../shared/Header";
 
-import styles from "./calendar.module.css";
+import styles from "./dashboard.module.css";
 
 export const VIEWS = {
   RESERVATIONS: "r",

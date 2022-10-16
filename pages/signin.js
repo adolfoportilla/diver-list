@@ -83,7 +83,16 @@ const SignIn = () => {
       </div>
     );
 
-  return <div className="m-6">{loading ? <CircularProgress /> : null}</div>;
+  return (
+    <div className="m-6 h-full flex items-center justify-center">
+      <div className="flex flex-col items-center">
+        <CircularProgress color="primary" />
+        <span className="italic mt-2 font-light color">
+          Hang tight, signin in
+        </span>
+      </div>
+    </div>
+  );
 };
 
 export default SignIn;
