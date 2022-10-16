@@ -1,8 +1,12 @@
 import React from "react";
-import Sidebar from "./Sidebar";
+import LogoutIcon from "@mui/icons-material/Logout";
+import Button from "@mui/material/Button";
+import { useRouter } from "next/router";
 
+import Sidebar from "./Sidebar";
 import Body from "./Body";
 import Header from "../shared/Header";
+import supabase from "../../../utils/supabase";
 
 import styles from "./dashboard.module.css";
 
