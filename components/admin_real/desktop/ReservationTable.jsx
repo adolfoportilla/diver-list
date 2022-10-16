@@ -7,6 +7,7 @@ import {
   calculateRange,
   fetchReservations,
 } from "../shared/reservationTableUtils";
+import CreateReservationButton from "./CreateReservationButton";
 
 import { useUser } from "../../../utils/useUser";
 
@@ -40,6 +41,7 @@ export default function ReservationTable() {
   return (
     <div className="bg-white">
       {/* https://mui.com/x/api/data-grid/data-grid/ */}
+      <CreateReservationButton />
       <DataGrid
         rows={data}
         columns={RESERVATION_TABLE_COLUMNS_DESKTOP}
