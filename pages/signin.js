@@ -1,10 +1,11 @@
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import { useUser, useSessionContext } from "@supabase/auth-helpers-react";
-
 import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
+
+import { getURL } from "../utils/helpers";
 
 // TODO:
 // Instead of having a button to click signing with google, instead:
@@ -26,7 +27,7 @@ const SignIn = () => {
     setLoading(true);
     const { error } = await supabaseClient.auth.signInWithOAuth({
       provider,
-      options: { redirectTo: "localhost:3000/admin" },
+      options: { redirectTo: getURL("/admin") },
     });
     if (error) {
       setMessage({ type: "error", content: error.message });
@@ -67,20 +68,22 @@ const SignIn = () => {
               Sign In with Google
             </Button>
 
-            <span className="pt-1 text-center text-sm">
-              <span className="text-zinc-200">{`Don${`&apos;`}t have an account?`}</span>
-              <Link href="/signup">
-                <a className="text-accent-9 font-bold hover:underline cursor-pointer">
-                  Sign up.
-                </a>
-              </Link>
+            <span className="pt-1 flex text-center text-sm">
+              <span className="text-zinc-500 font-light">{`Don't have an account?`}</span>
+              <div className="ml-2">
+                <Link href="/signup" className="ml-4">
+                  <span className="text-accent-9 font-bold hover:underline cursor-pointer">
+                    Sign up.
+                  </span>
+                </Link>
+              </div>
             </span>
           </div>
         </div>
       </div>
     );
 
-  return <div className="m-6">{loading && <CircularProgress />}</div>;
+  return <div className="m-6">{loading ? <CircularProgress /> : null}</div>;
 };
 
 export default SignIn;
