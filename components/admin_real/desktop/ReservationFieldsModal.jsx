@@ -5,8 +5,11 @@ import { TimePicker } from "antd";
 import moment from "moment";
 import { Select } from "antd";
 import { dateFormat, timeFormat } from "../shared/constants";
-import { notification } from "antd";
 import FormField from "./FormField";
+import { useUser } from "../../../utils/useUser";
+import { openErrorNotification } from "../shared/reservationTableUtils";
+import { openSuccessNotification } from "../shared/reservationTableUtils";
+import { TableContext } from "../../states/ReservationTableContextProvider";
 
 const { Option } = Select;
 
@@ -17,8 +20,10 @@ const ReservationFieldsModal = ({
   modalOpen = false,
   setModalOpen,
 }) => {
-  const id = reservation.id || 123;
-
+  const context = React.useContext(TableContext);
+  const { diveShop } = useUser();
+  const dive_shop_id = diveShop ? diveShop.id : null;
+  const id = reservation.id;
   const [date, setDate] = useState(reservation.date);
   const [time, setTime] = useState(reservation.time || 0);
   const [certified, setCertified] = useState(
@@ -43,19 +48,13 @@ const ReservationFieldsModal = ({
     reservation.diver_information ? reservation.diver_information.email : null
   );
 
-  const openErrorNotification = (type) => {
-    notification[type]({
-      message: "Error",
-      description:
-        "There was an issue processing your request, please contact us if this persists. ",
-    });
+  const successHandler = () => {
+    context.getReservations();
+    openSuccessNotification("success");
   };
 
-  const openSuccessNotification = (type) => {
-    notification[type]({
-      message: "Success",
-      description: "Request processed successfully!",
-    });
+  const errorHandler = () => {
+    openErrorNotification("error");
   };
 
   const reservationValid = () => {
@@ -87,6 +86,7 @@ const ReservationFieldsModal = ({
             certified,
             reservationType,
             experience,
+            dive_shop_id: dive_shop_id,
             id,
             diverInformation: {
               name: name,
@@ -94,13 +94,13 @@ const ReservationFieldsModal = ({
               age: age,
               email: email,
             },
-          }).then((results) =>
+          }).then((results) => {
             results.error
-              ? openErrorNotification("error")
+              ? errorHandler()
               : results.data
-              ? openSuccessNotification("success")
-              : null
-          );
+              ? successHandler()
+              : null;
+          });
           setModalOpen(false);
         }
       }}

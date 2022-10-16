@@ -1,6 +1,7 @@
 import supabase from "../../../utils/supabase";
 import DeleteReservationButton from "../desktop/DeleteReservationButton";
 import EditReservationButton from "../desktop/EditReservationButton";
+import { notification } from "antd";
 
 // This function allows the columns to get values from Supabase like this `userInformation.name`
 // it essentially works the same way as the `get` function from lodash. (https://lodash.com/docs/4.17.15#get)
@@ -10,6 +11,20 @@ const valueGetterFn = (params) => {
     return params.row[outer][inner];
   }
   return params.value;
+};
+
+export const openErrorNotification = (type) => {
+  notification[type]({
+    message: "Error",
+    description:
+      "There was an issue processing your request, please contact us if this persists. ",
+  });
+};
+export const openSuccessNotification = (type) => {
+  notification[type]({
+    message: "Success",
+    description: "Request processed successfully!",
+  });
 };
 
 export const PAGE_SIZE = 10;
@@ -27,7 +42,8 @@ export const deleteReservation = async (reservationId) => {
   return await supabase
     .from("reservations")
     .delete()
-    .match({ id: reservationId });
+    .match({ id: reservationId })
+    .select();
 };
 
 export const updateReservation = async (props) => {
@@ -66,7 +82,7 @@ export const createReservation = async (props) => {
         age: props.diverInformation.age,
         email: props.diverInformation.email,
       },
-      id: props.id,
+      dive_shop_id: props.dive_shop_id,
     })
     .select();
 };
