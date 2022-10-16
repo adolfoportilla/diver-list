@@ -1,8 +1,9 @@
 import React from "react";
 
 import { VIEWS } from "./DesktopDashboard";
-import ReservationTable from "./ReservationTable";
 import Calendar from "./Calendar";
+import ReservationTableContextProvider from "../../states/ReservationTableContextProvider";
+import ReservationTable from "./ReservationTable";
 
 const BodyFrame = (props) => {
   return <div className="mt-10 mr-5">{props.children}</div>;
@@ -20,7 +21,9 @@ export default function Body({ view }) {
     default:
       return (
         <BodyFrame>
-          <ReservationTable />
+          <ReservationTableContextProvider>
+            <ReservationTable />
+          </ReservationTableContextProvider>
         </BodyFrame>
       );
   }

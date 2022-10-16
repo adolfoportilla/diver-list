@@ -15,27 +15,26 @@ export default function ReservationTable() {
 
   const [count, setCount] = React.useState(0);
   const { diveShop } = useUser();
-  const diveShopId = diveShop?.id || null;
 
   React.useEffect(() => {
-    (async () => {
-      if (diveShopId) {
+    if (diveShop) {
+      (async () => {
         setIsLoading(true);
         const {
-          data,
+          data: reservations,
           error,
           count: rowCount,
         } = await fetchReservations({
           rangeInitial: 0,
           rangeEnd: PAGE_SIZE - 1,
-          diveShopId,
+          diveShopId: diveShop.id,
         });
-        setData(data);
+        setData(reservations);
         setIsLoading(false);
         setCount(rowCount);
-      }
-    })();
-  }, []);
+      })();
+    }
+  }, [diveShop]);
 
   return (
     <div className="bg-white">

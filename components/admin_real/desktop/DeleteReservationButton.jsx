@@ -3,8 +3,17 @@ import { Delete } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import Modal from "antd/lib/modal/Modal";
 import { deleteReservation } from "../shared/reservationTableUtils";
+import { openErrorNotification } from "../shared/reservationTableUtils";
+import { openSuccessNotification } from "../shared/reservationTableUtils";
+import { TableContext } from "../../states/ReservationTableContextProvider";
+
 const DeleteReservationButton = ({ reservationId }) => {
+  const context = React.useContext(TableContext);
   const [modalOpen, setModalOpen] = useState(false);
+  const handleSuccess = () => {
+    context.getReservations();
+    openSuccessNotification("success");
+  };
   return (
     <div>
       <Modal
@@ -12,7 +21,13 @@ const DeleteReservationButton = ({ reservationId }) => {
         style={{}}
         visible={modalOpen}
         onOk={() => {
-          deleteReservation(reservationId);
+          deleteReservation(reservationId).then((results) =>
+            results.error
+              ? openErrorNotification("error")
+              : results.data
+              ? handleSuccess()
+              : null
+          );
           setModalOpen(false);
         }}
         onCancel={() => setModalOpen(false)}
