@@ -1,3 +1,4 @@
+import React from "react";
 import Dashboard from "../components/admin_real/shared/Dashboard";
 import { withPageAuth } from "@supabase/auth-helpers-nextjs";
 

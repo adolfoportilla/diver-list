@@ -10,14 +10,17 @@ import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 
 import { MyUserContextProvider } from "../utils/useUser";
+import { MySizeContextProvider } from "../utils/useSize";
 
 function MyApp({ Component, pageProps }) {
   const [supabaseClient] = useState(() => createBrowserSupabaseClient());
   return (
     <SessionContextProvider supabaseClient={supabaseClient}>
-      <MyUserContextProvider>
-        <Component {...pageProps} />
-      </MyUserContextProvider>
+      <MySizeContextProvider>
+        <MyUserContextProvider>
+          <Component {...pageProps} />
+        </MyUserContextProvider>
+      </MySizeContextProvider>
     </SessionContextProvider>
   );
 }

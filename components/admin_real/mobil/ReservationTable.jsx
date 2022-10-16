@@ -7,24 +7,33 @@ import {
   calculateRange,
   fetchReservations,
 } from "../shared/reservationTableUtils";
+import { useUser } from "../../../utils/useUser";
 
 export default function ReservationTable() {
   const [data, setData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
 
   const [count, setCount] = React.useState(0);
+  const { diveShop } = useUser();
+  const diveShopId = diveShop?.id || null;
 
   React.useEffect(() => {
     (async () => {
-      setIsLoading(true);
-      const {
-        data: reservations,
-        error,
-        count: rowCount,
-      } = await fetchReservations({ rangeInitial: 0, rangeEnd: PAGE_SIZE - 1 });
-      setData(reservations);
-      setIsLoading(false);
-      setCount(rowCount);
+      if (diveShopId) {
+        setIsLoading(true);
+        const {
+          data,
+          error,
+          count: rowCount,
+        } = await fetchReservations({
+          rangeInitial: 0,
+          rangeEnd: PAGE_SIZE - 1,
+          diveShopId,
+        });
+        setData(data);
+        setIsLoading(false);
+        setCount(rowCount);
+      }
     })();
   }, []);
 
@@ -47,13 +56,15 @@ export default function ReservationTable() {
         onPageChange={(newPage) => {
           const [initial, end] = calculateRange(newPage, PAGE_SIZE);
           setIsLoading(true);
-          fetchReservations({ rangeInitial: initial, rangeEnd: end }).then(
-            ({ data, error, count }) => {
-              setData(data);
-              setIsLoading(false);
-              setCount(count);
-            }
-          );
+          fetchReservations({
+            rangeInitial: initial,
+            rangeEnd: end,
+            diveShopId,
+          }).then(({ data, error, count }) => {
+            setData(data);
+            setIsLoading(false);
+            setCount(count);
+          });
         }}
       />
     </div>
