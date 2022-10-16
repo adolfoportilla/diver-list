@@ -32,16 +32,7 @@ export default function ReservationTable({}) {
         paginationMode="server"
         onPageChange={(newPage) => {
           const [initial, end] = calculateRange(newPage, PAGE_SIZE);
-          setIsLoading(true);
-          fetchReservations({
-            rangeInitial: initial,
-            rangeEnd: end,
-            diveShopId: context.diveShop.id,
-          }).then(({ data, error, count }) => {
-            setData(data);
-            setIsLoading(false);
-            setCount(count);
-          });
+          context.getReservations(initial, end);
         }}
       />
     </div>

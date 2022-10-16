@@ -7,17 +7,17 @@ import {
 } from "../admin_real/shared/reservationTableUtils";
 export const TableContext = React.createContext({});
 
-const ReservationTableContextProvider = () => {
+const ReservationTableContextProvider = (props) => {
   const [data, setData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
 
   const [count, setCount] = React.useState(0);
   const { diveShop } = useUser();
 
-  const getReservations = () => {
+  const getReservations = (rangeInitial = 0, rangeEnd = PAGE_SIZE - 1) => {
     fetchReservations({
-      rangeInitial: 0,
-      rangeEnd: PAGE_SIZE - 1,
+      rangeInitial: rangeInitial,
+      rangeEnd: rangeEnd,
       diveShopId: diveShop.id,
     })
       .then((results) => {
@@ -47,9 +47,8 @@ const ReservationTableContextProvider = () => {
         count,
         diveShop,
       }}
-    >
-      <ReservationTable />
-    </TableContext.Provider>
+      {...props}
+    />
   );
 };
 
