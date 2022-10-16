@@ -87,13 +87,11 @@ const dataCellRender = (date, data) => {
       return `${momentDate.date()}${momentDate.month()}${momentDate.year()}`;
     })
   );
-  return Array.from(excludeSameDate).map((d) => {
-    return (
-      <div key={d} className="ml-2 -mt-1">
-        <Badge status="processing" />
-      </div>
-    );
-  });
+  return (
+    <div className="ml-2 -mt-1 ">
+      <Badge status={excludeSameDate.size > 0 ? "processing" : ""} />
+    </div>
+  );
 };
 
 const getDateReservations = (date, reservations) => {
