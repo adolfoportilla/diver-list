@@ -4,7 +4,7 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
