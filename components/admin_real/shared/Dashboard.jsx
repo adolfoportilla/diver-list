@@ -9,6 +9,12 @@ const isMobile = (width) => {
 };
 
 export default function Dashboard() {
-  const { width, height } = useSize();
-  return isMobile(width) ? <MobileDashboard /> : <DesktopDashboard />;
+  // const { width, height } = useSize();
+  const width = 650;
+  return (
+    <div>
+      <span>Dashboard</span>
+    </div>
+  );
+  // return isMobile(width) ? <MobileDashboard /> : <DesktopDashboard />;
 }

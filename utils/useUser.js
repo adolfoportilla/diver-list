@@ -7,43 +7,44 @@ import {
 export const UserContext = createContext(undefined);
 
 export const MyUserContextProvider = (props) => {
-  const {
-    session,
-    isLoading: isLoadingUser,
-    supabaseClient: supabase,
-  } = useSessionContext();
-  const user = useSupaUser();
-  const accessToken = session?.access_token ?? null;
+  // const {
+  //   session,
+  //   isLoading: isLoadingUser,
+  //   supabaseClient: supabase,
+  // } = useSessionContext();
+  // const user = useSupaUser();
+  // const accessToken = session?.access_token ?? null;
   const [isLoadingData, setIsLoadingData] = useState(false);
   const [diveShop, setDiveShop] = useState(null);
 
-  const getDiveShop = (email) =>
-    supabase.from("dive-shop").select("*").eq("email", email).single();
+  // const getDiveShop = (email) =>
+  //   supabase.from("dive-shop").select("*").eq("email", email).single();
 
-  useEffect(() => {
-    if (user && !isLoadingData && !diveShop) {
-      setIsLoadingData(true);
-      getDiveShop(user.email)
-        .then((results) => {
-          if (results.data) {
-            setDiveShop(results.data);
-          }
-          setIsLoadingData(false);
-        })
-        .catch((error) => {
-          // TODO(adolfo): figure out what to do when this thing errors out, probably log out?
-          console.log("error", error);
-        });
-    } else if (!user && !isLoadingUser && !isLoadingData) {
-      setDiveShop(null);
-    }
-  }, [user, isLoadingUser]);
+  // useEffect(() => {
+  //   if (user && !isLoadingData && !diveShop) {
+  //     setIsLoadingData(true);
+  //     getDiveShop(user.email)
+  //       .then((results) => {
+  //         if (results.data) {
+  //           setDiveShop(results.data);
+  //         }
+  //         setIsLoadingData(false);
+  //       })
+  //       .catch((error) => {
+  //         // TODO(adolfo): figure out what to do when this thing errors out, probably log out?
+  //         console.log("error", error);
+  //       });
+  //   } else if (!user && !isLoadingUser && !isLoadingData) {
+  //     setDiveShop(null);
+  //   }
+  // }, [user, isLoadingUser]);
 
   const value = {
-    accessToken,
-    user,
+    accessToken: null,
+    user: null,
     diveShop,
-    isLoading: isLoadingUser || isLoadingData,
+    // isLoading: isLoadingUser || isLoadingData,
+    isLoading: isLoadingData,
   };
 
   return <UserContext.Provider value={value} {...props} />;
