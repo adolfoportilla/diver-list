@@ -31,7 +31,7 @@ const PAGE_SIZE = 20;
 // https://ant.design/components/calendar/
 export default function Calendar() {
   const [reservations, setReservations] = React.useState();
-  const user = useUser();
+  const user = {};
   React.useEffect(() => {
     if (user) {
       (async () => {
