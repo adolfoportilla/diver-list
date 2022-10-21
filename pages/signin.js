@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useUser, useSessionContext } from "@supabase/auth-helpers-react";
+import {
+  useUser,
+  useSessionContext,
+  useSupabaseClient,
+} from "@supabase/auth-helpers-react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
 
@@ -21,7 +25,8 @@ const SignIn = () => {
   });
   const router = useRouter();
   const user = useUser();
-  const { supabaseClient } = useSessionContext();
+  // const { supabaseClient } = useSessionContext();
+  const supabaseClient = useSupabaseClient();
 
   const handleOAuthSignIn = async (provider) => {
     setLoading(true);

@@ -6,14 +6,10 @@ import { withPageAuth } from "@supabase/auth-helpers-nextjs";
 // Current Issue: https://github.com/supabase/auth-helpers/issues/281
 
 export default function Admin() {
-  return <Dashboard />;
+  return <div>Hello world</div>;
+  // return <Dashboard />;
 }
 
 export const getServerSideProps = withPageAuth({
   redirectTo: "/signin",
-  async getServerSideProps(ctx, supabase) {
-    console.log("here");
-
-    return { props: {} };
-  },
 });
