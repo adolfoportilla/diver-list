@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import {
-  useUser,
-  useSessionContext,
-  useSupabaseClient,
-} from "@supabase/auth-helpers-react";
+import { useUser, useSessionContext } from "@supabase/auth-helpers-react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Button from "@mui/material/Button";
 
@@ -25,19 +21,15 @@ const SignIn = () => {
   });
   const router = useRouter();
   const user = useUser();
-  // const { supabaseClient } = useSessionContext();
-  const supabaseClient = useSupabaseClient();
+  const { supabaseClient } = useSessionContext();
 
   const handleOAuthSignIn = async (provider) => {
     setLoading(true);
-    const redirectUrl = getURL("/admin");
-
     const { error } = await supabaseClient.auth.signInWithOAuth({
       provider,
-      options: { redirectTo: redirectUrl },
+      options: { redirectTo: getURL("/admin") },
     });
     if (error) {
-      console.log("error", error);
       setMessage({ type: "error", content: error.message });
     }
     setLoading(false);

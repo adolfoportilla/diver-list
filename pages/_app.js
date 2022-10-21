@@ -15,15 +15,12 @@ import { MySizeContextProvider } from "../utils/useSize";
 function MyApp({ Component, pageProps }) {
   const [supabaseClient] = useState(() => createBrowserSupabaseClient());
   return (
-    <SessionContextProvider
-      supabaseClient={supabaseClient}
-      initialSession={pageProps.initialSession}
-    >
-      {/* <MySizeContextProvider> */}
-      <MyUserContextProvider>
-        <Component {...pageProps} />
-      </MyUserContextProvider>
-      {/* </MySizeContextProvider> */}
+    <SessionContextProvider supabaseClient={supabaseClient}>
+      <MySizeContextProvider>
+        <MyUserContextProvider>
+          <Component {...pageProps} />
+        </MyUserContextProvider>
+      </MySizeContextProvider>
     </SessionContextProvider>
   );
 }
