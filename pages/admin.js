@@ -5,7 +5,7 @@ import { withPageAuth } from "@supabase/auth-helpers-nextjs";
 // Example: https://github.com/vercel/nextjs-subscription-payments
 // Current Issue: https://github.com/supabase/auth-helpers/issues/281
 
-export default function Admin() {
+export default function Admin({ user }) {
   return <div>Hello world</div>;
   // return <Dashboard />;
 }

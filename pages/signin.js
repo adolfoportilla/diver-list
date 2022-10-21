@@ -28,13 +28,6 @@ const SignIn = () => {
   // const { supabaseClient } = useSessionContext();
   const supabaseClient = useSupabaseClient();
 
-  // Redirect user if already logged in.
-  useEffect(() => {
-    if (user) {
-      router.replace("/admin");
-    }
-  }, [user]);
-
   const handleOAuthSignIn = async (provider) => {
     setLoading(true);
     const { error } = await supabaseClient.auth.signInWithOAuth({
@@ -46,6 +39,12 @@ const SignIn = () => {
     }
     setLoading(false);
   };
+  // Redirect user if already logged in.
+  useEffect(() => {
+    if (user) {
+      router.replace("/admin");
+    }
+  }, [user]);
 
   if (!user)
     return (
