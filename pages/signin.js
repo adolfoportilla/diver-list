@@ -25,7 +25,6 @@ const SignIn = () => {
   });
   const router = useRouter();
   const user = useUser();
-  // const { supabaseClient } = useSessionContext();
   const supabaseClient = useSupabaseClient();
 
   const handleOAuthSignIn = async (provider) => {
