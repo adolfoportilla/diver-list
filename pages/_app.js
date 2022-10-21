@@ -16,11 +16,11 @@ function MyApp({ Component, pageProps }) {
   const [supabaseClient] = useState(() => createBrowserSupabaseClient());
   return (
     <SessionContextProvider supabaseClient={supabaseClient}>
-      <MySizeContextProvider>
-        <MyUserContextProvider>
-          <Component {...pageProps} />
-        </MyUserContextProvider>
-      </MySizeContextProvider>
+      {/* <MySizeContextProvider> */}
+      {/* <MyUserContextProvider> */}
+      <Component {...pageProps} />
+      {/* </MyUserContextProvider> */}
+      {/* </MySizeContextProvider> */}
     </SessionContextProvider>
   );
 }
