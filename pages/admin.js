@@ -11,5 +11,5 @@ export default function Admin() {
 }
 
 export const getServerSideProps = withPageAuth({
-  redirectTo: "/",
+  redirectTo: "/admin",
 });
