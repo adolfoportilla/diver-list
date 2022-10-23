@@ -22,30 +22,30 @@ export const MyUserContextProvider = (props) => {
     supabase.from("dive-shop").select("*").eq("email", email).single();
 
   useEffect(() => {
-    if (user && !isLoadingData && !diveShop) {
-      setIsLoadingData(true);
-      // getDiveShop(user.email)
-      //   .then((results) => {
-      //     console.log(results, "here");
-      //     if (results.data) {
-      //       setDiveShop(results.data);
-      //     }
-      //     setIsLoadingData(false);
-      //   })
-      //   .catch((error) => {
-      //     // TODO(adolfo): figure out what to do when this thing errors out, probably log out?
-      //     console.log("error", error);
-      //   });
-    } else if (!user && !isLoadingUser && !isLoadingData) {
-      setDiveShop(null);
-    }
-  }, [user, isLoadingUser]);
+    // if (user && !isLoadingData && !diveShop) {
+    //   setIsLoadingData(true);
+    //   // getDiveShop(user.email)
+    //   //   .then((results) => {
+    //   //     console.log(results, "here");
+    //   //     if (results.data) {
+    //   //       setDiveShop(results.data);
+    //   //     }
+    //   //     setIsLoadingData(false);
+    //   //   })
+    //   //   .catch((error) => {
+    //   //     // TODO(adolfo): figure out what to do when this thing errors out, probably log out?
+    //   //     console.log("error", error);
+    //   //   });
+    // } else if (!user && !isLoadingUser && !isLoadingData) {
+    //   setDiveShop(null);
+    // }
+  }, [user]);
 
   const value = {
     accessToken,
     user,
     diveShop,
-    isLoading: isLoadingUser || isLoadingData,
+    isLoading: false || isLoadingData,
   };
 
   return <UserContext.Provider value={value} {...props} />;
