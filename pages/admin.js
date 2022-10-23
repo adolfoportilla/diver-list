@@ -9,6 +9,6 @@ export default function Admin({ user }) {
   return <Dashboard />;
 }
 
-export const getServerSideProps = withPageAuth({
-  redirectTo: "/admin",
-});
+// export const getServerSideProps = withPageAuth({
+//   redirectTo: "/admin",
+// });
