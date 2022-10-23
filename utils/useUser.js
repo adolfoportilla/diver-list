@@ -25,6 +25,7 @@ export const MyUserContextProvider = (props) => {
       setIsLoadingData(true);
       getDiveShop(user.email)
         .then((results) => {
+          console.log(results, "here");
           if (results.data) {
             setDiveShop(results.data);
           }
