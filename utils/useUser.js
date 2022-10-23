@@ -23,18 +23,18 @@ export const MyUserContextProvider = (props) => {
   useEffect(() => {
     if (user && !isLoadingData && !diveShop) {
       setIsLoadingData(true);
-      getDiveShop(user.email)
-        .then((results) => {
-          console.log(results, "here");
-          if (results.data) {
-            setDiveShop(results.data);
-          }
-          setIsLoadingData(false);
-        })
-        .catch((error) => {
-          // TODO(adolfo): figure out what to do when this thing errors out, probably log out?
-          console.log("error", error);
-        });
+      // getDiveShop(user.email)
+      //   .then((results) => {
+      //     console.log(results, "here");
+      //     if (results.data) {
+      //       setDiveShop(results.data);
+      //     }
+      //     setIsLoadingData(false);
+      //   })
+      //   .catch((error) => {
+      //     // TODO(adolfo): figure out what to do when this thing errors out, probably log out?
+      //     console.log("error", error);
+      //   });
     } else if (!user && !isLoadingUser && !isLoadingData) {
       setDiveShop(null);
     }
