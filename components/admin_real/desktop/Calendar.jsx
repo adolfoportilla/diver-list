@@ -34,12 +34,12 @@ export default function Calendar() {
   const user = useUser();
   React.useEffect(() => {
     if (user) {
-      (async () => {
-        const { data, error } = await fetchCalendar({
-          diveShopId: user.diveShop,
-        });
-        setReservations(data);
-      })();
+      // (async () => {
+      //   const { data, error } = await fetchCalendar({
+      //     diveShopId: user.diveShop,
+      //   });
+      //   setReservations(data);
+      // })();
     }
   }, [user]);
 

@@ -15,20 +15,20 @@ const ReservationTableContextProvider = (props) => {
   const { diveShop } = useUser();
 
   const getReservations = (rangeInitial = 0, rangeEnd = PAGE_SIZE - 1) => {
-    fetchReservations({
-      rangeInitial: rangeInitial,
-      rangeEnd: rangeEnd,
-      diveShopId: diveShop.id,
-    })
-      .then((results) => {
-        setData(results.data);
-        setIsLoading(false);
-        setCount(results.count);
-      })
-      .catch((error) => {
-        console.log("error", error);
-        setIsLoading(false);
-      });
+    // fetchReservations({
+    //   rangeInitial: rangeInitial,
+    //   rangeEnd: rangeEnd,
+    //   diveShopId: diveShop.id,
+    // })
+    //   .then((results) => {
+    //     setData(results.data);
+    //     setIsLoading(false);
+    //     setCount(results.count);
+    //   })
+    //   .catch((error) => {
+    //     console.log("error", error);
+    //     setIsLoading(false);
+    //   });
   };
 
   React.useEffect(() => {
