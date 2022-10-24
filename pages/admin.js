@@ -14,13 +14,13 @@ export default function Admin({ user }) {
   );
 }
 
-export const getServerSideProps = withPageAuth({
-  redirectTo: "/signin",
-  async getServerSideProps(ctx, supabase) {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    console.log("user", user);
-    return { props: { email: user?.email } };
-  },
-});
+// export const getServerSideProps = withPageAuth({
+//   redirectTo: "/signin",
+//   async getServerSideProps(ctx, supabase) {
+//     const {
+//       data: { user },
+//     } = await supabase.auth.getUser();
+//     console.log('user', user)
+//     return { props: { email: user?.email } };
+//   },
+// });
