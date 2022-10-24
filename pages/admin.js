@@ -1,26 +1,8 @@
 import Dashboard from "../components/admin_real/shared/Dashboard";
-import { withPageAuth } from "@supabase/auth-helpers-nextjs";
 
 // Example: https://github.com/vercel/nextjs-subscription-payments
 // Current Issue: https://github.com/supabase/auth-helpers/issues/281
 
 export default function Admin({ user }) {
-  // return <Dashboard />;
-
-  return (
-    <div className="flex flex-col justify-center align-center">
-      <span>Hello world</span>
-    </div>
-  );
+  return <Dashboard />;
 }
-
-// export const getServerSideProps = withPageAuth({
-//   redirectTo: "/signin",
-//   async getServerSideProps(ctx, supabase) {
-//     const {
-//       data: { user },
-//     } = await supabase.auth.getUser();
-//     console.log('user', user)
-//     return { props: { email: user?.email } };
-//   },
-// });
