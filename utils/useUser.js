@@ -17,23 +17,19 @@ export const MyUserContextProvider = (props) => {
   const [isLoadingData, setIsLoadingData] = useState(false);
   const [diveShop, setDiveShop] = useState(null);
 
-  const getDiveShop = (email) =>
-    supabase.from("dive-shop").select("*").eq("email", email).single();
-
   useEffect(() => {
+    const getDiveShop = async (email) => {
+      const data = await supabase
+        .from("dive-shop")
+        .select("*")
+        .eq("email", email)
+        .single();
+      setDiveShop(data);
+    };
     if (user && !isLoadingData && !diveShop) {
       setIsLoadingData(true);
-      getDiveShop(user.email)
-        .then((results) => {
-          if (results.data) {
-            setDiveShop(results.data);
-          }
-          setIsLoadingData(false);
-        })
-        .catch((error) => {
-          // TODO(adolfo): figure out what to do when this thing errors out, probably log out?
-          console.log("error", error);
-        });
+      getDiveShop(user.email);
+      setIsLoadingData(false);
     } else if (!user && !isLoadingUser && !isLoadingData) {
       setDiveShop(null);
     }
