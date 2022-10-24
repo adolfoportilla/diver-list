@@ -6,7 +6,13 @@ import { withPageAuth } from "@supabase/auth-helpers-nextjs";
 // Current Issue: https://github.com/supabase/auth-helpers/issues/281
 
 export default function Admin({ user, customProps }) {
-  return <Dashboard />;
+  // return <Dashboard />;
+
+  return (
+    <div className="flex flex-col justify-center align-center">
+      <span>Hello world</span>
+    </div>
+  );
 }
 
 export const getServerSideProps = withPageAuth({
