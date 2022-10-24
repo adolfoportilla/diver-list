@@ -17,9 +17,9 @@ function MyApp({ Component, pageProps }) {
   return (
     <SessionContextProvider supabaseClient={supabaseClient}>
       <MySizeContextProvider>
-        <MyUserContextProvider>
-          <Component {...pageProps} />
-        </MyUserContextProvider>
+        {/* <MyUserContextProvider> */}
+        <Component {...pageProps} />
+        {/* </MyUserContextProvider> */}
       </MySizeContextProvider>
     </SessionContextProvider>
   );
