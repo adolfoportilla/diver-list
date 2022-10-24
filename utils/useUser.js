@@ -19,7 +19,7 @@ export const MyUserContextProvider = (props) => {
 
   useEffect(() => {
     const getDiveShop = async (email) => {
-      const data = await supabase
+      const { data } = await supabase
         .from("dive-shop")
         .select("*")
         .eq("email", email)
