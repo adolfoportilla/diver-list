@@ -25,11 +25,11 @@ export const MyUserContextProvider = (props) => {
         .eq("email", email)
         .single();
       setDiveShop(data);
+      setIsLoadingData(false);
     };
     if (user && !isLoadingData && !diveShop) {
       setIsLoadingData(true);
       getDiveShop(user.email);
-      setIsLoadingData(false);
     } else if (!user && !isLoadingUser && !isLoadingData) {
       setDiveShop(null);
     }
