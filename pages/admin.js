@@ -17,6 +17,10 @@ export default function Admin({ user }) {
 export const getServerSideProps = withPageAuth({
   redirectTo: "/signin",
   async getServerSideProps(ctx, supabase) {
-    return { props: { email: "testing" } };
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    console.log("user", user);
+    return { props: { email: user?.email } };
   },
 });
