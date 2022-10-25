@@ -21,6 +21,9 @@ const dateCellRender = (cellDate, data) => {
       {filteredReservations.map((item) => (
         <li key={item.id}>
           <ReservationBadge item={item} />
+          <span>{item.time}</span>
+          <span>{item.diver_information.name}</span>
+          <span className="ml-1">{item.diver_information.lastName}</span>
         </li>
       ))}
     </ul>
@@ -30,18 +33,19 @@ const PAGE_SIZE = 20;
 
 // https://ant.design/components/calendar/
 export default function Calendar() {
-  const [reservations, setReservations] = React.useState();
-  const user = useUser();
+  const [reservations, setReservations] = React.useState([]);
+  const { diveShop } = useUser();
+  const diveShopId = diveShop?.id || null;
   React.useEffect(() => {
-    if (user) {
+    if (diveShopId) {
       (async () => {
         const { data, error } = await fetchCalendar({
-          diveShopId: user.diveShop,
+          diveShopId,
         });
         setReservations(data);
       })();
     }
-  }, [user]);
+  }, [diveShopId]);
 
   return (
     // TODO

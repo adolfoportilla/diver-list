@@ -29,6 +29,10 @@ const ReservationBadge = ({ item }) => {
       >
         <div className="flex flex-col">
           <div>
+            <span className="font-bold">ID:</span>
+            <span>{` ${item.id}`}</span>
+          </div>
+          <div>
             <span className="font-bold">Reservation Type:</span>
             <span>{` ${item.reservation_type}`}</span>
           </div>

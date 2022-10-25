@@ -41,7 +41,10 @@ const ReservationTableContextProvider = (props) => {
   return (
     <TableContext.Provider
       value={{
-        getReservations,
+        getReservations: function (...values) {
+          setIsLoading(true);
+          getReservations(...values);
+        },
         data,
         isLoading,
         count,
