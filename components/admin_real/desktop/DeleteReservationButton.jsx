@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Delete } from "@mui/icons-material";
-import { Button } from "@mui/material";
+import { Button, Alert } from "@mui/material";
 import Modal from "antd/lib/modal/Modal";
+
 import { deleteReservation } from "../shared/reservationTableUtils";
 import { openErrorNotification } from "../shared/reservationTableUtils";
 import { openSuccessNotification } from "../shared/reservationTableUtils";
@@ -17,9 +18,15 @@ const DeleteReservationButton = ({ reservationId }) => {
   return (
     <div>
       <Modal
-        title={"Are you sure you want to delete this reservation?"}
+        title={
+          <Alert severity="error">
+            Are you sure you want to delete this reservation?
+          </Alert>
+        }
+        closable={false}
         style={{}}
         visible={modalOpen}
+        okButtonProps={{ danger: true }}
         onOk={() => {
           deleteReservation(reservationId).then((results) =>
             results.error

@@ -12,7 +12,7 @@ const EditReservationButton = ({ reservation }) => {
       <ReservationFieldsModal
         reservation={reservation}
         onSubmit={updateReservation}
-        modalTitle="Edit Reservation"
+        modalTitle="Update"
         setModalOpen={setModalOpen}
         modalOpen={modalOpen}
       />

@@ -7,7 +7,6 @@ import {
   calculateRange,
   fetchReservations,
 } from "../shared/reservationTableUtils";
-import CreateReservationButton from "./CreateReservationButton";
 import { TableContext } from "../../states/ReservationTableContextProvider";
 
 export default function ReservationTable({}) {
@@ -15,7 +14,6 @@ export default function ReservationTable({}) {
   return (
     <div className="bg-white">
       {/* https://mui.com/x/api/data-grid/data-grid/ */}
-      <CreateReservationButton />
       <DataGrid
         rows={context.data}
         columns={RESERVATION_TABLE_COLUMNS_DESKTOP}

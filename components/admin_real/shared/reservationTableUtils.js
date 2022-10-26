@@ -1,4 +1,7 @@
-import supabase from "../../../utils/supabase";
+import supabase, {
+  DEEPEST_TO_TEXT_MAPPING,
+  NUM_OF_DIVES_TO_TEXT_MAPPING,
+} from "../../../utils/supabase";
 import DeleteReservationButton from "../desktop/DeleteReservationButton";
 import EditReservationButton from "../desktop/EditReservationButton";
 import { notification } from "antd";
@@ -20,10 +23,11 @@ export const openErrorNotification = (type) => {
       "There was an issue processing your request, please contact us if this persists. ",
   });
 };
-export const openSuccessNotification = (type) => {
+export const openSuccessNotification = (type, message, description) => {
   notification[type]({
-    message: "Success",
-    description: "Request processed successfully!",
+    message: message || "Success",
+    description: description || "Request processed successfully!",
+    duration: 5,
   });
 };
 
@@ -49,40 +53,19 @@ export const deleteReservation = async (reservationId) => {
 export const updateReservation = async (props) => {
   return await supabase
     .from("reservations")
-    .update({
-      date: props.date,
-      time: props.time,
-      diver_certified: props.certified,
-      reservation_type: props.reservationType,
-      //todo - change this field to "experience" in supabase schema
-      number_of_dives: props.experience,
-      diver_information: {
-        name: props.diverInformation.name,
-        lastName: props.diverInformation.lastName,
-        age: props.diverInformation.age,
-        email: props.diverInformation.email,
-      },
-    })
-    .eq("id", props.id)
+    .update(props.values)
+    .eq("id", props.reservationId)
+    .eq("dive_shop_id", props.diveShopId)
     .select();
 };
 //Todo: need to add the dive shop id here?
 export const createReservation = async (props) => {
+  console.log("props", props);
   return await supabase
     .from("reservations")
     .insert({
-      date: props.date,
-      time: props.time,
-      diver_certified: props.certified,
-      reservation_type: props.reservationType,
-      number_of_dives: props.experience,
-      diver_information: {
-        name: props.diverInformation.name,
-        lastName: props.diverInformation.lastName,
-        age: props.diverInformation.age,
-        email: props.diverInformation.email,
-      },
-      dive_shop_id: props.dive_shop_id,
+      ...props.values,
+      dive_shop_id: props.diveShopId,
     })
     .select();
 };
@@ -108,6 +91,8 @@ export const RESERVATION_TABLE_COLUMNS_DESKTOP = [
     field: "diver_certified",
     headerName: "Certified?",
     width: 90,
+    // https://mui.com/x/api/data-grid/grid-cell-params/
+    renderCell: ({ value }) => <span>{value ? "yes" : "no"}</span>,
   },
   {
     field: "diver_information.name",
@@ -123,7 +108,22 @@ export const RESERVATION_TABLE_COLUMNS_DESKTOP = [
     type: "number",
     width: 50,
   },
-  { field: "number_of_dives", headerName: "Experience", width: 120 },
+  {
+    field: "number_of_dives",
+    headerName: "Experience",
+    width: 160,
+    renderCell: ({ value }) => {
+      return <span>{NUM_OF_DIVES_TO_TEXT_MAPPING[value]}</span>;
+    },
+  },
+  {
+    field: "deepest_dive",
+    headerName: "Deepest Dive",
+    width: 140,
+    renderCell: ({ value }) => {
+      return <span>{DEEPEST_TO_TEXT_MAPPING[value]}</span>;
+    },
+  },
   {
     field: "diver_information.email",
     headerName: "Email",
