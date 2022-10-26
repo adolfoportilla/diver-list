@@ -1,11 +1,12 @@
 import React from "react";
 import "antd/dist/antd.css";
-import { Badge, Calendar as _Calendar } from "antd";
+import { Calendar as _Calendar } from "antd";
 import moment from "moment";
 import ReservationBadge from "../ReservationBadge";
 
 import { fetchCalendar, isSameDay } from "../shared/calendarUtil";
 import { useUser } from "../../../utils/useUser";
+import ReservationViewModal from "./ReservationViewModal";
 
 const dateCellRender = (cellDate, data) => {
   if (!data || !data.length) {
@@ -20,10 +21,12 @@ const dateCellRender = (cellDate, data) => {
     <ul className="events">
       {filteredReservations.map((item) => (
         <li key={item.id}>
-          <ReservationBadge item={item} />
-          <span>{item.time}</span>
-          <span>{item.diver_information.name}</span>
-          <span className="ml-1">{item.diver_information.lastName}</span>
+          <ReservationViewModal reservation={item}>
+            <ReservationBadge item={item} />
+            {item.time ? <span>{item.time}</span> : null}
+            <span>{item.diver_information.name}</span>
+            <span className="ml-1">{item.diver_information.lastName}</span>
+          </ReservationViewModal>
         </li>
       ))}
     </ul>
