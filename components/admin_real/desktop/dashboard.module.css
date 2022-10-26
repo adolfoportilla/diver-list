@@ -1,12 +1,6 @@
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  grid-template-rows: 80px auto 1fr 1fr 1fr auto auto;
-}
-
 .container {
   display: grid;
-  grid-template-columns: 240px auto;
+  grid-template-columns: 220px auto;
   grid-template-rows: 50px auto;
   grid-template-areas:
     "header header "

@@ -1,17 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "antd/lib/modal/Modal";
-import { Alert, DatePicker, Input } from "antd";
+import { Form, Button, DatePicker, Input, InputNumber, Radio } from "antd";
 import { TimePicker } from "antd";
 import moment from "moment";
-import { Select } from "antd";
 import { dateFormat, timeFormat } from "../shared/constants";
-import FormField from "./FormField";
 import { useUser } from "../../../utils/useUser";
-import { openErrorNotification } from "../shared/reservationTableUtils";
-import { openSuccessNotification } from "../shared/reservationTableUtils";
+import {
+  NUM_OF_DIVES,
+  DEEPEST_DIVE,
+  DEEPEST_TO_TEXT_MAPPING,
+  NUM_OF_DIVES_TO_TEXT_MAPPING,
+} from "../../../utils/supabase";
 import { TableContext } from "../../states/ReservationTableContextProvider";
+import { openSuccessNotification } from "../shared/reservationTableUtils";
 
-const { Option } = Select;
+const formatValues = (values) => {
+  const result = {
+    date: values.date ? moment(values.date).format(dateFormat) : null,
+    time: values.time ? moment(values.time).format(timeFormat) : null,
+    diver_certified: values.certified === "yes" ? true : false,
+    reservation_type: values.reservation_type,
+    number_of_dives: values.experience,
+    deepest_dive: values.deepest_dive,
+    diver_information: {
+      name: values.name,
+      lastName: values.lastName,
+      age: values.age,
+      email: values.email,
+    },
+  };
+  return result;
+};
 
 const ReservationFieldsModal = ({
   reservation = {},
@@ -20,184 +39,178 @@ const ReservationFieldsModal = ({
   modalOpen = false,
   setModalOpen,
 }) => {
-  const context = React.useContext(TableContext);
   const { diveShop } = useUser();
-  const dive_shop_id = diveShop ? diveShop.id : null;
-  const id = reservation.id;
-  const [date, setDate] = useState(reservation.date);
-  const [time, setTime] = useState(reservation.time || 0);
-  const [certified, setCertified] = useState(
-    reservation.diver_certified ? reservation.diver_certified.toString() : null
-  );
-  const [reservationType, setReservationType] = useState(
-    reservation.reservation_type
-  );
-  const [name, setName] = useState(
-    reservation.diver_information ? reservation.diver_information.name : null
-  );
-  const [lastName, setLastName] = useState(
-    reservation.diver_information
-      ? reservation.diver_information.lastName
-      : null
-  );
-  const [age, setAge] = useState(
-    reservation.diver_information ? reservation.diver_information.age : null
-  );
-  const [experience, setExperience] = useState(reservation.number_of_dives);
-  const [email, setEmail] = useState(
-    reservation.diver_information ? reservation.diver_information.email : null
-  );
+  const diveShopId = diveShop ? diveShop.id : null;
+  const [isLoading, setIsLoading] = useState(false);
+  const [form] = Form.useForm();
 
-  const successHandler = () => {
-    context.getReservations();
-    openSuccessNotification("success");
+  const [isFormTouched, setIsFormTouched] = useState(false);
+
+  const _onFinish = (values) => {
+    setIsLoading(true);
+    const formattedValues = formatValues(values);
+    onSubmit({
+      values: formattedValues,
+      reservationId: reservation.id,
+      diveShopId,
+    })
+      .then((results) => {
+        if (results.error) {
+          // TODO(fofo): Set the alert with error
+        }
+        setModalOpen(false);
+        openSuccessNotification(
+          "success",
+          "Successful!",
+          "Reservation updated successful!"
+        );
+        form.resetFields();
+      })
+      .catch((error) => {
+        // TODO(fofo): Set the alert with error
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
-
-  const errorHandler = () => {
-    openErrorNotification("error");
-  };
-
-  const reservationValid = () => {
-    if (
-      date &&
-      time &&
-      certified &&
-      reservationType &&
-      experience &&
-      name &&
-      lastName &&
-      age &&
-      email
-    ) {
-      return true;
-    }
-    return false;
-  };
-
   return (
     <Modal
-      title={modalTitle}
+      title={modalTitle + " Reservation"}
       visible={modalOpen}
-      onOk={() => {
-        if (reservationValid()) {
-          onSubmit({
-            date,
-            time,
-            certified,
-            reservationType,
-            experience,
-            dive_shop_id: dive_shop_id,
-            id,
-            diverInformation: {
-              name: name,
-              lastName: lastName,
-              age: age,
-              email: email,
-            },
-          }).then((results) => {
-            results.error
-              ? errorHandler()
-              : results.data
-              ? successHandler()
-              : null;
-          });
-          setModalOpen(false);
-        }
-      }}
       onCancel={() => setModalOpen(false)}
+      footer={null}
+      width={650}
+      destroyOnClose
     >
-      <div className="flex flex-col">
-        {!reservationValid() && (
-          <Alert message="Please fill in all fields" type="error" showIcon />
-        )}
-        <FormField>
-          <span>Date : </span>
-          <DatePicker
-            defaultValue={moment(date)}
-            format={dateFormat}
-            onChange={(value) =>
-              setDate(value ? value.format(dateFormat) : null)
-            }
-            className="w-32"
-          />
-        </FormField>
-        <FormField>
-          <span>Time : </span>
-          <TimePicker
-            defaultValue={moment(time, timeFormat)}
-            className="w-32"
-            format={timeFormat}
-            onChange={(value) =>
-              setTime(value ? value.format(timeFormat) : null)
-            }
-          />
-        </FormField>
-        <FormField>
-          <span>Certified : </span>
-          <Select
-            defaultValue={certified}
-            className="w-32"
-            onChange={(value) => setCertified(value)}
+      <div>
+        <Form
+          form={form}
+          onFinish={_onFinish}
+          initialValues={{
+            date: reservation.date
+              ? moment(reservation.date, dateFormat)
+              : null,
+            reservation_type: reservation.reservation_type || null,
+            certified: reservation.diver_certified ? "yes" : "no",
+            email: reservation.diver_information?.email || null,
+            name: reservation.diver_information?.name || null,
+            lastName: reservation.diver_information?.lastName || null,
+            age: reservation.diver_information?.age || null,
+            time: reservation.time
+              ? moment(reservation.time, timeFormat)
+              : null,
+            number_of_dives:
+              reservation.number_of_dives || NUM_OF_DIVES.BEGINNER,
+            deepest_dive: reservation.deepest_dive || DEEPEST_DIVE.SHALLOW,
+          }}
+        >
+          <Form.Item
+            label="Reservation Type"
+            name="reservation_type"
+            rules={[{ required: true, message: "Please enter type!" }]}
           >
-            <Option value="true">True</Option>
-            <Option value="false">False</Option>
-          </Select>
-        </FormField>
-        <FormField>
-          <span>Reservation Type : </span>
-          <Select
-            defaultValue={reservationType}
-            className="w-32"
-            onChange={(value) => setReservationType(value)}
+            <Radio.Group buttonStyle="solid">
+              <Radio.Button value="recreational">{"recreational"}</Radio.Button>
+              <Radio.Button value="certification">
+                {"certification"}
+              </Radio.Button>
+            </Radio.Group>
+          </Form.Item>
+          <div className="flex flex-row">
+            <Form.Item
+              label="Date"
+              name="date"
+              rules={[{ required: true, message: "Please select data!" }]}
+            >
+              <DatePicker format={dateFormat} />
+            </Form.Item>
+            <div className="ml-8">
+              <Form.Item label="Time" name="time" rules={[{ required: false }]}>
+                <TimePicker use12Hours format={timeFormat} minuteStep={5} />
+              </Form.Item>
+            </div>
+          </div>
+          <div className="flex flex-row justify-between">
+            <div className="w-52">
+              <Form.Item label="Name" name="name" rules={[{ required: true }]}>
+                <Input placeholder="John" maxLength={16} />
+              </Form.Item>
+            </div>
+            <div className="w-52">
+              <Form.Item
+                label="Last Name"
+                name="lastName"
+                rules={[{ required: true }]}
+              >
+                <Input placeholder="Doe" maxLength={16} />
+              </Form.Item>
+            </div>
+            <Form.Item label="Age" name="age" rules={[{ required: false }]}>
+              <InputNumber min={1} max={150} placeholder="18" />
+            </Form.Item>
+          </div>
+          <Form.Item label="Email" name="email" rules={[{ required: true }]}>
+            <Input className="w-full" placeholder="i.e. email" />
+          </Form.Item>
+          <Form.Item
+            label="Certified"
+            name="certified"
+            rules={[{ required: false }]}
           >
-            <Option value="recreational">recreational</Option>
-            <Option value="certification">certification</Option>
-          </Select>
-        </FormField>
-        <FormField>
-          <span>Name : </span>
-          <Input
-            style={{ width: "9.1em" }}
-            defaultValue={name}
-            onChange={(event) => setName(event.target.value)}
-          />
-        </FormField>
-        <FormField>
-          <span>Last Name : </span>
-          <Input
-            style={{ width: "9.1em" }}
-            defaultValue={lastName}
-            onChange={(event) => setLastName(event.target.value)}
-          />
-        </FormField>
-        <FormField>
-          <span>Age : </span>
-          <Input
-            style={{ width: "9.1em" }}
-            defaultValue={age}
-            onChange={(event) => setAge(event.target.value)}
-          />
-        </FormField>
-        <FormField>
-          <span>Experience : </span>
-          <Select
-            defaultValue={experience}
-            className="w-32"
-            onChange={(value) => setExperience(value)}
+            <Radio.Group buttonStyle="solid">
+              <Radio.Button value={"yes"}>{"yes"}</Radio.Button>
+              <Radio.Button value={"no"}>{"no"}</Radio.Button>
+            </Radio.Group>
+          </Form.Item>
+          <Form.Item
+            label="Experience"
+            name="number_of_dives"
+            rules={[{ required: false }]}
           >
-            <Option value="beginner">beginner</Option>
-            <Option value="intermediate">intermediate</Option>
-            <Option value="expert">expert</Option>
-          </Select>
-        </FormField>
-        <FormField>
-          <span>Email : </span>
-          <Input
-            style={{ width: "9.1em" }}
-            defaultValue={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-        </FormField>
+            <Radio.Group buttonStyle="solid">
+              <Radio.Button value={NUM_OF_DIVES.BEGINNER}>
+                {NUM_OF_DIVES_TO_TEXT_MAPPING[NUM_OF_DIVES.BEGINNER]}
+              </Radio.Button>
+              <Radio.Button value={NUM_OF_DIVES.INTERMEDIATE}>
+                {NUM_OF_DIVES_TO_TEXT_MAPPING[NUM_OF_DIVES.INTERMEDIATE]}
+              </Radio.Button>
+              <Radio.Button value={NUM_OF_DIVES.ADVANCED}>
+                {NUM_OF_DIVES_TO_TEXT_MAPPING[NUM_OF_DIVES.ADVANCED]}
+              </Radio.Button>
+            </Radio.Group>
+          </Form.Item>
+          <Form.Item
+            label="Deepest Dive"
+            name="deepest_dive"
+            rules={[{ required: false }]}
+          >
+            <Radio.Group buttonStyle="solid">
+              <Radio.Button value={DEEPEST_DIVE.SHALLOW}>
+                {DEEPEST_TO_TEXT_MAPPING[DEEPEST_DIVE.SHALLOW]}
+              </Radio.Button>
+              <Radio.Button value={DEEPEST_DIVE.MEDIUM}>
+                {DEEPEST_TO_TEXT_MAPPING[DEEPEST_DIVE.MEDIUM]}
+              </Radio.Button>
+              <Radio.Button value={DEEPEST_DIVE.DEEP}>
+                {DEEPEST_TO_TEXT_MAPPING[DEEPEST_DIVE.DEEP]}
+              </Radio.Button>
+            </Radio.Group>
+          </Form.Item>
+          <Form.Item
+            wrapperCol={{
+              offset: 7,
+            }}
+          >
+            <Button
+              loading={isLoading}
+              className="mt-3 w-56"
+              type="primary"
+              htmlType="submit"
+            >
+              {modalTitle}
+            </Button>
+          </Form.Item>
+        </Form>
       </div>
     </Modal>
   );

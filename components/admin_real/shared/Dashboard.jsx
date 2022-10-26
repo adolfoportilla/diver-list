@@ -1,7 +1,7 @@
 import React from "react";
 
 import MobileDashboard from "../mobil/MobileDashboard";
-import DesktopDashboard from "../desktop/DesktopDashboard";
+import DesktopDashboard from "../desktop/Dashboard";
 import { useSize } from "../../../utils/useSize";
 
 const isMobile = (width) => {

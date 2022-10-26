@@ -5,19 +5,20 @@ import { Button } from "@mui/material";
 import { createReservation } from "../shared/reservationTableUtils";
 import ReservationFieldsModal from "./ReservationFieldsModal";
 
-const CreateReservationButton = ({ reservation }) => {
+const CreateReservationButton = () => {
   const [modalOpen, setModalOpen] = useState(false);
   return (
-    <div>
+    <div className="flex flex-row-reverse">
       <ReservationFieldsModal
         onSubmit={createReservation}
-        modalTitle="Create Reservation"
+        modalTitle="Create"
         setModalOpen={setModalOpen}
         modalOpen={modalOpen}
+        reservation={{}}
       />
-      <Button className="min-w-0 p-2" onClick={() => setModalOpen(true)}>
-        <span>Create New Reservation</span>
-        <AddBox className="w-8" />
+      <Button className="min-w-0 py-2 px-3" onClick={() => setModalOpen(true)}>
+        <Add className="w-8" />
+        <span>Create</span>
       </Button>
     </div>
   );
