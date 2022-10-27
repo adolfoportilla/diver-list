@@ -5,10 +5,9 @@ import {
   PAGE_SIZE,
   RESERVATION_TABLE_COLUMNS_MOBILE,
   calculateRange,
-  fetchReservations,
 } from "../shared/reservationTableUtils";
 import { useUser } from "../../../utils/useUser";
-
+import { fetchReservations } from "../../../utils/api/reservation";
 import { SelectedRow } from "./SelectedRow";
 
 const isEmpty = (obj) => {

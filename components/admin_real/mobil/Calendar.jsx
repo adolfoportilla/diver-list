@@ -2,10 +2,11 @@ import React from "react";
 import { Calendar as _Calendar, Col, Row, Select, Badge } from "antd";
 import moment from "moment";
 
-import { fetchCalendar, isSameDay } from "../shared/calendarUtil";
+import { isSameDay } from "../shared/calendarUtil";
 import { useUser } from "../../../utils/useUser";
 import { SelectedRow } from "./SelectedRow";
 import { calendarHeader } from "../../shared/Calendar";
+import { fetchCalendar } from "../../../utils/api/reservation";
 
 const dataCellRender = (date, data) => {
   if (!data || !data.length) {

@@ -3,7 +3,6 @@ import { useActor } from "@xstate/react";
 
 import { STATE_ACTIONS } from "../../utils/state-machine";
 import { MyContext } from "../ReservationController";
-import supabase from "../../utils/supabase";
 import { createReservation } from "../../utils/api/reservation";
 
 const CreateSupabaseReservationState = () => {
