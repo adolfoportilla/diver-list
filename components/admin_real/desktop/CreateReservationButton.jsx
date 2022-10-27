@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Add, AddBox, Create } from "@mui/icons-material";
 import { Button } from "@mui/material";
 
-import { createReservation } from "../shared/reservationTableUtils";
 import ReservationFieldsModal from "./ReservationFieldsModal";
+import { createReservation } from "../../../utils/api/reservation";
 
 const CreateReservationButton = () => {
   const [modalOpen, setModalOpen] = useState(false);

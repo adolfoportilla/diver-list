@@ -1,12 +1,10 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState, FormEvent } from "react";
+import { useEffect, useState } from "react";
 import { useUser, useSessionContext } from "@supabase/auth-helpers-react";
 import Button from "@mui/material/Button";
-import Input from "@mui/material/Input";
 
 import Logo from "../components/Logo";
-import { updateUserName } from "../utils/supabase";
+import { updateUserName } from "../utils/api/user";
 
 // OAuth: https://supabase.com/docs/learn/auth-deep-dive/auth-google-oauth
 // Example: https://github.com/vercel/nextjs-subscription-payments

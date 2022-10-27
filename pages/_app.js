@@ -11,10 +11,18 @@ import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 
 import { MyUserContextProvider } from "../utils/useUser";
 import { MySizeContextProvider } from "../utils/useSize";
+import { useRouter } from "next/router";
 
 function MyApp({ Component, pageProps }) {
+  const router = useRouter();
+
   const [supabaseClient] = useState(() => createBrowserSupabaseClient());
-  return (
+
+  const isReservationPage = router.pathname.includes("reservation");
+
+  return isReservationPage ? (
+    <Component {...pageProps} />
+  ) : (
     <SessionContextProvider supabaseClient={supabaseClient}>
       <MySizeContextProvider>
         <MyUserContextProvider>

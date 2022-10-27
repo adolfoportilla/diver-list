@@ -1,10 +1,9 @@
 import React from "react";
-import ReservationTable from "../admin_real/desktop/ReservationTable";
+
 import { useUser } from "../../utils/useUser";
-import {
-  fetchReservations,
-  PAGE_SIZE,
-} from "../admin_real/shared/reservationTableUtils";
+import { PAGE_SIZE } from "../admin_real/shared/reservationTableUtils";
+import { fetchReservations } from "../../utils/api/reservation";
+
 export const TableContext = React.createContext({});
 
 const ReservationTableContextProvider = (props) => {

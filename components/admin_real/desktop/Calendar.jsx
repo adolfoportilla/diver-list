@@ -1,11 +1,13 @@
 import React from "react";
-import "antd/dist/antd.css";
 import { Calendar as _Calendar } from "antd";
 import moment from "moment";
-import ReservationBadge from "../ReservationBadge";
+import "antd/dist/antd.css";
 
-import { fetchCalendar, isSameDay } from "../shared/calendarUtil";
+import { isSameDay } from "../shared/calendarUtil";
+import { fetchCalendar } from "../../../utils/api/reservation";
 import { useUser } from "../../../utils/useUser";
+import { calendarHeader } from "../../shared/Calendar";
+import ReservationBadge from "../ReservationBadge";
 import ReservationViewModal from "./ReservationViewModal";
 
 const dateCellRender = (cellDate, data) => {
@@ -32,7 +34,6 @@ const dateCellRender = (cellDate, data) => {
     </ul>
   );
 };
-const PAGE_SIZE = 20;
 
 // https://ant.design/components/calendar/
 export default function Calendar() {
@@ -58,7 +59,7 @@ export default function Calendar() {
     // month, we fetch more
     <_Calendar
       dateCellRender={(cellDate) => dateCellRender(cellDate, reservations)}
-      monthCellRender={null}
+      headerRender={calendarHeader}
       className="rounded-md border border-neutral-200"
       style={{ padding: 8 }}
     />

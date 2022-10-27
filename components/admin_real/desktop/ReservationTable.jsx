@@ -1,13 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 
 import {
   PAGE_SIZE,
   RESERVATION_TABLE_COLUMNS_DESKTOP,
   calculateRange,
-  fetchReservations,
 } from "../shared/reservationTableUtils";
-import { TableContext } from "../../states/ReservationTableContextProvider";
+import { TableContext } from "../../shared/ReservationTableContextProvider";
 
 export default function ReservationTable({}) {
   const context = React.useContext(TableContext);

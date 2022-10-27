@@ -11,7 +11,6 @@ import {
   DEEPEST_TO_TEXT_MAPPING,
   NUM_OF_DIVES_TO_TEXT_MAPPING,
 } from "../../../utils/supabase";
-import { TableContext } from "../../states/ReservationTableContextProvider";
 import { openSuccessNotification } from "../shared/reservationTableUtils";
 
 const formatValues = (values) => {
