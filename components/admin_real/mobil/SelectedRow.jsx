@@ -24,11 +24,6 @@ export const SelectedRow = ({ selectedRow }) => {
     ["# Dives", "number_of_dives"],
   ];
 
-  console.log(selectedRow);
-  const time = selectedRow.time;
-  const formatted = moment(time, "HH:mm:ss").format("hh:mm A");
-  console.log(formatted);
-
   return (
     <Collapse
       className="shadow"
