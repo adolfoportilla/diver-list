@@ -9,6 +9,7 @@ import StateTitle from "./shared/StateTitle";
 import CardComponent from "./shared/CardComponent";
 import StateCards from "./shared/StateCards";
 import { statesText } from "../../utils/app-text";
+import { NUM_OF_DIVES } from "../../utils/supabase";
 
 const NumberOfDivesState = () => {
   const context = React.useContext(MyContext);
@@ -29,11 +30,11 @@ const NumberOfDivesState = () => {
               height={150}
             />
           }
-          text="1-9"
+          text="0-9"
           onClick={() =>
             send({
               type: STATE_ACTIONS.DEEPEST_DIVE,
-              value: "1-9",
+              value: NUM_OF_DIVES.BEGINNER,
               previousState: STATE_ACTIONS.NUMBER_OF_DIVES,
             })
           }
@@ -52,7 +53,7 @@ const NumberOfDivesState = () => {
           onClick={() =>
             send({
               type: STATE_ACTIONS.DEEPEST_DIVE,
-              value: "10-29",
+              value: NUM_OF_DIVES.INTERMEDIATE,
               previousState: STATE_ACTIONS.NUMBER_OF_DIVES,
             })
           }
@@ -61,11 +62,11 @@ const NumberOfDivesState = () => {
           icon={
             <Image src="/icons/shark.svg" alt="30 +" width={150} height={150} />
           }
-          text="30 + "
+          text="+30"
           onClick={() =>
             send({
               type: STATE_ACTIONS.DEEPEST_DIVE,
-              value: "30+",
+              value: NUM_OF_DIVES.ADVANCED,
               previousState: STATE_ACTIONS.NUMBER_OF_DIVES,
             })
           }

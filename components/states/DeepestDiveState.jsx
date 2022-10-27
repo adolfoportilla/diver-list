@@ -9,6 +9,7 @@ import StateTitle from "./shared/StateTitle";
 import CardComponent from "./shared/CardComponent";
 import StateCards from "./shared/StateCards";
 import { statesText } from "../../utils/app-text";
+import { DEEPEST_DIVE } from "../../utils/supabase";
 
 const DeepestDiveState = () => {
   const context = React.useContext(MyContext);
@@ -21,26 +22,36 @@ const DeepestDiveState = () => {
       <StateCards>
         <CardComponent
           icon={
-            <Image src="/icons/fishing.svg" alt="" width={150} height={150} />
+            <Image
+              src="/icons/fishing.svg"
+              alt="under 30ft"
+              width={150}
+              height={150}
+            />
           }
           text={statesText.deepestDiveState.shallow[context.language]}
           onClick={() =>
             send({
               type: STATE_ACTIONS.LAST_DIVE,
-              value: statesText.deepestDiveState.shallow["english"],
+              value: DEEPEST_DIVE.SHALLOW,
               previousState: STATE_ACTIONS.DEEPEST_DIVE,
             })
           }
         />
         <CardComponent
           icon={
-            <Image src="/icons/shipwreck.svg" alt="" width={150} height={150} />
+            <Image
+              src="/icons/shipwreck.svg"
+              alt="30ft to 69ft"
+              width={150}
+              height={150}
+            />
           }
           text={statesText.deepestDiveState.deep[context.language]}
           onClick={() =>
             send({
               type: STATE_ACTIONS.LAST_DIVE,
-              value: statesText.deepestDiveState.deep["english"],
+              value: DEEPEST_DIVE.MEDIUM,
               previousState: STATE_ACTIONS.DEEPEST_DIVE,
             })
           }
@@ -49,7 +60,7 @@ const DeepestDiveState = () => {
           icon={
             <Image
               src="/icons/anglerfish.svg"
-              alt=""
+              alt="70ft or more"
               width={150}
               height={150}
             />
@@ -58,7 +69,7 @@ const DeepestDiveState = () => {
           onClick={() =>
             send({
               type: STATE_ACTIONS.LAST_DIVE,
-              value: statesText.deepestDiveState.deepest["english"],
+              value: DEEPEST_DIVE.DEEP,
               previousState: STATE_ACTIONS.DEEPEST_DIVE,
             })
           }

@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useActor } from "@xstate/react";
 import { useRouter } from "next/router";
 import { CircularProgress } from "@mui/material";
+import isEmpty from "lodash/isEmpty";
 
 import { STATE_ACTIONS } from "../../utils/state-machine";
 import { MyContext } from "../ReservationController";
 import supabase from "../../utils/supabase";
+import { fetchDiveShop } from "../../utils/api/dive-shop";
 
 const DiveShopConfigFetchState = () => {
   const context = React.useContext(MyContext);
@@ -22,22 +24,20 @@ const DiveShopConfigFetchState = () => {
     }
   }, [url_hash]);
 
-  const fetchData = async function (url_hash) {
+  const fetchData = async function (urlHash) {
     try {
       setLoading(true);
-      let { data: diveShop, error: apiError } = await supabase
-        .from("dive-shop")
-        .select("id,days,hours,diveTypes")
-        .eq("url_hash", url_hash);
+      let { data: diveShop, error: apiError } = await fetchDiveShop({
+        urlHash,
+      });
 
       if (apiError) {
         setError(apiError);
       }
-      if (diveShop.length === 0) {
-      } else {
+      if (!isEmpty(diveShop)) {
         send({
           type: STATE_ACTIONS.FETCH_SUCCESS,
-          value: diveShop[0],
+          value: diveShop,
         });
       }
     } catch (error) {

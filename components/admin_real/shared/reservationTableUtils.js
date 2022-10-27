@@ -1,10 +1,11 @@
-import supabase, {
+import { notification } from "antd";
+
+import {
   DEEPEST_TO_TEXT_MAPPING,
   NUM_OF_DIVES_TO_TEXT_MAPPING,
 } from "../../../utils/supabase";
 import DeleteReservationButton from "../desktop/DeleteReservationButton";
 import EditReservationButton from "../desktop/EditReservationButton";
-import { notification } from "antd";
 
 // This function allows the columns to get values from Supabase like this `userInformation.name`
 // it essentially works the same way as the `get` function from lodash. (https://lodash.com/docs/4.17.15#get)
@@ -13,6 +14,7 @@ const valueGetterFn = (params) => {
     const [outer, inner] = params.field.split(".");
     return params.row[outer][inner];
   }
+
   return params.value;
 };
 
@@ -32,43 +34,6 @@ export const openSuccessNotification = (type, message, description) => {
 };
 
 export const PAGE_SIZE = 10;
-
-export const fetchReservations = async (props) => {
-  return await supabase
-    .from("reservations")
-    .select("*", { count: "exact" })
-    .eq("dive_shop_id", props.diveShopId)
-    .order("date", { ascending: false })
-    .range(props.rangeInitial, props.rangeEnd);
-};
-
-export const deleteReservation = async (reservationId) => {
-  return await supabase
-    .from("reservations")
-    .delete()
-    .match({ id: reservationId })
-    .select();
-};
-
-export const updateReservation = async (props) => {
-  return await supabase
-    .from("reservations")
-    .update(props.values)
-    .eq("id", props.reservationId)
-    .eq("dive_shop_id", props.diveShopId)
-    .select();
-};
-//Todo: need to add the dive shop id here?
-export const createReservation = async (props) => {
-  console.log("props", props);
-  return await supabase
-    .from("reservations")
-    .insert({
-      ...props.values,
-      dive_shop_id: props.diveShopId,
-    })
-    .select();
-};
 
 export const DEFAULT_ROW_PROPS = {
   sortable: false,

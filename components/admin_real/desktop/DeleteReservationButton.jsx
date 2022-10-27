@@ -3,10 +3,10 @@ import { Delete } from "@mui/icons-material";
 import { Button, Alert } from "@mui/material";
 import Modal from "antd/lib/modal/Modal";
 
-import { deleteReservation } from "../shared/reservationTableUtils";
+import { deleteReservation } from "../../../utils/api/reservation";
 import { openErrorNotification } from "../shared/reservationTableUtils";
 import { openSuccessNotification } from "../shared/reservationTableUtils";
-import { TableContext } from "../../states/ReservationTableContextProvider";
+import { TableContext } from "../../shared/ReservationTableContextProvider";
 
 const DeleteReservationButton = ({ reservationId }) => {
   const context = React.useContext(TableContext);

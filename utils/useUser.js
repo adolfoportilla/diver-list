@@ -3,6 +3,7 @@ import {
   useUser as useSupaUser,
   useSessionContext,
 } from "@supabase/auth-helpers-react";
+import { fetchDiveShop } from "./api/dive-shop";
 
 export const UserContext = createContext(undefined);
 
@@ -19,11 +20,7 @@ export const MyUserContextProvider = (props) => {
 
   useEffect(() => {
     const getDiveShop = async (email) => {
-      const { data } = await supabase
-        .from("dive-shop")
-        .select("*")
-        .eq("email", email)
-        .single();
+      const { data } = await fetchDiveShop({ email });
       setDiveShop(data);
       setIsLoadingData(false);
     };

@@ -89,7 +89,7 @@ const DiverInformationState = () => {
       <StateCards>
         <div className="grid grid-cols-2 ">
           <TextField
-            id="outlined-basic"
+            id="name"
             label={statesText.diverInformationState.name[context.language]}
             variant="outlined"
             onChange={(event) => setName(event.target.value)}
@@ -105,7 +105,7 @@ const DiverInformationState = () => {
             sx={{ ml: 1 }}
           />
           <TextField
-            id="outlined-basic"
+            id="last-name"
             label={statesText.diverInformationState.lastName[context.language]}
             variant="outlined"
             onChange={(event) => setLastName(event.target.value)}
@@ -121,11 +121,10 @@ const DiverInformationState = () => {
             sx={{ ml: 1 }}
           />
           <TextField
-            id="outlined-basic"
+            id="email"
+            className="w-64"
             label={statesText.diverInformationState.email[context.language]}
             variant="outlined"
-            inputMode="numeric"
-            pattern="[0-9]*"
             onChange={(event) => setEmail(event.target.value)}
             error={emailValid ? false : true}
             helperText={
@@ -139,12 +138,12 @@ const DiverInformationState = () => {
             sx={{ mt: 2, ml: 1 }}
           />
           <TextField
-            id="outlined-basic"
+            id="age"
             label={statesText.diverInformationState.age[context.language]}
             variant="outlined"
             inputMode="numeric"
             pattern="[0-9]*"
-            onChange={(event) => setAge(event.target.value)}
+            onChange={(event) => setAge(parseInt(event.target.value))}
             error={ageValid ? false : true}
             helperText={
               ageValid

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Edit } from "@mui/icons-material";
 import { Button } from "@mui/material";
 
-import { updateReservation } from "../shared/reservationTableUtils";
+import { updateReservation } from "../../../utils/api/reservation";
 import ReservationFieldsModal from "./ReservationFieldsModal";
 
 const EditReservationButton = ({ reservation }) => {

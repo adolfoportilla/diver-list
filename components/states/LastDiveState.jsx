@@ -9,6 +9,7 @@ import StateTitle from "./shared/StateTitle";
 import CardComponent from "./shared/CardComponent";
 import StateCards from "./shared/StateCards";
 import { statesText } from "../../utils/app-text";
+import { LAST_DIVE } from "../../utils/supabase";
 
 const LastDiveState = () => {
   const context = React.useContext(MyContext);
@@ -21,7 +22,7 @@ const LastDiveState = () => {
           icon={
             <Image
               src="/icons/sand-clock.svg"
-              alt=""
+              alt="recent"
               width={150}
               height={150}
             />
@@ -30,7 +31,7 @@ const LastDiveState = () => {
           onClick={() =>
             send({
               type: STATE_ACTIONS.EQUIPMENT,
-              value: statesText.lastDiveState.recent["english"],
+              value: LAST_DIVE.RECENT,
               previousState: STATE_ACTIONS.LAST_DIVE,
             })
           }
@@ -39,7 +40,7 @@ const LastDiveState = () => {
           icon={
             <Image
               src="/icons/time-left.svg"
-              alt="advanced diver"
+              alt="not so recent"
               width={150}
               height={150}
             />
@@ -48,7 +49,7 @@ const LastDiveState = () => {
           onClick={() =>
             send({
               type: STATE_ACTIONS.EQUIPMENT,
-              value: statesText.lastDiveState.notSoRecent["english"],
+              value: LAST_DIVE.NOT_SO_RECENT,
               previousState: STATE_ACTIONS.LAST_DIVE,
             })
           }
@@ -57,7 +58,7 @@ const LastDiveState = () => {
           icon={
             <Image
               src="/icons/calendar.svg"
-              alt="rescue diver"
+              alt="long time ago"
               width={150}
               height={150}
             />
@@ -66,7 +67,7 @@ const LastDiveState = () => {
           onClick={() =>
             send({
               type: STATE_ACTIONS.EQUIPMENT,
-              value: statesText.lastDiveState.notRecent["english"],
+              value: LAST_DIVE.LONG_TIME_AGO,
               previousState: STATE_ACTIONS.LAST_DIVE,
             })
           }

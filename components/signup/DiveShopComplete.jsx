@@ -5,6 +5,7 @@ import { customAlphabet } from "nanoid";
 
 import { MyContext } from "./Machine";
 import supabase from "../../utils/supabase";
+import { createDiveShop } from "../../utils/api/dive-shop";
 
 const BASE_URL = "www.diverlist.com/";
 const nanoid = customAlphabet("1234567890abcdefghijklmnopqrstuvwxyz");
@@ -45,9 +46,9 @@ export default function DiveShopInfo() {
   const postData = async function () {
     try {
       setLoading(true);
-      const { data, error: apiError } = await supabase
-        .from("dive-shop")
-        .insert([getValues(state.context)]);
+      const { data, error: apiError } = await createDiveShop({
+        values: getValues(state.context),
+      });
       if (apiError) {
         setError(apiError);
       }
