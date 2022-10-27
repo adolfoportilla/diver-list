@@ -5,6 +5,8 @@ import moment from "moment";
 import { fetchCalendar, isSameDay } from "../shared/calendarUtil";
 import { useUser } from "../../../utils/useUser";
 
+import { SelectedRow } from "./SelectedRow";
+
 const customHeader = ({ value, type, onChange, onTypeChange }) => {
   const start = 0;
   const end = 12;
@@ -130,37 +132,12 @@ export default function Calendar() {
         dateCellRender={(cellDate) => dataCellRender(cellDate, reservations)}
         onChange={(date) => setSelectedDate(date)}
       />
-      <div className="mt-4">
+      <div className="m-2">
         {selectedDateReservations && selectedDateReservations.length ? (
-          <div className="flex flex-col space-y-2">
+          <div className="flex flex-col space-y-2 ">
             {selectedDateReservations.map((reservation) => {
               return (
-                <div
-                  key={reservation.id}
-                  className="bg-white mx-1 px-2 shadow-lg ring-1 ring-gray-900/5 rounded-sm"
-                >
-                  <div className="flex-col">
-                    <div>
-                      <span className="font-semibold">
-                        Time: {reservation.time}
-                      </span>
-                    </div>
-                    <div>
-                      <span>Name: {reservation.diver_information.name}</span>
-                      <span>{reservation.diver_information.lastName}</span>
-                    </div>
-                    <div>
-                      <span>Experience: {reservation.number_of_dives}</span>
-                    </div>
-                    <div>
-                      <span>{reservation.diver_certified}</span>
-                    </div>
-                    <div>
-                      <span>Type: {reservation.reservation_type}</span>
-                    </div>
-                    <div></div>
-                  </div>
-                </div>
+                <SelectedRow selectedRow={reservation} key={reservation.id} />
               );
             })}
           </div>

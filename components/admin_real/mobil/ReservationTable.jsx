@@ -9,57 +9,12 @@ import {
 } from "../shared/reservationTableUtils";
 import { useUser } from "../../../utils/useUser";
 
+import { SelectedRow } from "./SelectedRow";
+
 const isEmpty = (obj) => {
   if (!obj) return true;
 
   return Object.keys(obj).length ? false : true;
-};
-
-const Item = (props) => {
-  return (
-    <div className="grid grid-cols-2">
-      <span className="font-bold">{props.name}</span>
-      <span className="-ml-8">
-        {props.formatter ? props.formatter(props.value) : props.value}
-      </span>
-    </div>
-  );
-};
-
-const SelectedRow = ({ selectedRow }) => {
-  const items = [
-    ["Date", "date"],
-    ["Email", "diver_information.email"],
-    ["Name", "diver_information.name"],
-    ["Last Name", "diver_information.lastName"],
-    ["Age", "diver_information.age"],
-    ["Deepest Dive", "deepest_dive"],
-    ["Diver Certified", "diver_certified", (value) => (value ? "Yes" : "No")],
-    ["Last Dive", "last_dive"],
-    ["Number of Dives", "number_of_dives"],
-    ["Reservation Type", "reservation_type"],
-  ];
-  return (
-    <div className="shadow-lg px-2">
-      <div>
-        {items.map((item) => {
-          let value = selectedRow[item[1]];
-          if (item[1].includes(".")) {
-            const [first, second] = item[1].split(".");
-            value = selectedRow[first][second];
-          }
-          return (
-            <Item
-              key={item.id}
-              name={item[0]}
-              value={value}
-              formatter={item[2]}
-            />
-          );
-        })}
-      </div>
-    </div>
-  );
 };
 
 export default function ReservationTable() {
@@ -127,10 +82,7 @@ export default function ReservationTable() {
         />
       </div>
       {!isEmpty(selectedRow) ? (
-        <div className="mt-5 border-blue-400 border  rounded-md ">
-          <div className="ml-1 mb-1">
-            <span className="text-md">Reservation Details</span>
-          </div>
+        <div className="mt-5">
           <SelectedRow selectedRow={selectedRow} />
         </div>
       ) : null}
