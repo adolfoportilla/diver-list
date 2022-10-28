@@ -31,7 +31,9 @@ const SignIn = () => {
     setLoading(true);
     const { error } = await supabaseClient.auth.signInWithOAuth({
       provider,
-      options: { redirectTo: getURL("/admin") },
+      options: {
+        redirectTo: getURL("/admin"),
+      },
     });
     if (error) {
       setMessage({ type: "error", content: error.message });
