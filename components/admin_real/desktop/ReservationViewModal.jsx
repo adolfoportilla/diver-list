@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { updateReservation } from "../shared/reservationTableUtils";
+
+import { updateReservation } from "../../../utils/api/reservation";
 import ReservationFieldsModal from "./ReservationFieldsModal";
 
 export default function ReservationViewModal(props) {
