@@ -43,8 +43,6 @@ const ReservationFieldsModal = ({
   const [isLoading, setIsLoading] = useState(false);
   const [form] = Form.useForm();
 
-  const [isFormTouched, setIsFormTouched] = useState(false);
-
   const _onFinish = (values) => {
     setIsLoading(true);
     const formattedValues = formatValues(values);
