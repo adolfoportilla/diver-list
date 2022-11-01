@@ -1,6 +1,8 @@
 import React from "react";
 import { Calendar as _Calendar, Col, Row, Select, Badge } from "antd";
 import moment from "moment";
+import { Add } from "@mui/icons-material";
+import { Fab } from "@mui/material";
 
 import { isSameDay } from "../shared/calendarUtil";
 import { useUser } from "../../../utils/useUser";
@@ -82,6 +84,11 @@ export default function Calendar() {
           </div>
         )}
       </div>
+      <Fab className="fixed bottom-20 right-5 bg-sky-700" aria-label="add">
+        <div>
+          <Add />
+        </div>
+      </Fab>
     </div>
   );
 }
