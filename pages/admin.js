@@ -8,4 +8,4 @@ export default function Admin() {
   return <Dashboard />;
 }
 
-export const getServerSideProps = withPageAuth({ redirectTo: "/login" });
+export const getServerSideProps = withPageAuth();
