@@ -29,11 +29,11 @@ const SignIn = () => {
 
   const handleOAuthSignIn = async (provider) => {
     setLoading(true);
-    const { error } = await supabaseClient.auth.signInWithOAuth({
+    const { data, error } = await supabaseClient.auth.signInWithOAuth({
       provider,
-      options: {
-        redirectTo: getURL("/admin"),
-      },
+      // TODO(adolfo): show diver list name instead of supabase url on google signin form.
+      // https://github.com/supabase/supabase/discussions/2925
+      options: { redirectTo: process.env.NEXT_PUBLIC_URL + "/admin" },
     });
     if (error) {
       setMessage({ type: "error", content: error.message });

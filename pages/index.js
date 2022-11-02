@@ -4,7 +4,7 @@ import ReservationController from "../components/ReservationController";
 const Reservation = () => {
   return (
     <SharedPage>
-      <ReservationController />
+      <span>Hello world</span>
     </SharedPage>
   );
 };
