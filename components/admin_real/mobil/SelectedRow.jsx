@@ -2,7 +2,7 @@ import { Collapse } from "antd";
 import { useState } from "react";
 import { Button } from "@mui/material";
 import moment from "moment/moment";
-import EditSelectedRow from "./EditSelectedRow";
+import ReservationForm from "./ReservationForm";
 import { Edit } from "@mui/icons-material";
 
 import { updateReservation } from "../../../utils/api/reservation";
@@ -19,7 +19,7 @@ const Item = (props) => {
 const { Panel } = Collapse;
 
 export const SelectedRow = ({ selectedRow }) => {
-  const [editView, setEditView] = useState(false);
+  const [formVisible, setFormVisible] = useState(false);
 
   const items = [
     ["Reservation Type", "reservation_type"],
@@ -65,18 +65,21 @@ export const SelectedRow = ({ selectedRow }) => {
           showArrow={false}
           style={{ backgroundColor: "white" }}
         >
-          {!editView ? (
+          {!formVisible ? (
             <div>
               {row}
               <div className="text-end">
-                <Button className="min-w-0" onClick={() => setEditView(true)}>
+                <Button
+                  className="min-w-0"
+                  onClick={() => setFormVisible(true)}
+                >
                   <Edit className="w-4" />
                 </Button>
               </div>
             </div>
           ) : (
-            <EditSelectedRow
-              setEditView={setEditView}
+            <ReservationForm
+              setFormVisible={setFormVisible}
               reservation={selectedRow}
               onSubmit={updateReservation}
             />

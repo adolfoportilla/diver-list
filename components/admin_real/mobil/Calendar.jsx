@@ -1,14 +1,13 @@
 import React from "react";
 import { Calendar as _Calendar, Col, Row, Select, Badge } from "antd";
 import moment from "moment";
-import { Add } from "@mui/icons-material";
-import { Fab } from "@mui/material";
 
 import { isSameDay } from "../shared/calendarUtil";
 import { useUser } from "../../../utils/useUser";
 import { SelectedRow } from "./SelectedRow";
 import { calendarHeader } from "../../shared/Calendar";
 import { fetchCalendar } from "../../../utils/api/reservation";
+import CreateReservationButton from "./CreateReservationButton";
 
 const dataCellRender = (date, data) => {
   if (!data || !data.length) {
@@ -69,6 +68,7 @@ export default function Calendar() {
         dateCellRender={(cellDate) => dataCellRender(cellDate, reservations)}
         onChange={(date) => setSelectedDate(date)}
       />
+      <CreateReservationButton />
       <div className="m-2">
         {selectedDateReservations && selectedDateReservations.length ? (
           <div className="flex flex-col space-y-2 ">
@@ -84,9 +84,6 @@ export default function Calendar() {
           </div>
         )}
       </div>
-      <Fab className="fixed bottom-12 right-8 bg-sky-700" aria-label="add">
-        <Add />
-      </Fab>
     </div>
   );
 }

@@ -30,7 +30,7 @@ const formatValues = (values) => {
   return result;
 };
 
-const EditSelectedRow = ({ reservation = {}, onSubmit, setEditView }) => {
+const ReservationForm = ({ reservation = {}, onSubmit, setFormVisible }) => {
   const { diveShop } = useUser();
   const diveShopId = diveShop ? diveShop.id : null;
   const [isLoading, setIsLoading] = useState(false);
@@ -47,7 +47,7 @@ const EditSelectedRow = ({ reservation = {}, onSubmit, setEditView }) => {
       .then((results) => {
         if (results.error) {
         }
-        setEditView(false);
+        setFormVisible(false);
         openSuccessNotification(
           "success",
           "Successful!",
@@ -164,14 +164,15 @@ const EditSelectedRow = ({ reservation = {}, onSubmit, setEditView }) => {
             </Radio.Button>
           </Radio.Group>
         </Form.Item>
-        <Form.Item>
-          <Button loading={false} className="" danger>
-            Delete Reservation
-          </Button>
-        </Form.Item>
-
+        {Object.keys(reservation).length > 0 ? (
+          <Form.Item>
+            <Button loading={false} className="" danger>
+              Delete Reservation
+            </Button>
+          </Form.Item>
+        ) : null}
         <div className="flex justify-end ">
-          <Button onClick={() => setEditView(false)} className="">
+          <Button onClick={() => setFormVisible(false)} className="">
             Cancel
           </Button>
           <Form.Item>
@@ -185,4 +186,4 @@ const EditSelectedRow = ({ reservation = {}, onSubmit, setEditView }) => {
   );
 };
 
-export default EditSelectedRow;
+export default ReservationForm;
