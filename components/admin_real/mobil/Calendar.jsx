@@ -84,10 +84,8 @@ export default function Calendar() {
           </div>
         )}
       </div>
-      <Fab className="fixed bottom-20 right-5 bg-sky-700" aria-label="add">
-        <div>
-          <Add />
-        </div>
+      <Fab className="fixed bottom-12 right-8 bg-sky-700" aria-label="add">
+        <Add />
       </Fab>
     </div>
   );

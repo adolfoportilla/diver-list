@@ -5,7 +5,7 @@ import moment from "moment/moment";
 import EditSelectedRow from "./EditSelectedRow";
 import { Edit } from "@mui/icons-material";
 
-import { updateReservation } from "../shared/reservationTableUtils";
+import { updateReservation } from "../../../utils/api/reservation";
 
 const Item = (props) => {
   return (

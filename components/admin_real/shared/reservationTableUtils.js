@@ -98,9 +98,15 @@ export const RESERVATION_TABLE_COLUMNS_DESKTOP = [
     field: "edit_reservation",
     headerName: "Edit",
     renderCell: (rowData) => (
-      <div className="flex justify-between w-16">
-        <EditReservationButton reservation={rowData.row} />
-        <DeleteReservationButton reservationId={rowData.id} />
+      <div className="flex justify-between">
+        <EditReservationButton
+          reservation={rowData.row}
+          wrapperClassName="w-8"
+        />
+        <DeleteReservationButton
+          reservationId={rowData.id}
+          wrapperClassName="w-8"
+        />
       </div>
     ),
   },
