@@ -8,7 +8,7 @@ import { openErrorNotification } from "../shared/reservationTableUtils";
 import { openSuccessNotification } from "../shared/reservationTableUtils";
 import { TableContext } from "../../shared/ReservationTableContextProvider";
 
-const DeleteReservationButton = ({ reservationId }) => {
+const DeleteReservationButton = ({ reservationId, wrapperClassName }) => {
   const context = React.useContext(TableContext);
   const [modalOpen, setModalOpen] = useState(false);
   const handleSuccess = () => {
@@ -16,7 +16,7 @@ const DeleteReservationButton = ({ reservationId }) => {
     openSuccessNotification("success");
   };
   return (
-    <div>
+    <div className={wrapperClassName}>
       <Modal
         title={
           <Alert severity="error">

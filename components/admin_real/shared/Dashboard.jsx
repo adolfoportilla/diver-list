@@ -9,6 +9,7 @@ const isMobile = (width) => {
 };
 
 export default function Dashboard() {
-  const { width, height } = useSize();
+  const { width } = useSize();
+
   return width && isMobile(width) ? <MobileDashboard /> : <DesktopDashboard />;
 }

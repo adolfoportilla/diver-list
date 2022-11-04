@@ -5,10 +5,10 @@ import { Button } from "@mui/material";
 import { updateReservation } from "../../../utils/api/reservation";
 import ReservationFieldsModal from "./ReservationFieldsModal";
 
-const EditReservationButton = ({ reservation }) => {
+const EditReservationButton = ({ reservation, wrapperClassName }) => {
   const [modalOpen, setModalOpen] = useState(false);
   return (
-    <div>
+    <div className={wrapperClassName}>
       <ReservationFieldsModal
         reservation={reservation}
         onSubmit={updateReservation}

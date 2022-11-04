@@ -16,7 +16,7 @@ const CreateReservationButton = () => {
         modalOpen={modalOpen}
         reservation={{}}
       />
-      <Button className="min-w-0 py-2 px-3" onClick={() => setModalOpen(true)}>
+      <Button className="py-2 px-3" onClick={() => setModalOpen(true)}>
         <Add className="w-8" />
         <span>Create</span>
       </Button>
