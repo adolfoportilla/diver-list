@@ -29,6 +29,10 @@ export default function ReservationTable({}) {
         paginationMode="server"
         onPageChange={(newPage) => {
           const [initial, end] = calculateRange(newPage, PAGE_SIZE);
+          context.setReservationParams({
+            rangeInitial: initial,
+            rangeEnd: end,
+          });
           context.getReservations(initial, end);
         }}
       />

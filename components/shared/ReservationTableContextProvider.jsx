@@ -13,7 +13,15 @@ const ReservationTableContextProvider = (props) => {
   const [count, setCount] = React.useState(0);
   const { diveShop } = useUser();
 
-  const getReservations = (rangeInitial = 0, rangeEnd = PAGE_SIZE - 1) => {
+  const [reservationParams, setReservationParams] = React.useState({
+    rangeInitial: 0,
+    rangeEnd: PAGE_SIZE - 1,
+  });
+
+  const getReservations = (
+    rangeInitial = reservationParams.rangeInitial,
+    rangeEnd = reservationParams.rangeEnd
+  ) => {
     fetchReservations({
       rangeInitial: rangeInitial,
       rangeEnd: rangeEnd,
@@ -48,6 +56,8 @@ const ReservationTableContextProvider = (props) => {
         isLoading,
         count,
         diveShop,
+        reservationParams,
+        setReservationParams,
       }}
       {...props}
     />
