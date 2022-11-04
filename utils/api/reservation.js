@@ -44,6 +44,9 @@ export async function updateReservation(props) {
     .eq("dive_shop_id", props.diveShopId)
     .select();
 }
-export async function createReservation({ values }) {
-  return await supabase.from("reservations").insert(values).select();
+export async function createReservation({ values, diveShopId }) {
+  return await supabase
+    .from("reservations")
+    .insert({ ...values, dive_shop_id: diveShopId })
+    .select();
 }

@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Modal from "antd/lib/modal/Modal";
 import { Form, Button, DatePicker, Input, InputNumber, Radio } from "antd";
 import { TimePicker } from "antd";
 import moment from "moment";
 import { dateFormat, timeFormat } from "../shared/constants";
+
 import { useUser } from "../../../utils/useUser";
 import {
   NUM_OF_DIVES,
@@ -12,6 +13,8 @@ import {
   NUM_OF_DIVES_TO_TEXT_MAPPING,
 } from "../../../utils/supabase";
 import { openSuccessNotification } from "../shared/reservationTableUtils";
+import { TableContext } from "../../shared/ReservationTableContextProvider";
+import { Alert } from "@mui/material";
 
 const formatValues = (values) => {
   const result = {
@@ -31,6 +34,11 @@ const formatValues = (values) => {
   return result;
 };
 
+const MAPPING = {
+  Create: "creating",
+  Update: "updating",
+};
+
 const ReservationFieldsModal = ({
   reservation = {},
   onSubmit,
@@ -38,12 +46,15 @@ const ReservationFieldsModal = ({
   modalOpen = false,
   setModalOpen,
 }) => {
+  const context = React.useContext(TableContext);
   const { diveShop } = useUser();
   const diveShopId = diveShop ? diveShop.id : null;
   const [isLoading, setIsLoading] = useState(false);
   const [form] = Form.useForm();
+  const [error, setError] = React.useState(null);
 
   const _onFinish = (values) => {
+    setError(null);
     setIsLoading(true);
     const formattedValues = formatValues(values);
     onSubmit({
@@ -54,17 +65,25 @@ const ReservationFieldsModal = ({
       .then((results) => {
         if (results.error) {
           // TODO(fofo): Set the alert with error
+          console.log("results.error", results.error);
+          setError(
+            `There was error ${MAPPING[modalTitle]} your reservation. Please contact support@diverlist.com`
+          );
+        } else {
+          context.getReservations();
+          setModalOpen(false);
+          openSuccessNotification(
+            "success",
+            "Successful!",
+            "Reservation updated successful!"
+          );
+          form.resetFields();
         }
-        setModalOpen(false);
-        openSuccessNotification(
-          "success",
-          "Successful!",
-          "Reservation updated successful!"
-        );
-        form.resetFields();
       })
-      .catch((error) => {
-        // TODO(fofo): Set the alert with error
+      .catch((_error) => {
+        setError(
+          `There was error ${MAPPING[modalTitle]} your reservation. Please contact support@diverlist.com`
+        );
       })
       .finally(() => {
         setIsLoading(false);
@@ -74,12 +93,20 @@ const ReservationFieldsModal = ({
     <Modal
       title={modalTitle + " Reservation"}
       visible={modalOpen}
-      onCancel={() => setModalOpen(false)}
+      onCancel={() => {
+        setModalOpen(false);
+        setError(null);
+      }}
       footer={null}
       width={650}
       destroyOnClose
     >
       <div>
+        {error !== null ? (
+          <Alert severity="error" className="mb-3">
+            {error}
+          </Alert>
+        ) : null}
         <Form
           form={form}
           onFinish={_onFinish}
