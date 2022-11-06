@@ -1,4 +1,4 @@
-import { Add } from "@mui/icons-material";
+import { Add, Cancel, CancelOutlined } from "@mui/icons-material";
 import { Fab } from "@mui/material";
 import ReservationForm from "./ReservationForm";
 import { Collapse } from "antd";
@@ -22,7 +22,14 @@ export default function CreateReservationButton() {
           collapsible={false}
         >
           <Panel
-            header={<span className="text-2xl font-bold">New Reservation</span>}
+            header={
+              <div className="flex justify-between items-center">
+                <span className="text-2xl font-bold">New Reservation</span>
+                <button onClick={() => setFormVisible(false)}>
+                  <Cancel />
+                </button>
+              </div>
+            }
             key="1"
             showArrow={false}
             style={{ backgroundColor: "white" }}
