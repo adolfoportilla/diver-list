@@ -35,14 +35,13 @@ const ReservationForm = ({ reservation = {}, onSubmit, setFormVisible }) => {
   const diveShopId = diveShop ? diveShop.id : null;
   const [isLoading, setIsLoading] = useState(false);
   const [form] = Form.useForm();
-
   const _onFinish = (values) => {
     setIsLoading(true);
     const formattedValues = formatValues(values);
     onSubmit({
       values: formattedValues,
       reservationId: reservation.id,
-      diveShopId,
+      dive_shop_id: diveShopId,
     })
       .then((results) => {
         if (results.error) {
