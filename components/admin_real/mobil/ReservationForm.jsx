@@ -18,7 +18,7 @@ const formatValues = (values) => {
     time: values.time ? moment(values.time).format(timeFormat) : null,
     diver_certified: values.certified === "yes" ? true : false,
     reservation_type: values.reservation_type,
-    number_of_dives: values.experience,
+    number_of_dives: values.number_of_dives,
     deepest_dive: values.deepest_dive,
     diver_information: {
       name: values.name,
@@ -30,24 +30,23 @@ const formatValues = (values) => {
   return result;
 };
 
-const EditSelectedRow = ({ reservation = {}, onSubmit, setEditView }) => {
+const ReservationForm = ({ reservation = {}, onSubmit, setFormVisible }) => {
   const { diveShop } = useUser();
   const diveShopId = diveShop ? diveShop.id : null;
   const [isLoading, setIsLoading] = useState(false);
   const [form] = Form.useForm();
-
   const _onFinish = (values) => {
     setIsLoading(true);
     const formattedValues = formatValues(values);
     onSubmit({
       values: formattedValues,
       reservationId: reservation.id,
-      diveShopId,
+      dive_shop_id: diveShopId,
     })
       .then((results) => {
         if (results.error) {
         }
-        setEditView(false);
+        setFormVisible(false);
         openSuccessNotification(
           "success",
           "Successful!",
@@ -164,14 +163,15 @@ const EditSelectedRow = ({ reservation = {}, onSubmit, setEditView }) => {
             </Radio.Button>
           </Radio.Group>
         </Form.Item>
-        <Form.Item>
-          <Button loading={false} className="" danger>
-            Delete Reservation
-          </Button>
-        </Form.Item>
-
+        {Object.keys(reservation).length > 0 ? (
+          <Form.Item>
+            <Button loading={false} className="" danger>
+              Delete Reservation
+            </Button>
+          </Form.Item>
+        ) : null}
         <div className="flex justify-end ">
-          <Button onClick={() => setEditView(false)} className="">
+          <Button onClick={() => setFormVisible(false)} className="">
             Cancel
           </Button>
           <Form.Item>
@@ -185,4 +185,4 @@ const EditSelectedRow = ({ reservation = {}, onSubmit, setEditView }) => {
   );
 };
 
-export default EditSelectedRow;
+export default ReservationForm;

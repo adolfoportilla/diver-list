@@ -9,6 +9,7 @@ import {
 import { useUser } from "../../../utils/useUser";
 import { fetchReservations } from "../../../utils/api/reservation";
 import { SelectedRow } from "./SelectedRow";
+import CreateReservationButton from "./CreateReservationButton";
 
 const isEmpty = (obj) => {
   if (!obj) return true;
@@ -80,6 +81,7 @@ export default function ReservationTable() {
           }}
         />
       </div>
+      <CreateReservationButton />
       {!isEmpty(selectedRow) ? (
         <div className="mt-5">
           <SelectedRow selectedRow={selectedRow} />
