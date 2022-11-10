@@ -10,12 +10,11 @@ import { ReservationsContext } from "../../shared/ReservationsContextProvider";
 
 export default function ReservationTable({}) {
   const context = React.useContext(ReservationsContext);
-
   return (
     <div className="bg-white">
       {/* https://mui.com/x/api/data-grid/data-grid/ */}
       <DataGrid
-        rows={context.data}
+        rows={context.tableData}
         columns={RESERVATION_TABLE_COLUMNS_DESKTOP}
         pageSize={PAGE_SIZE}
         rowsPerPageOptions={[PAGE_SIZE]}

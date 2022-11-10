@@ -1,6 +1,6 @@
 import { supabase } from "../supabase";
 
-export async function fetchCalendar(props) {
+export async function fetchCalendarReservations(props) {
   // TODO:
   // We need to fetch only the reservations from that store.
   const result = supabase

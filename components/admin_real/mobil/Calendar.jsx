@@ -3,11 +3,10 @@ import { Calendar as _Calendar, Col, Row, Select, Badge } from "antd";
 import moment from "moment";
 
 import { isSameDay } from "../shared/calendarUtil";
-import { useUser } from "../../../utils/useUser";
 import { SelectedRow } from "./SelectedRow";
 import { calendarHeader } from "../../shared/Calendar";
-import { fetchCalendar } from "../../../utils/api/reservation";
 import CreateReservationButton from "./CreateReservationButton";
+import { ReservationsContext } from "../../shared/ReservationsContextProvider";
 
 const dataCellRender = (date, data) => {
   if (!data || !data.length) {
@@ -42,22 +41,12 @@ const getDateReservations = (date, reservations) => {
 };
 
 export default function Calendar() {
-  const [reservations, setReservations] = React.useState();
+  const context = React.useContext(ReservationsContext);
   const [selectedDate, setSelectedDate] = React.useState(moment(new Date()));
-  const { diveShop } = useUser();
-  const diveShopId = diveShop?.id || null;
-  React.useEffect(() => {
-    (async () => {
-      if (diveShopId) {
-        const { data, error } = await fetchCalendar({ diveShopId });
-        setReservations(data);
-      }
-    })();
-  }, [diveShopId]);
 
   const selectedDateReservations = getDateReservations(
     selectedDate,
-    reservations
+    context.calendarData
   );
 
   return (
@@ -65,7 +54,9 @@ export default function Calendar() {
       <_Calendar
         headerRender={calendarHeader}
         fullscreen={false}
-        dateCellRender={(cellDate) => dataCellRender(cellDate, reservations)}
+        dateCellRender={(cellDate) =>
+          dataCellRender(cellDate, context.calendarData)
+        }
         onChange={(date) => setSelectedDate(date)}
       />
       <CreateReservationButton />

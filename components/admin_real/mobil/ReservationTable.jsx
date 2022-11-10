@@ -23,7 +23,7 @@ export default function ReservationTable() {
     <div>
       <div className="bg-white">
         <DataGrid
-          rows={context.data}
+          rows={context.tableData}
           columns={RESERVATION_TABLE_COLUMNS_MOBILE}
           pageSize={PAGE_SIZE}
           rowsPerPageOptions={[PAGE_SIZE]}

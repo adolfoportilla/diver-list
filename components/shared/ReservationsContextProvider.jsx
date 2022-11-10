@@ -2,12 +2,16 @@ import React from "react";
 
 import { useUser } from "../../utils/useUser";
 import { PAGE_SIZE } from "../admin_real/shared/reservationTableUtils";
-import { fetchReservations } from "../../utils/api/reservation";
+import {
+  fetchCalendarReservations,
+  fetchReservations,
+} from "../../utils/api/reservation";
 
 export const ReservationsContext = React.createContext({});
 
 const ReservationsContextProvider = (props) => {
   const [tableData, setTableData] = React.useState([]);
+  const [calendarData, setCalendarData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
 
   const [count, setCount] = React.useState(0);
@@ -28,9 +32,21 @@ const ReservationsContextProvider = (props) => {
       diveShopId: diveShop.id,
     })
       .then((results) => {
-        setData(results.data);
+        setTableData(results.data);
         setIsLoading(false);
         setCount(results.count);
+      })
+      .catch((error) => {
+        console.log("error", error);
+        setIsLoading(false);
+      });
+  };
+
+  const getCalendarReservations = () => {
+    fetchCalendarReservations({ diveShopId: diveShop.id })
+      .then((results) => {
+        setCalendarData(results.data);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log("error", error);
@@ -42,6 +58,7 @@ const ReservationsContextProvider = (props) => {
     if (diveShop) {
       setIsLoading(true);
       getTableReservations();
+      getCalendarReservations();
     }
   }, [diveShop]);
 
@@ -52,7 +69,12 @@ const ReservationsContextProvider = (props) => {
           setIsLoading(true);
           getTableReservations(...values);
         },
+        getCalendarReservations: function () {
+          setIsLoading(true);
+          getCalendarReservations();
+        },
         tableData,
+        calendarData,
         isLoading,
         count,
         diveShop,
