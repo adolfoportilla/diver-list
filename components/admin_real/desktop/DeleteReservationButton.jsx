@@ -6,13 +6,13 @@ import Modal from "antd/lib/modal/Modal";
 import { deleteReservation } from "../../../utils/api/reservation";
 import { openErrorNotification } from "../shared/reservationTableUtils";
 import { openSuccessNotification } from "../shared/reservationTableUtils";
-import { TableContext } from "../../shared/ReservationTableContextProvider";
+import { ReservationsContext } from "../../shared/ReservationsContextProvider";
 
 const DeleteReservationButton = ({ reservationId, wrapperClassName }) => {
-  const context = React.useContext(TableContext);
+  const context = React.useContext(ReservationsContext);
   const [modalOpen, setModalOpen] = useState(false);
   const handleSuccess = () => {
-    context.getReservations();
+    context.getTableReservations();
     openSuccessNotification("success");
   };
   return (

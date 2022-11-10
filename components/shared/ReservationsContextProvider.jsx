@@ -4,10 +4,10 @@ import { useUser } from "../../utils/useUser";
 import { PAGE_SIZE } from "../admin_real/shared/reservationTableUtils";
 import { fetchReservations } from "../../utils/api/reservation";
 
-export const TableContext = React.createContext({});
+export const ReservationsContext = React.createContext({});
 
-const ReservationTableContextProvider = (props) => {
-  const [data, setData] = React.useState([]);
+const ReservationsContextProvider = (props) => {
+  const [tableData, setTableData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
 
   const [count, setCount] = React.useState(0);
@@ -18,7 +18,7 @@ const ReservationTableContextProvider = (props) => {
     rangeEnd: PAGE_SIZE - 1,
   });
 
-  const getReservations = (
+  const getTableReservations = (
     rangeInitial = reservationParams.rangeInitial,
     rangeEnd = reservationParams.rangeEnd
   ) => {
@@ -41,18 +41,18 @@ const ReservationTableContextProvider = (props) => {
   React.useEffect(() => {
     if (diveShop) {
       setIsLoading(true);
-      getReservations();
+      getTableReservations();
     }
   }, [diveShop]);
 
   return (
-    <TableContext.Provider
+    <ReservationsContext.Provider
       value={{
-        getReservations: function (...values) {
+        getTableReservations: function (...values) {
           setIsLoading(true);
-          getReservations(...values);
+          getTableReservations(...values);
         },
-        data,
+        tableData,
         isLoading,
         count,
         diveShop,
@@ -64,4 +64,4 @@ const ReservationTableContextProvider = (props) => {
   );
 };
 
-export default ReservationTableContextProvider;
+export default ReservationsContextProvider;

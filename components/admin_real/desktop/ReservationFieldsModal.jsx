@@ -13,7 +13,7 @@ import {
   NUM_OF_DIVES_TO_TEXT_MAPPING,
 } from "../../../utils/supabase";
 import { openSuccessNotification } from "../shared/reservationTableUtils";
-import { TableContext } from "../../shared/ReservationTableContextProvider";
+import { ReservationsContext } from "../../shared/ReservationsContextProvider";
 import { Alert } from "@mui/material";
 
 const formatValues = (values) => {
@@ -46,7 +46,7 @@ const ReservationFieldsModal = ({
   modalOpen = false,
   setModalOpen,
 }) => {
-  const context = React.useContext(TableContext);
+  const context = React.useContext(ReservationsContext);
   const { diveShop } = useUser();
   const diveShopId = diveShop ? diveShop.id : null;
   const [isLoading, setIsLoading] = useState(false);
@@ -70,7 +70,7 @@ const ReservationFieldsModal = ({
             `There was error ${MAPPING[modalTitle]} your reservation. Please contact support@diverlist.com`
           );
         } else {
-          context.getReservations();
+          context.getTableReservations();
           setModalOpen(false);
           openSuccessNotification(
             "success",
