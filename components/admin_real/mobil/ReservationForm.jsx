@@ -164,15 +164,17 @@ const ReservationForm = ({ reservation = {}, onSubmit, setFormVisible }) => {
           rules={[{ required: false }]}
         >
           <Radio.Group buttonStyle="solid">
-            <Radio.Button value={DEEPEST_DIVE.SHALLOW}>
-              {DEEPEST_TO_TEXT_MAPPING[DEEPEST_DIVE.SHALLOW]}
-            </Radio.Button>
-            <Radio.Button value={DEEPEST_DIVE.MEDIUM}>
-              {DEEPEST_TO_TEXT_MAPPING[DEEPEST_DIVE.MEDIUM]}
-            </Radio.Button>
-            <Radio.Button value={DEEPEST_DIVE.DEEP}>
-              {DEEPEST_TO_TEXT_MAPPING[DEEPEST_DIVE.DEEP]}
-            </Radio.Button>
+            <div className="flex flex-col">
+              <Radio.Button value={DEEPEST_DIVE.SHALLOW}>
+                {DEEPEST_TO_TEXT_MAPPING[DEEPEST_DIVE.SHALLOW]}
+              </Radio.Button>
+              <Radio.Button value={DEEPEST_DIVE.MEDIUM}>
+                {DEEPEST_TO_TEXT_MAPPING[DEEPEST_DIVE.MEDIUM]}
+              </Radio.Button>
+              <Radio.Button value={DEEPEST_DIVE.DEEP}>
+                {DEEPEST_TO_TEXT_MAPPING[DEEPEST_DIVE.DEEP]}
+              </Radio.Button>
+            </div>
           </Radio.Group>
         </Form.Item>
         {Object.keys(reservation).length > 0 ? (

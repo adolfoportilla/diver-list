@@ -46,6 +46,11 @@ export default function ReservationTable() {
             });
             context.getTableReservations(initial, end);
           }}
+          sx={{
+            "&.MuiDataGrid-root .MuiDataGrid-cell:focus-within": {
+              outline: "none !important",
+            },
+          }}
         />
       </div>
       <CreateReservationButton />
