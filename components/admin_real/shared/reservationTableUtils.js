@@ -6,6 +6,7 @@ import {
 } from "../../../utils/supabase";
 import DeleteReservationButton from "../desktop/DeleteReservationButton";
 import EditReservationButton from "../desktop/EditReservationButton";
+import { formatReservationTime } from "../../../utils/reservations";
 
 // This function allows the columns to get values from Supabase like this `userInformation.name`
 // it essentially works the same way as the `get` function from lodash. (https://lodash.com/docs/4.17.15#get)
@@ -45,7 +46,13 @@ export const DEFAULT_ROW_PROPS = {
 // https://mui.com/x/api/data-grid/grid-col-def/
 export const RESERVATION_TABLE_COLUMNS_DESKTOP = [
   { field: "date", headerName: "Date" },
-  { field: "time", headerName: "Time", sortable: false, width: 80 },
+  {
+    field: "time",
+    headerName: "Time",
+    sortable: false,
+    width: 80,
+    renderCell: ({ value }) => formatReservationTime(value),
+  },
   {
     field: "reservation_type",
     headerName: "Reservation Type",
@@ -54,7 +61,7 @@ export const RESERVATION_TABLE_COLUMNS_DESKTOP = [
   },
   {
     field: "diver_certified",
-    headerName: "Certified?",
+    headerName: "Certified",
     width: 90,
     // https://mui.com/x/api/data-grid/grid-cell-params/
     renderCell: ({ value }) => <span>{value ? "yes" : "no"}</span>,
@@ -68,6 +75,11 @@ export const RESERVATION_TABLE_COLUMNS_DESKTOP = [
     headerName: "Last Name",
   },
   {
+    field: "diver_information.email",
+    headerName: "Email",
+    minWidth: 200,
+  },
+  {
     field: "diver_information.age",
     headerName: "Age",
     type: "number",
@@ -75,7 +87,7 @@ export const RESERVATION_TABLE_COLUMNS_DESKTOP = [
   },
   {
     field: "number_of_dives",
-    headerName: "Experience",
+    headerName: "Experience (dives)",
     width: 160,
     renderCell: ({ value }) => {
       return <span>{NUM_OF_DIVES_TO_TEXT_MAPPING[value]}</span>;
@@ -88,11 +100,6 @@ export const RESERVATION_TABLE_COLUMNS_DESKTOP = [
     renderCell: ({ value }) => {
       return <span>{DEEPEST_TO_TEXT_MAPPING[value]}</span>;
     },
-  },
-  {
-    field: "diver_information.email",
-    headerName: "Email",
-    minWidth: 200,
   },
   {
     field: "edit_reservation",

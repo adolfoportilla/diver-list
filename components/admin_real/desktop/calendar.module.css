@@ -1,0 +1,13 @@
+.ant-picker-calendar-full .ant-picker-cell:hover .ant-picker-calendar-date {
+  background: blue !important;
+}
+.example.ant-picker-calendar-full
+  .ant-picker-panel
+  .ant-picker-cell:hover
+  .ant-picker-calendar-date {
+  background: blue !important;
+}
+
+.exampl.ant-picker-panel .ant-picker-cell:hover .ant-picker-calendar-date {
+  background: green !important;
+}

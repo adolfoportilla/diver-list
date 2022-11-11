@@ -46,12 +46,12 @@ const EquipmentCard = ({
             <SelectComponent
               value={choice}
               setValue={setChoice}
-              label="Select Size"
+              label={statesText.equipmentCard.label[context.language]}
               options={options}
               defaultValue={defaultOption}
             />
           }
-          text={statesText.equipmentCard.text[context.language]}
+          // text={statesText.equipmentCard.text[context.language]}
           onClick={() => setVisible(!visible)}
         />
       )}

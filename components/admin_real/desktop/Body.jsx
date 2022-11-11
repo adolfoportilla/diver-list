@@ -14,6 +14,7 @@ export default function Body({ view }) {
     case VIEWS.CALENDAR:
       return (
         <BodyFrame>
+          <CreateReservationButton />
           <Calendar />
         </BodyFrame>
       );

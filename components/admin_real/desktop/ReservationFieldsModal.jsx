@@ -3,8 +3,9 @@ import Modal from "antd/lib/modal/Modal";
 import { Form, Button, DatePicker, Input, InputNumber, Radio } from "antd";
 import { TimePicker } from "antd";
 import moment from "moment";
-import { dateFormat, timeFormat } from "../shared/constants";
+import { Alert } from "@mui/material";
 
+import { dateFormat, timeFormat } from "../shared/constants";
 import { useUser } from "../../../utils/useUser";
 import {
   NUM_OF_DIVES,
@@ -14,7 +15,7 @@ import {
 } from "../../../utils/supabase";
 import { openSuccessNotification } from "../shared/reservationTableUtils";
 import { ReservationsContext } from "../../shared/ReservationsContextProvider";
-import { Alert } from "@mui/material";
+import { currentDateIsOlderThanToday } from "../shared/calendarUtil";
 
 const formatValues = (values) => {
   const result = {
@@ -81,6 +82,7 @@ const ReservationFieldsModal = ({
         }
       })
       .catch((_error) => {
+        console.log(_error);
         setError(
           `There was error ${MAPPING[modalTitle]} your reservation. Please contact support@diverlist.com`
         );
@@ -146,7 +148,10 @@ const ReservationFieldsModal = ({
               name="date"
               rules={[{ required: true, message: "Please select data!" }]}
             >
-              <DatePicker format={dateFormat} />
+              <DatePicker
+                format={dateFormat}
+                disabledDate={currentDateIsOlderThanToday}
+              />
             </Form.Item>
             <div className="ml-8">
               <Form.Item label="Time" name="time" rules={[{ required: false }]}>
@@ -187,7 +192,7 @@ const ReservationFieldsModal = ({
             </Radio.Group>
           </Form.Item>
           <Form.Item
-            label="Experience"
+            label="Experience (dives)"
             name="number_of_dives"
             rules={[{ required: false }]}
           >

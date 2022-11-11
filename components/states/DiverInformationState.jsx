@@ -141,9 +141,16 @@ const DiverInformationState = () => {
             id="age"
             label={statesText.diverInformationState.age[context.language]}
             variant="outlined"
-            inputMode="numeric"
-            pattern="[0-9]*"
-            onChange={(event) => setAge(parseInt(event.target.value))}
+            inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+            onChange={(event) => {
+              console.log(event.target.value);
+              if (!event.target.value) {
+                setAge(null);
+              }
+              if (!isNaN(event.target.value.trim())) {
+                setAge(event.target.value.trim());
+              }
+            }}
             error={ageValid ? false : true}
             helperText={
               ageValid
