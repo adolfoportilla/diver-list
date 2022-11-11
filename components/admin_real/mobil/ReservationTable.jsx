@@ -6,10 +6,9 @@ import {
   RESERVATION_TABLE_COLUMNS_MOBILE,
   calculateRange,
 } from "../shared/reservationTableUtils";
-import { useUser } from "../../../utils/useUser";
-import { fetchReservations } from "../../../utils/api/reservation";
 import { SelectedRow } from "./SelectedRow";
 import CreateReservationButton from "./CreateReservationButton";
+import { ReservationsContext } from "../../shared/ReservationsContextProvider";
 
 const isEmpty = (obj) => {
   if (!obj) return true;
@@ -18,48 +17,22 @@ const isEmpty = (obj) => {
 };
 
 export default function ReservationTable() {
-  const [data, setData] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(false);
-
+  const context = React.useContext(ReservationsContext);
   const [selectedRow, setSelectedRow] = React.useState({});
-
-  const [count, setCount] = React.useState(0);
-  const { diveShop } = useUser();
-
-  React.useEffect(() => {
-    if (diveShop) {
-      (async () => {
-        setIsLoading(true);
-        const {
-          data: reservations,
-          error,
-          count: rowCount,
-        } = await fetchReservations({
-          rangeInitial: 0,
-          rangeEnd: PAGE_SIZE - 1,
-          diveShopId: diveShop.id,
-        });
-        setData(reservations);
-        setIsLoading(false);
-        setCount(rowCount);
-      })();
-    }
-  }, [diveShop]);
-
   return (
     <div>
       <div className="bg-white">
         <DataGrid
-          rows={data}
+          rows={context.tableData}
           columns={RESERVATION_TABLE_COLUMNS_MOBILE}
           pageSize={PAGE_SIZE}
           rowsPerPageOptions={[PAGE_SIZE]}
-          loading={isLoading}
+          loading={context.isLoading}
           checkboxSelection={false}
           filterOperators={[]}
           disableColumnMenu
           autoHeight
-          rowCount={count}
+          rowCount={context.count}
           isCellEditable={() => false}
           pagination
           paginationMode="server"
@@ -68,16 +41,11 @@ export default function ReservationTable() {
           }}
           onPageChange={(newPage) => {
             const [initial, end] = calculateRange(newPage, PAGE_SIZE);
-            setIsLoading(true);
-            fetchReservations({
+            context.setReservationParams({
               rangeInitial: initial,
               rangeEnd: end,
-              diveShopId,
-            }).then(({ data, error, count }) => {
-              setData(data);
-              setIsLoading(false);
-              setCount(count);
             });
+            context.getTableReservations(initial, end);
           }}
         />
       </div>

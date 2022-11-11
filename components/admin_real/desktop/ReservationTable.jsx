@@ -6,15 +6,15 @@ import {
   RESERVATION_TABLE_COLUMNS_DESKTOP,
   calculateRange,
 } from "../shared/reservationTableUtils";
-import { TableContext } from "../../shared/ReservationTableContextProvider";
+import { ReservationsContext } from "../../shared/ReservationsContextProvider";
 
 export default function ReservationTable({}) {
-  const context = React.useContext(TableContext);
+  const context = React.useContext(ReservationsContext);
   return (
     <div className="bg-white">
       {/* https://mui.com/x/api/data-grid/data-grid/ */}
       <DataGrid
-        rows={context.data}
+        rows={context.tableData}
         columns={RESERVATION_TABLE_COLUMNS_DESKTOP}
         pageSize={PAGE_SIZE}
         rowsPerPageOptions={[PAGE_SIZE]}
@@ -33,7 +33,7 @@ export default function ReservationTable({}) {
             rangeInitial: initial,
             rangeEnd: end,
           });
-          context.getReservations(initial, end);
+          context.getTableReservations(initial, end);
         }}
       />
     </div>

@@ -4,11 +4,10 @@ import moment from "moment";
 import "antd/dist/antd.css";
 
 import { isSameDay } from "../shared/calendarUtil";
-import { fetchCalendar } from "../../../utils/api/reservation";
-import { useUser } from "../../../utils/useUser";
 import { calendarHeader } from "../../shared/Calendar";
 import ReservationBadge from "../ReservationBadge";
 import ReservationViewModal from "./ReservationViewModal";
+import { ReservationsContext } from "../../shared/ReservationsContextProvider";
 
 const dateCellRender = (cellDate, data) => {
   if (!data || !data.length) {
@@ -37,19 +36,7 @@ const dateCellRender = (cellDate, data) => {
 
 // https://ant.design/components/calendar/
 export default function Calendar() {
-  const [reservations, setReservations] = React.useState([]);
-  const { diveShop } = useUser();
-  const diveShopId = diveShop?.id || null;
-  React.useEffect(() => {
-    if (diveShopId) {
-      (async () => {
-        const { data, error } = await fetchCalendar({
-          diveShopId,
-        });
-        setReservations(data);
-      })();
-    }
-  }, [diveShopId]);
+  const context = React.useContext(ReservationsContext);
 
   return (
     // TODO
@@ -58,7 +45,9 @@ export default function Calendar() {
     // Ideally, we only fetch the reservations of the current month, and when a user changes the
     // month, we fetch more
     <_Calendar
-      dateCellRender={(cellDate) => dateCellRender(cellDate, reservations)}
+      dateCellRender={(cellDate) =>
+        dateCellRender(cellDate, context.calendarData)
+      }
       headerRender={calendarHeader}
       className="rounded-md border border-neutral-200"
       style={{ padding: 8 }}
