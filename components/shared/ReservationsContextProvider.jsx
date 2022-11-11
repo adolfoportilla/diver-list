@@ -3,6 +3,7 @@ import React from "react";
 import { useUser } from "../../utils/useUser";
 import { PAGE_SIZE } from "../admin_real/shared/reservationTableUtils";
 import {
+  deleteReservation,
   fetchCalendarReservations,
   fetchReservations,
 } from "../../utils/api/reservation";
@@ -13,6 +14,7 @@ const ReservationsContextProvider = (props) => {
   const [tableData, setTableData] = React.useState([]);
   const [calendarData, setCalendarData] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [selectedRow, setSelectedRow] = React.useState({});
 
   const [count, setCount] = React.useState(0);
   const { diveShop } = useUser();
@@ -38,7 +40,6 @@ const ReservationsContextProvider = (props) => {
       })
       .catch((error) => {
         console.log("error", error);
-        setIsLoading(false);
       });
   };
 
@@ -76,10 +77,13 @@ const ReservationsContextProvider = (props) => {
         tableData,
         calendarData,
         isLoading,
+        setIsLoading,
         count,
         diveShop,
         reservationParams,
         setReservationParams,
+        selectedRow,
+        setSelectedRow,
       }}
       {...props}
     />

@@ -143,7 +143,6 @@ const DiverInformationState = () => {
             variant="outlined"
             inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
             onChange={(event) => {
-              console.log(event.target.value);
               if (!event.target.value) {
                 setAge(null);
               }
