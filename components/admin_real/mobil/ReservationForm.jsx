@@ -41,7 +41,7 @@ const ReservationForm = ({ reservation = {}, onSubmit, setFormVisible }) => {
     onSubmit({
       values: formattedValues,
       reservationId: reservation.id,
-      dive_shop_id: diveShopId,
+      diveShopId,
     })
       .then((results) => {
         if (results.error) {

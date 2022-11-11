@@ -26,10 +26,9 @@ const CreateSupabaseReservationState = () => {
       time: context.time,
       diver_information: context.diverInformation,
       equipment_information: context.equipment,
-      dive_shop_id: context.diveShopConfig.id,
     };
     setLoading(true);
-    createReservation({ values })
+    createReservation({ values, diveShopId: context.diveShopConfig.id })
       .then(({ data, error }) => {
         if (error) {
           setError(error);

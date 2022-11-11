@@ -1,5 +1,5 @@
 import React from "react";
-import { Calendar as _Calendar } from "antd";
+import { Calendar as _Calendar, Tag } from "antd";
 import moment from "moment";
 import "antd/dist/antd.css";
 
@@ -8,26 +8,68 @@ import { calendarHeader } from "../../shared/Calendar";
 import ReservationBadge from "../ReservationBadge";
 import ReservationViewModal from "./ReservationViewModal";
 import { ReservationsContext } from "../../shared/ReservationsContextProvider";
+import { formatReservationTime } from "../../../utils/reservations";
+
+const sortReservationsWithoutTimeFirst = (dateA, dateB) => {
+  // We prioritize items without date first (the same way Google puts "all day" events at the top).
+  if (!dateA.time) {
+    return -1000;
+  }
+  if (!dateB.time) {
+    return -1000;
+  }
+  const intA = parseInt(dateA.time.split(":").join());
+  const intB = parseInt(dateB.time.split(":").join());
+  return intA - intB;
+};
+
+const AllDay = ({ reservation }) => {
+  return (
+    <Tag color="#108ee9">
+      <ReservationViewModal reservation={reservation}>
+        <span className="">{reservation.diver_information.name}</span>
+        <span className="ml-1">{reservation.diver_information.lastName}</span>
+      </ReservationViewModal>
+    </Tag>
+  );
+};
+
+const SpecificTime = ({ reservation }) => {
+  return (
+    <Tag color="geekblue">
+      <ReservationViewModal reservation={reservation}>
+        <ReservationBadge item={reservation} />
+        <span className="font-bold">
+          {formatReservationTime(reservation.time)}
+        </span>
+        <span className="ml-1">{reservation.diver_information.name}</span>
+        <span className="ml-1">{reservation.diver_information.lastName}</span>
+      </ReservationViewModal>
+    </Tag>
+  );
+};
 
 const dateCellRender = (cellDate, data) => {
   if (!data || !data.length) {
     return null;
   }
-  const filteredReservations = data.filter((reservation) => {
+  const cellDateReservations = data.filter((reservation) => {
     const reservationDate = reservation.date;
     const momentReservationDate = moment(reservationDate);
     return isSameDay(cellDate, momentReservationDate);
   });
+
+  cellDateReservations.sort(sortReservationsWithoutTimeFirst);
+
   return (
     <ul className="events">
-      {filteredReservations.map((item) => (
-        <li key={item.id}>
-          <ReservationViewModal reservation={item}>
-            <ReservationBadge item={item} />
-            {item.time ? <span>{item.time}</span> : null}
-            <span>{item.diver_information.name}</span>
-            <span className="ml-1">{item.diver_information.lastName}</span>
-          </ReservationViewModal>
+      {cellDateReservations.map((item) => (
+        <li key={item.id} className="mb-1">
+          {item.time ? (
+            <SpecificTime reservation={item} />
+          ) : (
+            <AllDay reservation={item} />
+          )}
         </li>
       ))}
     </ul>

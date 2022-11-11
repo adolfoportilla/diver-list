@@ -41,7 +41,7 @@ export async function updateReservation(props) {
     .from("reservations")
     .update(props.values)
     .eq("id", props.reservationId)
-    .eq("dive_shop_id", props.dive_shop_id)
+    .eq("dive_shop_id", props.diveShopId)
     .select();
 }
 export async function createReservation({ values, diveShopId }) {

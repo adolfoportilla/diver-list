@@ -137,6 +137,10 @@ export const statesText = {
       english: "Select Choice",
       spanish: "Seleccionar Opción",
     },
+    label: {
+      english: "Select Size",
+      spanish: "Talla",
+    },
   },
   diverInformationState: {
     title: {
