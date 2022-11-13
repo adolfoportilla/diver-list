@@ -127,8 +127,8 @@ export const statesText = {
       spanish: "Tanque",
     },
     tankOptions: {
-      english: ["80 (normal)", "100 (large)"],
-      spanish: ["80 (normal)", "100 (grande)"],
+      english: ["80 (regular)", "100 (large)"],
+      spanish: ["80 (regular)", "100 (grande)"],
     },
     finOptions: ["7.5", "8", "8.5", "9", "9.5", "10", "10.5", "11"],
   },

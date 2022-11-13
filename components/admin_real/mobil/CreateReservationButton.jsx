@@ -1,4 +1,4 @@
-import { Add, Cancel, CancelOutlined } from "@mui/icons-material";
+import { Add, Cancel } from "@mui/icons-material";
 import { Fab } from "@mui/material";
 import ReservationForm from "./ReservationForm";
 import { Collapse } from "antd";
@@ -42,13 +42,12 @@ export default function CreateReservationButton() {
         </Collapse>
       ) : (
         <Fab
-          className="fixed bottom-20 right-5 bg-sky-700"
+          className="border-4 border-sky-400 shadow fixed bottom-20 right-5 "
           aria-label="add"
           onClick={() => setFormVisible(true)}
+          color="error"
         >
-          <div>
-            <Add />
-          </div>
+          <Add className="" color="primary" />
         </Fab>
       )}
     </>
