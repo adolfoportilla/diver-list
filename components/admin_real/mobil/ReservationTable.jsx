@@ -18,7 +18,6 @@ const isEmpty = (obj) => {
 
 export default function ReservationTable() {
   const context = React.useContext(ReservationsContext);
-  const [selectedRow, setSelectedRow] = React.useState({});
   return (
     <div>
       <div className="bg-white">
@@ -37,7 +36,7 @@ export default function ReservationTable() {
           pagination
           paginationMode="server"
           onRowClick={(event) => {
-            setSelectedRow(event.row);
+            context.setSelectedRow(event.row);
           }}
           onPageChange={(newPage) => {
             const [initial, end] = calculateRange(newPage, PAGE_SIZE);
@@ -47,12 +46,17 @@ export default function ReservationTable() {
             });
             context.getTableReservations(initial, end);
           }}
+          sx={{
+            "&.MuiDataGrid-root .MuiDataGrid-cell:focus-within": {
+              outline: "none !important",
+            },
+          }}
         />
       </div>
       <CreateReservationButton />
-      {!isEmpty(selectedRow) ? (
+      {!isEmpty(context.selectedRow) ? (
         <div className="mt-5">
-          <SelectedRow selectedRow={selectedRow} />
+          <SelectedRow selectedRow={context.selectedRow} />
         </div>
       ) : null}
     </div>

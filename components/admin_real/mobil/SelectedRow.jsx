@@ -67,8 +67,7 @@ export const SelectedRow = ({ selectedRow }) => {
         >
           {!formVisible ? (
             <div>
-              {row}
-              <div className="text-end">
+              <div className="text-end h-7">
                 <Button
                   className="min-w-0"
                   onClick={() => setFormVisible(true)}
@@ -76,6 +75,7 @@ export const SelectedRow = ({ selectedRow }) => {
                   <Edit className="w-4" />
                 </Button>
               </div>
+              {row}
             </div>
           ) : (
             <ReservationForm

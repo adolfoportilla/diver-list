@@ -10,7 +10,12 @@ import {
   DEEPEST_TO_TEXT_MAPPING,
   NUM_OF_DIVES_TO_TEXT_MAPPING,
 } from "../../../utils/supabase";
-import { openSuccessNotification } from "../shared/reservationTableUtils";
+import {
+  openErrorNotification,
+  openSuccessNotification,
+} from "../shared/reservationTableUtils";
+import { ReservationsContext } from "../../shared/ReservationsContextProvider";
+import { deleteReservation } from "../../../utils/api/reservation";
 
 const formatValues = (values) => {
   const result = {
@@ -31,12 +36,12 @@ const formatValues = (values) => {
 };
 
 const ReservationForm = ({ reservation = {}, onSubmit, setFormVisible }) => {
+  const context = React.useContext(ReservationsContext);
   const { diveShop } = useUser();
   const diveShopId = diveShop ? diveShop.id : null;
-  const [isLoading, setIsLoading] = useState(false);
   const [form] = Form.useForm();
   const _onFinish = (values) => {
-    setIsLoading(true);
+    context.setIsLoading(true);
     const formattedValues = formatValues(values);
     onSubmit({
       values: formattedValues,
@@ -44,19 +49,26 @@ const ReservationForm = ({ reservation = {}, onSubmit, setFormVisible }) => {
       diveShopId,
     })
       .then((results) => {
-        if (results.error) {
-        }
         setFormVisible(false);
-        openSuccessNotification(
-          "success",
-          "Successful!",
-          "Reservation updated successful!"
-        );
         form.resetFields();
+        if (results.error) {
+          openErrorNotification("error", "Failed", "Something went wrong");
+        } else {
+          openSuccessNotification(
+            "success",
+            "Successful!",
+            "Reservation updated successful!"
+          );
+          context.setSelectedRow(results.data[0]);
+        }
+        context.getCalendarReservations();
+        context.getTableReservations();
       })
-      .catch((error) => {})
+      .catch((error) => {
+        console.log(error);
+      })
       .finally(() => {
-        setIsLoading(false);
+        context.setIsLoading(false);
       });
   };
   return (
@@ -152,20 +164,55 @@ const ReservationForm = ({ reservation = {}, onSubmit, setFormVisible }) => {
           rules={[{ required: false }]}
         >
           <Radio.Group buttonStyle="solid">
-            <Radio.Button value={DEEPEST_DIVE.SHALLOW}>
-              {DEEPEST_TO_TEXT_MAPPING[DEEPEST_DIVE.SHALLOW]}
-            </Radio.Button>
-            <Radio.Button value={DEEPEST_DIVE.MEDIUM}>
-              {DEEPEST_TO_TEXT_MAPPING[DEEPEST_DIVE.MEDIUM]}
-            </Radio.Button>
-            <Radio.Button value={DEEPEST_DIVE.DEEP}>
-              {DEEPEST_TO_TEXT_MAPPING[DEEPEST_DIVE.DEEP]}
-            </Radio.Button>
+            <div className="flex flex-col">
+              <Radio.Button value={DEEPEST_DIVE.SHALLOW}>
+                {DEEPEST_TO_TEXT_MAPPING[DEEPEST_DIVE.SHALLOW]}
+              </Radio.Button>
+              <Radio.Button value={DEEPEST_DIVE.MEDIUM}>
+                {DEEPEST_TO_TEXT_MAPPING[DEEPEST_DIVE.MEDIUM]}
+              </Radio.Button>
+              <Radio.Button value={DEEPEST_DIVE.DEEP}>
+                {DEEPEST_TO_TEXT_MAPPING[DEEPEST_DIVE.DEEP]}
+              </Radio.Button>
+            </div>
           </Radio.Group>
         </Form.Item>
         {Object.keys(reservation).length > 0 ? (
           <Form.Item>
-            <Button loading={false} className="" danger>
+            <Button
+              loading={false}
+              className=""
+              danger
+              onClick={() => {
+                context.setIsLoading(true);
+                deleteReservation(reservation.id)
+                  .then((results) => {
+                    setFormVisible(false);
+                    context.setSelectedRow({});
+                    if (results.error) {
+                      openErrorNotification(
+                        "error",
+                        "Failed",
+                        "Something went wrong"
+                      );
+                    } else {
+                      openSuccessNotification(
+                        "success",
+                        "Successful!",
+                        "Reservation deleted successfully!"
+                      );
+                    }
+                    context.getCalendarReservations();
+                    context.getTableReservations();
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                  })
+                  .finally(() => {
+                    context.setIsLoading(false);
+                  });
+              }}
+            >
               Delete Reservation
             </Button>
           </Form.Item>
