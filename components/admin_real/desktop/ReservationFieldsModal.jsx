@@ -23,7 +23,7 @@ const formatValues = (values) => {
     time: values.time ? moment(values.time).format(timeFormat) : null,
     diver_certified: values.certified === "yes" ? true : false,
     reservation_type: values.reservation_type,
-    number_of_dives: values.experience,
+    number_of_dives: values.number_of_dives,
     deepest_dive: values.deepest_dive,
     diver_information: {
       name: values.name,
