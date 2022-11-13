@@ -122,7 +122,6 @@ const DiverInformationState = () => {
           />
           <TextField
             id="email"
-            className="w-64"
             label={statesText.diverInformationState.email[context.language]}
             variant="outlined"
             onChange={(event) => setEmail(event.target.value)}
