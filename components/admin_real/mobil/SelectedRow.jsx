@@ -4,6 +4,11 @@ import { Button } from "@mui/material";
 import moment from "moment/moment";
 import ReservationForm from "./ReservationForm";
 import { Edit } from "@mui/icons-material";
+import {
+  LAST_DIVES_TO_TEXT_MAPPING,
+  NUM_OF_DIVES_TO_TEXT_MAPPING,
+  DEEPEST_TO_TEXT_MAPPING,
+} from "../../../utils/supabase";
 
 import { updateReservation } from "../../../utils/api/reservation";
 
@@ -11,7 +16,9 @@ const Item = (props) => {
   return (
     <div className="grid grid-cols-2 border-l-4 border-sky-700">
       <span className="pl-6 pb-1 ">{props.name}</span>
-      <span className="">{props.value}</span>
+      <span className="">
+        {props.formatter ? props.formatter(props.value) : props.value}
+      </span>
     </div>
   );
 };
@@ -26,10 +33,22 @@ export const SelectedRow = ({ selectedRow }) => {
     ["Date", "date"],
     ["Email", "diver_information.email"],
     ["Age", "diver_information.age"],
-    ["Deepest Dive", "deepest_dive"],
+    [
+      "Deepest Dive",
+      "deepest_dive",
+      (value) => (value ? DEEPEST_TO_TEXT_MAPPING[value] : ""),
+    ],
     ["Diver Certified", "diver_certified", (value) => (value ? "Yes" : "No")],
-    ["Last Dive", "last_dive"],
-    ["# Dives", "number_of_dives"],
+    [
+      "Last Dive",
+      "last_dive",
+      (value) => (value ? LAST_DIVES_TO_TEXT_MAPPING[value] : ""),
+    ],
+    [
+      "# Dives",
+      "number_of_dives",
+      (value) => (value ? NUM_OF_DIVES_TO_TEXT_MAPPING[value] : ""),
+    ],
   ];
 
   const row = items.map((item) => {
@@ -38,10 +57,14 @@ export const SelectedRow = ({ selectedRow }) => {
       const [first, second] = item[1].split(".");
       value = selectedRow[first][second];
     }
+    console.log(item[2]);
     return (
       <Item name={item[0]} value={value} formatter={item[2]} key={item.id} />
     );
   });
+
+  console.log(LAST_DIVES_TO_TEXT_MAPPING[3]);
+  console.log(row);
 
   return (
     <div>
