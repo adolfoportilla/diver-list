@@ -29,8 +29,14 @@ export const DEEPEST_TO_TEXT_MAPPING = {
 };
 export const NUM_OF_DIVES_TO_TEXT_MAPPING = {
   [NUM_OF_DIVES.BEGINNER]: "Beginner (0-10)",
-  [NUM_OF_DIVES.INTERMEDIATE]: "Intermediated (10-50)",
+  [NUM_OF_DIVES.INTERMEDIATE]: "Intermediate (10-50)",
   [NUM_OF_DIVES.ADVANCED]: "Advanced (+50)",
+};
+
+export const LAST_DIVES_TO_TEXT_MAPPING = {
+  [LAST_DIVE.LONG_TIME_AGO]: "O-1 months ago",
+  [LAST_DIVE.NOT_SO_RECENT]: "1-6 months ago",
+  [LAST_DIVE.RECENT]: "6+ months ago",
 };
 
 export default supabase;
