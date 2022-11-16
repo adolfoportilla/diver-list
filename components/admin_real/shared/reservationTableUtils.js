@@ -1,4 +1,5 @@
 import { notification } from "antd";
+import { isEmpty } from "lodash";
 
 import {
   DEEPEST_TO_TEXT_MAPPING,
@@ -7,6 +8,7 @@ import {
 import DeleteReservationButton from "../desktop/DeleteReservationButton";
 import EditReservationButton from "../desktop/EditReservationButton";
 import { formatReservationTime } from "../../../utils/reservations";
+import EquipmentPills from "./EquipmentPills";
 
 // This function allows the columns to get values from Supabase like this `userInformation.name`
 // it essentially works the same way as the `get` function from lodash. (https://lodash.com/docs/4.17.15#get)
@@ -99,6 +101,20 @@ export const RESERVATION_TABLE_COLUMNS_DESKTOP = [
     width: 140,
     renderCell: ({ value }) => {
       return <span>{DEEPEST_TO_TEXT_MAPPING[value]}</span>;
+    },
+  },
+  {
+    field: "equipment_information",
+    headerName: "Equipment",
+    width: 480,
+    renderCell: ({ row }) => {
+      if (
+        row.equipment_information === null ||
+        isEmpty(row.equipment_information)
+      ) {
+        return null;
+      }
+      return <EquipmentPills equipment={row.equipment_information} />;
     },
   },
   {
