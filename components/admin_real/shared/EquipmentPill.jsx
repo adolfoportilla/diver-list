@@ -1,36 +1,29 @@
-import Chip from "@mui/material/Chip";
-import Image from "next/image";
+import { EQUIPMENT, EQUIPMENT_NAME_TO_DB_VALUE } from "../../../utils/supabase";
+import EquipmentIconName from "./EquipmentIconName";
 
-const EQUIPMENT_TYPE_TO_ICON = {
-  finSize: "/icons/fins.svg",
-  bcdSize: "/icons/diving-suit.svg",
-  regulatorChoice: "/icons/regulator.svg",
-  wetsuitSize: "/icons/wetsuit.svg",
-  maskChoice: "/icons/diving-mask.svg",
-  tankSize: "/icons/oxygen-tank.svg",
+const EQUIPMENT_TYPE_TO_BLAH = {
+  [EQUIPMENT_NAME_TO_DB_VALUE.FINS]: EQUIPMENT.FINS,
+  [EQUIPMENT_NAME_TO_DB_VALUE.BCD]: EQUIPMENT.BCD,
+  [EQUIPMENT_NAME_TO_DB_VALUE.REGULATOR]: EQUIPMENT.REGULATOR,
+  [EQUIPMENT_NAME_TO_DB_VALUE.WETSUIT]: EQUIPMENT.WETSUIT,
+  [EQUIPMENT_NAME_TO_DB_VALUE.MASK]: EQUIPMENT.MASK,
+  [EQUIPMENT_NAME_TO_DB_VALUE.TANK]: EQUIPMENT.TANK,
+};
+
+const getLabelBasedOnQuip = (type, value) => {
+  const option = EQUIPMENT_TYPE_TO_BLAH[type].find((entry) => {
+    return entry.value === value;
+  });
+  if (option) {
+    return option.label;
+  }
 };
 
 export default function EquipmentPill(props) {
   return (
-    <div className="flex flex-row">
-      <div>
-        <Chip
-          label={
-            <div className="flex flex-row">
-              <div className="w-4 h-4">
-                <Image
-                  alt={props.type}
-                  width={40}
-                  height={40}
-                  src={EQUIPMENT_TYPE_TO_ICON[props.type]}
-                />
-              </div>
-              <span className="ml-1">{props.value}</span>
-            </div>
-          }
-          size="small"
-        />
-      </div>
-    </div>
+    <EquipmentIconName
+      type={props.type}
+      value={getLabelBasedOnQuip(props.type, props.value)}
+    />
   );
 }

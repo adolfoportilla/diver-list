@@ -12,10 +12,13 @@ import {
   DEEPEST_DIVE,
   DEEPEST_TO_TEXT_MAPPING,
   NUM_OF_DIVES_TO_TEXT_MAPPING,
+  EQUIPMENT_NAME_TO_DB_VALUE,
 } from "../../../utils/supabase";
 import { openSuccessNotification } from "../shared/reservationTableUtils";
 import { ReservationsContext } from "../../shared/ReservationsContextProvider";
 import { currentDateIsOlderThanToday } from "../shared/calendarUtil";
+import { get } from "lodash";
+import EquipmentForm from "./EquipmentForm";
 
 const formatValues = (values) => {
   const result = {
@@ -32,6 +35,34 @@ const formatValues = (values) => {
       email: values.email,
     },
   };
+
+  if (
+    Object.keys(values).some((element) =>
+      [
+        EQUIPMENT_NAME_TO_DB_VALUE.FINS,
+        EQUIPMENT_NAME_TO_DB_VALUE.BCD,
+        EQUIPMENT_NAME_TO_DB_VALUE.WETSUIT,
+        EQUIPMENT_NAME_TO_DB_VALUE.REGULATOR,
+        EQUIPMENT_NAME_TO_DB_VALUE.MASK,
+        EQUIPMENT_NAME_TO_DB_VALUE.TANK,
+      ].includes(element)
+    )
+  ) {
+    result.equipment_information = {
+      [EQUIPMENT_NAME_TO_DB_VALUE.FINS]:
+        values[EQUIPMENT_NAME_TO_DB_VALUE.FINS] || null,
+      [EQUIPMENT_NAME_TO_DB_VALUE.BCD]:
+        values[EQUIPMENT_NAME_TO_DB_VALUE.BCD] || null,
+      [EQUIPMENT_NAME_TO_DB_VALUE.WETSUIT]:
+        values[EQUIPMENT_NAME_TO_DB_VALUE.WETSUIT] || null,
+      [EQUIPMENT_NAME_TO_DB_VALUE.REGULATOR]:
+        values[EQUIPMENT_NAME_TO_DB_VALUE.REGULATOR] || null,
+      [EQUIPMENT_NAME_TO_DB_VALUE.MASK]:
+        values[EQUIPMENT_NAME_TO_DB_VALUE.MASK] || null,
+      [EQUIPMENT_NAME_TO_DB_VALUE.TANK]:
+        values[EQUIPMENT_NAME_TO_DB_VALUE.TANK] || null,
+    };
+  }
   return result;
 };
 
@@ -78,7 +109,6 @@ const ReservationFieldsModal = ({
             "Successful!",
             "Reservation updated successful!"
           );
-          form.resetFields();
         }
       })
       .catch((_error) => {
@@ -96,12 +126,13 @@ const ReservationFieldsModal = ({
       title={modalTitle + " Reservation"}
       visible={modalOpen}
       onCancel={() => {
+        form.resetFields();
         setModalOpen(false);
         setError(null);
       }}
       footer={null}
       width={650}
-      destroyOnClose
+      destroyOnClose={true}
     >
       <div>
         {error !== null ? (
@@ -125,9 +156,52 @@ const ReservationFieldsModal = ({
             time: reservation.time
               ? moment(reservation.time, timeFormat)
               : null,
-            number_of_dives:
-              reservation.number_of_dives || NUM_OF_DIVES.BEGINNER,
-            deepest_dive: reservation.deepest_dive || DEEPEST_DIVE.SHALLOW,
+            number_of_dives: reservation.number_of_dives || null,
+            deepest_dive: reservation.deepest_dive || null,
+            [EQUIPMENT_NAME_TO_DB_VALUE.MASK]: reservation.equipment_information
+              ? get(
+                  reservation,
+                  `equipment_information.${EQUIPMENT_NAME_TO_DB_VALUE.MASK}`,
+                  null
+                )
+              : null,
+            [EQUIPMENT_NAME_TO_DB_VALUE.WETSUIT]:
+              reservation.equipment_information
+                ? get(
+                    reservation,
+                    `equipment_information.${EQUIPMENT_NAME_TO_DB_VALUE.WETSUIT}`,
+                    null
+                  )
+                : null,
+            [EQUIPMENT_NAME_TO_DB_VALUE.BCD]: reservation.equipment_information
+              ? get(
+                  reservation,
+                  `equipment_information.${EQUIPMENT_NAME_TO_DB_VALUE.BCD}`,
+                  null
+                )
+              : null,
+            [EQUIPMENT_NAME_TO_DB_VALUE.REGULATOR]:
+              reservation.equipment_information
+                ? get(
+                    reservation,
+                    `equipment_information.${EQUIPMENT_NAME_TO_DB_VALUE.REGULATOR}`,
+                    null
+                  )
+                : null,
+            [EQUIPMENT_NAME_TO_DB_VALUE.FINS]: reservation.equipment_information
+              ? get(
+                  reservation,
+                  `equipment_information.${EQUIPMENT_NAME_TO_DB_VALUE.FINS}`,
+                  null
+                )
+              : null,
+            [EQUIPMENT_NAME_TO_DB_VALUE.TANK]: reservation.equipment_information
+              ? get(
+                  reservation,
+                  `equipment_information.${EQUIPMENT_NAME_TO_DB_VALUE.TANK}`,
+                  null
+                )
+              : null,
           }}
         >
           <Form.Item
@@ -225,6 +299,7 @@ const ReservationFieldsModal = ({
               </Radio.Button>
             </Radio.Group>
           </Form.Item>
+          <EquipmentForm />
           <Form.Item
             wrapperCol={{
               offset: 7,
