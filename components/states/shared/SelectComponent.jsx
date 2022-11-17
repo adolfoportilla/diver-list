@@ -12,9 +12,9 @@ const SelectComponent = (props) => {
         defaultValue={props.defaultValue}
         value={props.value}
       >
-        {props.options.map((value, idx) => (
-          <MenuItem key={idx} value={value}>
-            {value}
+        {props.options.map(({ label, value }) => (
+          <MenuItem key={value} value={value}>
+            {label}
           </MenuItem>
         ))}
       </Select>

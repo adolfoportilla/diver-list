@@ -1,6 +1,7 @@
 import React from "react";
 import { useActor } from "@xstate/react";
 import { Button } from "@mui/material";
+import { startCase } from "lodash";
 
 import { STATE_ACTIONS } from "../../utils/state-machine";
 import { MyContext } from "../ReservationController";
@@ -9,17 +10,19 @@ import StateTitle from "./shared/StateTitle";
 import StateCards from "./shared/StateCards";
 import EquipmentCard from "./shared/EquipmentCard";
 import { statesText } from "../../utils/app-text";
+import { EQUIPMENT } from "../../utils/supabase";
+import { dictionary } from "../../utils/dictionary";
 
 const EquipmentState = () => {
   const context = React.useContext(MyContext);
   const [, send] = useActor(context.service);
 
-  const [finSize, setFinSize] = React.useState("");
-  const [bcdSize, setBcdSize] = React.useState("");
-  const [wetsuitSize, setWetsuitSize] = React.useState("");
-  const [regulatorChoice, setRegulatorChoice] = React.useState("");
-  const [maskChoice, setMaskChoice] = React.useState("");
-  const [tankSize, setTankSize] = React.useState("");
+  const [finSize, setFinSize] = React.useState(null);
+  const [bcdSize, setBcdSize] = React.useState(null);
+  const [wetsuitSize, setWetsuitSize] = React.useState(null);
+  const [regulatorChoice, setRegulatorChoice] = React.useState(null);
+  const [maskChoice, setMaskChoice] = React.useState(null);
+  const [tankSize, setTankSize] = React.useState(null);
 
   return (
     <StatePage>
@@ -28,49 +31,54 @@ const EquipmentState = () => {
         <StateCards>
           <EquipmentCard
             icon="/icons/fins.svg"
-            options={statesText.equipmentState.finOptions}
+            options={EQUIPMENT.FINS}
             choice={finSize}
             setChoice={setFinSize}
-            text={statesText.equipmentState.fins[context.language]}
+            text={startCase(dictionary.fins[context.language])}
+            selectLabel={startCase(dictionary.size[context.language])}
           />
           <EquipmentCard
             icon="/icons/diving-mask.svg"
-            options={statesText.equipmentState.maskOptions[context.language]}
+            options={EQUIPMENT.MASK}
             choice={maskChoice}
             setChoice={setMaskChoice}
-            text={statesText.equipmentState.mask[context.language]}
+            text={startCase(dictionary.mask[context.language])}
+            selectLabel={startCase(dictionary.choice[context.language])}
           />
-          <EquipmentCard
-            icon="/icons/diving-suit.svg"
-            options={statesText.equipmentState.bcdOptions[context.language]}
-            choice={bcdSize}
-            setChoice={setBcdSize}
-            text="BCD"
-          />
+
           <EquipmentCard
             icon="/icons/wetsuit.svg"
-            options={statesText.equipmentState.wetsuitOptions[context.language]}
+            options={EQUIPMENT.WETSUIT}
             choice={wetsuitSize}
             setChoice={setWetsuitSize}
             text={statesText.equipmentState.wetsuit[context.language]}
+            selectLabel={startCase(dictionary.size[context.language])}
           />
         </StateCards>
         <StateCards>
           <EquipmentCard
+            icon="/icons/diving-suit.svg"
+            options={EQUIPMENT.BCD}
+            choice={bcdSize}
+            setChoice={setBcdSize}
+            text="BCD"
+            selectLabel={startCase(dictionary.size[context.language])}
+          />
+          <EquipmentCard
             icon="/icons/regulator.svg"
-            options={
-              statesText.equipmentState.regulatorOptions[context.language]
-            }
+            options={EQUIPMENT.REGULATOR}
             choice={regulatorChoice}
             setChoice={setRegulatorChoice}
             text={statesText.equipmentState.regulator[context.language]}
+            selectLabel={startCase(dictionary.choice[context.language])}
           />
           <EquipmentCard
             icon="/icons/oxygen-tank.svg"
-            options={statesText.equipmentState.tankOptions[context.language]}
+            options={EQUIPMENT.TANK}
             choice={tankSize}
             setChoice={setTankSize}
             text={statesText.equipmentState.tank[context.language]}
+            selectLabel={startCase(dictionary.size[context.language])}
           />
         </StateCards>
         <div className="mt-10 justify-self-end flex justify-end">

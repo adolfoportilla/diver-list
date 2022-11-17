@@ -1,9 +1,22 @@
 import React from "react";
 import Image from "next/image";
+import { isEmpty } from "lodash";
+
 import CardComponent from "./CardComponent";
 import SelectComponent from "./SelectComponent";
-import { statesText } from "../../../utils/app-text";
 import { MyContext } from "../../ReservationController";
+
+const getTextBasedOnOptions = (choice, options) => {
+  const findOption = options.find(({ value }) => {
+    return choice === value;
+  });
+  // THIS SHOULD NEVER HAPPEN.
+  // If this happens, it means the options do not contain a value that matches the choice
+  if (isEmpty(findOption)) {
+    return null;
+  }
+  return findOption.label;
+};
 
 const EquipmentCard = ({
   choice,
@@ -11,6 +24,7 @@ const EquipmentCard = ({
   icon,
   text,
   options,
+  selectLabel,
   defaultOption = null,
 }) => {
   const [visible, setVisible] = React.useState(false);
@@ -22,11 +36,11 @@ const EquipmentCard = ({
         <CardComponent
           icon={<Image src={icon} alt="" width={150} height={150} />}
           text={
-            choice ? (
+            choice !== null ? (
               <div className="flex flex-col items-center">
                 <span>{text}</span>
                 <span className="italic text-xs font-normal text-gray-800">
-                  {choice}
+                  {getTextBasedOnOptions(choice, options)}
                 </span>
               </div>
             ) : (
@@ -35,7 +49,7 @@ const EquipmentCard = ({
           }
           onClick={() => setVisible(!visible)}
           additionalClassName={
-            choice
+            choice !== null
               ? "bg-green-100 border-green-600 hover:border-green-600"
               : null
           }
@@ -46,7 +60,7 @@ const EquipmentCard = ({
             <SelectComponent
               value={choice}
               setValue={setChoice}
-              label={statesText.equipmentCard.label[context.language]}
+              label={selectLabel}
               options={options}
               defaultValue={defaultOption}
             />
