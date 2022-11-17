@@ -21,6 +21,59 @@ export const LAST_DIVE = {
   NOT_SO_RECENT: 2,
   RECENT: 3,
 };
+export const EQUIPMENT_MASK = [
+  { label: "no", value: 0 },
+  { label: "yes", value: 1 },
+];
+export const EQUIPMENT_REGULATOR = [
+  { label: "no", value: 0 },
+  { label: "yes", value: 1 },
+];
+export const EQUIPMENT_TANK = [
+  { label: "80 (regular)", value: 0 },
+  { label: "100 (large)", value: 1 },
+];
+export const EQUIPMENT_FINS = [
+  "7.5",
+  "8",
+  "8.5",
+  "9",
+  "9.5",
+  "10",
+  "10.5",
+  "11",
+].map((value) => ({ label: value, value: value }));
+export const EQUIPMENT_BCD = [
+  { label: "xsmall", value: 0 },
+  { label: "small", value: 1 },
+  { label: "medium", value: 2 },
+  { label: "large", value: 3 },
+  { label: "xlarge", value: 4 },
+];
+export const EQUIPMENT_WETSUIT = [
+  { label: "xsmall", value: 0 },
+  { label: "small", value: 1 },
+  { label: "medium", value: 2 },
+  { label: "large", value: 3 },
+  { label: "xlarge", value: 4 },
+];
+export const EQUIPMENT = {
+  FINS: EQUIPMENT_FINS,
+  BCD: EQUIPMENT_BCD,
+  MASK: EQUIPMENT_MASK,
+  REGULATOR: EQUIPMENT_REGULATOR,
+  WETSUIT: EQUIPMENT_WETSUIT,
+  TANK: EQUIPMENT_TANK,
+};
+
+export const EQUIPMENT_NAME_TO_DB_VALUE = {
+  FINS: "finSize",
+  BCD: "bcdSize",
+  REGULATOR: "regulatorChoice",
+  WETSUIT: "wetsuitSize",
+  MASK: "maskChoice",
+  TANK: "tankSize",
+};
 
 export const DEEPEST_TO_TEXT_MAPPING = {
   [NUM_OF_DIVES.BEGINNER]: "Shallow (<30ft)",

@@ -34,6 +34,13 @@ const EquipmentState = () => {
             text={statesText.equipmentState.fins[context.language]}
           />
           <EquipmentCard
+            icon="/icons/diving-mask.svg"
+            options={statesText.equipmentState.maskOptions[context.language]}
+            choice={maskChoice}
+            setChoice={setMaskChoice}
+            text={statesText.equipmentState.mask[context.language]}
+          />
+          <EquipmentCard
             icon="/icons/diving-suit.svg"
             options={statesText.equipmentState.bcdOptions[context.language]}
             choice={bcdSize}
@@ -57,13 +64,6 @@ const EquipmentState = () => {
             choice={regulatorChoice}
             setChoice={setRegulatorChoice}
             text={statesText.equipmentState.regulator[context.language]}
-          />
-          <EquipmentCard
-            icon="/icons/diving-mask.svg"
-            options={statesText.equipmentState.maskOptions[context.language]}
-            choice={maskChoice}
-            setChoice={setMaskChoice}
-            text={statesText.equipmentState.mask[context.language]}
           />
           <EquipmentCard
             icon="/icons/oxygen-tank.svg"
