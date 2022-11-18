@@ -1,5 +1,9 @@
 import React from "react";
-import { AutoAwesomeMosaic, CalendarMonth } from "@mui/icons-material";
+import {
+  AutoAwesomeMosaic,
+  BarChart,
+  CalendarMonth,
+} from "@mui/icons-material";
 import Button from "@mui/material/Button";
 import { People } from "@mui/icons-material";
 
@@ -32,6 +36,11 @@ export default function Sidebar({ setView, views }) {
         text="Customers"
         startIcon={<People />}
         onClick={() => setView(views.CUSTOMERS)}
+      />
+      <SidebarButton
+        text="Analytics"
+        startIcon={<BarChart />}
+        onClick={() => setView(views.ANALYTICS)}
       />
     </div>
   );

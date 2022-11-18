@@ -10,6 +10,7 @@ export const VIEWS = {
   RESERVATIONS: "r",
   CALENDAR: "c",
   CUSTOMERS: "u",
+  ANALYTICS: "a",
 };
 
 export default function Dashboard() {

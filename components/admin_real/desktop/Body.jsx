@@ -32,6 +32,12 @@ export default function Body({ view }) {
           <CustomersTable />
         </BodyFrame>
       );
+    case VIEWS.ANALYTICS:
+      return (
+        <BodyFrame>
+          <div>analytics page here</div>
+        </BodyFrame>
+      );
     default:
       return (
         <BodyFrame>
