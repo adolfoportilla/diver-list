@@ -1,19 +1,9 @@
 export const PAGE_SIZE = 10;
 
-const valueGetterFn = (params) => {
-  if (params.field.includes(".")) {
-    const [outer, inner] = params.field.split(".");
-    return params.row[outer][inner];
-  }
-
-  return params.value;
-};
-
 export const DEFAULT_ROW_PROPS = {
   sortable: false,
   hideable: false,
   filterable: false,
-  valueGetter: valueGetterFn,
 };
 
 // https://mui.com/x/api/data-grid/grid-col-def/
