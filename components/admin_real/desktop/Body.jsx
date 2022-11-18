@@ -5,6 +5,7 @@ import Calendar from "./Calendar";
 import ReservationTable from "./ReservationTable";
 import CreateReservationButton from "./CreateReservationButton";
 import CustomersTable from "./Customerstable";
+import Charts from "./Charts";
 
 const BodyFrame = (props) => {
   return <div className="mt-10 mr-5">{props.children}</div>;
@@ -35,7 +36,7 @@ export default function Body({ view }) {
     case VIEWS.ANALYTICS:
       return (
         <BodyFrame>
-          <div>analytics page here</div>
+          <Charts />
         </BodyFrame>
       );
     default:
