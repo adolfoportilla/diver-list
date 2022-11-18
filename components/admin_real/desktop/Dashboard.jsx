@@ -9,6 +9,7 @@ import styles from "./dashboard.module.css";
 export const VIEWS = {
   RESERVATIONS: "r",
   CALENDAR: "c",
+  CUSTOMERS: "u",
 };
 
 export default function Dashboard() {
