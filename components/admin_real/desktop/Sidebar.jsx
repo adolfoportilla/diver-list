@@ -1,6 +1,7 @@
 import React from "react";
 import { AutoAwesomeMosaic, CalendarMonth } from "@mui/icons-material";
 import Button from "@mui/material/Button";
+import { People } from "@mui/icons-material";
 
 const SidebarButton = (props) => {
   return (
@@ -26,6 +27,11 @@ export default function Sidebar({ setView, views }) {
         text="Calendar"
         startIcon={<CalendarMonth />}
         onClick={() => setView(views.CALENDAR)}
+      />
+      <SidebarButton
+        text="Customers"
+        startIcon={<People />}
+        onClick={() => setView(views.CUSTOMERS)}
       />
     </div>
   );
