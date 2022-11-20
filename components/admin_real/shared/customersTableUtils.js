@@ -8,7 +8,7 @@ export const DEFAULT_ROW_PROPS = {
 
 // https://mui.com/x/api/data-grid/grid-col-def/
 export const CUSTOMERS_TABLE_COLUMNS_DESKTOP = [
-  { field: "customer", headerName: "Customer" },
+  { field: "customer", headerName: "Customer", width: 200 },
   {
     field: "last_seen",
     headerName: "Last Seen",
@@ -29,10 +29,6 @@ export const CUSTOMERS_TABLE_COLUMNS_DESKTOP = [
   {
     field: "is_certified",
     headerName: "Certified?",
-  },
-  {
-    field: "last_name",
-    headerName: "Last Name",
   },
   {
     field: "email",
