@@ -20,7 +20,7 @@ const getValues = (context) => {
     location: context.diveShopInfo.location,
     days: context.diveShopConfig.days.join(","),
     hours: context.diveShopConfig.hours.join(","),
-    diveTypes: context.diveShopConfig.diveTypes.join(","),
+    dive_types: context.diveShopConfig.diveTypes.join(","),
   };
 };
 
