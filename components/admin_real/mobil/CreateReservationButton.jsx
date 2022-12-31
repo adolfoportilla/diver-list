@@ -45,7 +45,7 @@ export default function CreateReservationButton() {
           className="border-4 border-sky-400 shadow fixed bottom-20 right-5 "
           aria-label="add"
           onClick={() => setFormVisible(true)}
-          color="error"
+          color="default"
         >
           <Add className="" color="primary" />
         </Fab>
